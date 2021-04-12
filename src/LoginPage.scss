@@ -1,0 +1,47 @@
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper {
+  @include center-in-container;
+  padding: 40px;
+  min-height: 500px;
+  min-width: 400px;
+}
+
+.sign-in-logo {
+  @include center-in-container;
+  margin-top: 0px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  margin-bottom: 8px;
+}
+
+.textfield {
+  margin: 5px;
+  width: 100%;
+}
+
+.submit-form {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.button {
+  margin: 16px;
+  width: 100%;
+}
