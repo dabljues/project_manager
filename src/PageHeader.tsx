@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import Link from "@material-ui/core/Link";
 
+import "./PageHeader.scss";
+
 type HeaderProps = {
   loggedIn: boolean;
 };
@@ -15,25 +17,24 @@ const PageHeader = (props: HeaderProps) => {
   const loggedIn = props.loggedIn;
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Toolbar>
-        <IconButton
-          edge="start"
-          className="menu-button"
-          color="inherit"
-          aria-label="menu"
-        >
+        <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className="title">
+        <Typography variant="h6" className="grow">
+          {/* <Link href="/" color="primary"> */}
           Project Manager
+          {/* </Link> */}
         </Typography>
         {!loggedIn ? (
           <React.Fragment>
             <Link href="/login">
-              <Button>Login</Button>
+              <Button className="header-button">Login</Button>
             </Link>
-            <Button color="inherit">Register</Button>
+            <Link href="/register">
+              <Button className="header-button">Register</Button>
+            </Link>
           </React.Fragment>
         ) : null}
       </Toolbar>
