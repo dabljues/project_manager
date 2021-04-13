@@ -4,7 +4,7 @@ import PageHeader from "./PageHeader";
 const HomePage = () => {
   return (
     <div>
-      <PageHeader />
+      <PageHeader loggedIn={false} />
     </div>
   );
 };
