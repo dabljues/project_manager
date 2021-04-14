@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import Link from "@material-ui/core/Link";
+import { Link, useHistory } from "react-router-dom";
 
 import "./PageHeader.scss";
 
@@ -14,6 +14,7 @@ type HeaderProps = {
 };
 
 const PageHeader = (props: HeaderProps) => {
+  const history = useHistory();
   const loggedIn = props.loggedIn;
 
   return (
@@ -22,19 +23,30 @@ const PageHeader = (props: HeaderProps) => {
         <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className="grow">
-          {/* <Link href="/" color="primary"> */}
-          Project Manager
-          {/* </Link> */}
+        <Typography
+          variant="h6"
+          className="grow"
+          //   onClick={() => history.push("/")}
+        >
+          {/* Project Manager */}
+          <Link to="/">Project Manager</Link>
         </Typography>
         {!loggedIn ? (
           <React.Fragment>
-            <Link href="/login">
-              <Button className="header-button">Login</Button>
-            </Link>
-            <Link href="/register">
-              <Button className="header-button">Register</Button>
-            </Link>
+            <Button
+              className="header-button"
+              variant="outlined"
+              onClick={() => history.push("/login")}
+            >
+              Login
+            </Button>
+            <Button
+              className="header-button"
+              variant="outlined"
+              onClick={() => history.push("/register")}
+            >
+              Register
+            </Button>
           </React.Fragment>
         ) : null}
       </Toolbar>
