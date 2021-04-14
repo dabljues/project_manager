@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.css";
 import LoginPage from "./LoginPage";
-import PageHeader from "./PageHeader";
 import HomePage from "./HomePage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
