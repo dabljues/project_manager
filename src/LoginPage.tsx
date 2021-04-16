@@ -18,7 +18,7 @@ const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <React.Fragment>
+    <>
       <PageHeader loggedIn={false} />
       <Box className="center" maxWidth="xs">
         <Paper className="paper" variant="elevation">
@@ -74,7 +74,7 @@ const LoginPage = () => {
           </Box>
         </Paper>
       </Box>
-    </React.Fragment>
+    </>
   );
 };
 

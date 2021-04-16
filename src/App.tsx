@@ -1,18 +1,15 @@
-import React from "react";
-import "./App.css";
+import "./App.scss";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const App = () => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage}></Route>
-        <Route exact path="/login" component={LoginPage}></Route>
-      </Switch>
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/login" component={LoginPage} />
+    </Switch>
+  </Router>
+);
 
 export default App;

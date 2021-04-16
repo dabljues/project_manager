@@ -20,5 +20,37 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "quotes": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".tsx",
+                    ".ts"
+                ]
+            }
+        ],
+        "react/jsx-wrap-multilines": "off",
+        "react/react-in-jsx-scope": 0,
+        "import/extensions": [1, "never"],
+        "comma-dangle":"off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error"
+        ],
+        "no-unused-vars":"warn",
+        "no-undef":"warn"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
     }
 }
