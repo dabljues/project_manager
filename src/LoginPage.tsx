@@ -9,13 +9,38 @@ import LockIcon from "@material-ui/icons/Lock";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PageHeader from "./PageHeader";
+import { SetToken } from "./useToken";
 
 import "./LoginPage.scss";
 
-const LoginForm = () => {
+type LoginPageProps = {
+  setToken: SetToken;
+};
+
+type Credentials = {
+  email: string;
+  password: string;
+};
+
+async function loginUser(credentials: Credentials) {
+  return { token: "ABC" };
+}
+
+const LoginForm = (props: LoginPageProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+
+  const { setToken } = props;
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const token = await loginUser({
+      email,
+      password,
+    });
+    setToken(token);
+  };
 
   return (
     <Paper className="paper" variant="elevation">
@@ -62,9 +87,7 @@ const LoginForm = () => {
           className="button"
           variant="contained"
           color="primary"
-          onClick={() => {
-            console.log(email, password);
-          }}
+          onClick={handleSubmit}
         >
           Sign in
         </Button>
@@ -81,16 +104,19 @@ const LoginForm = () => {
   );
 };
 
-const LoginPage = () => (
-  <div className="box">
-    <PageHeader loggedIn={false} />
-    <div className="login-page">
-      <LoginForm />
+const LoginPage = (props: LoginPageProps) => {
+  const { setToken } = props;
+  return (
+    <div className="box">
+      <PageHeader loggedIn={false} />
+      <div className="login-page">
+        <LoginForm setToken={setToken} />
+      </div>
+      <div className="footer">
+        <Typography>Copyright: dabljues</Typography>
+      </div>
     </div>
-    <div className="footer">
-      <Typography>Copyright: dabljues</Typography>
-    </div>
-  </div>
-);
+  );
+};
 
 export default LoginPage;
