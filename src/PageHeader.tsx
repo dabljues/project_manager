@@ -4,17 +4,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
-
+import { isAuthenticated } from "./useToken";
 import "./PageHeader.scss";
 
-type HeaderProps = {
-  loggedIn: boolean;
-};
-
-const PageHeader = (props: HeaderProps) => {
+const PageHeader = () => {
   const history = useHistory();
-  const { loggedIn } = props;
+  const loggedIn = isAuthenticated();
 
   return (
     <AppBar position="static">
@@ -27,24 +24,13 @@ const PageHeader = (props: HeaderProps) => {
         <Typography noWrap variant="h5" className="title">
           Project Manager
         </Typography>
-        {!loggedIn ? (
+        {loggedIn ? (
           <div className="account-buttons">
-            <Button
-              className="header-button"
-              variant="outlined"
-              onClick={() => history.push("/login")}
-            >
-              Login
-            </Button>
-            <Button
-              className="header-button"
-              variant="outlined"
-              onClick={() => history.push("/register")}
-            >
-              Register
-            </Button>
+            <AccountCircleIcon fontSize="large" />
           </div>
-        ) : null}
+        ) : (
+          <div className="account-buttons" />
+        )}
       </Toolbar>
     </AppBar>
   );

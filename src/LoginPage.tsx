@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/Lock";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import PageHeader from "./PageHeader";
 import { setToken } from "./useToken";
@@ -100,7 +100,7 @@ const LoginForm = () => {
 
 const LoginPage = () => (
   <div className="box">
-    <PageHeader loggedIn={false} />
+    <PageHeader />
     <div className="page">
       <LoginForm />
     </div>

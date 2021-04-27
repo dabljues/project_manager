@@ -3,7 +3,7 @@ import PageHeader from "./PageHeader";
 
 const HomePage = () => (
   <div className="box">
-    <PageHeader loggedIn={false} />
+    <PageHeader />
     <div className="page">
       <Typography variant="h1">Hi, someone</Typography>
     </div>

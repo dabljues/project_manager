@@ -15,9 +15,7 @@ export const setToken = (userToken: UserToken) => {
   localStorage.setItem("token", JSON.stringify(userToken));
 };
 
-const isAuthenticated = () => {
+export const isAuthenticated = () => {
   const token = getToken();
   return token != null;
 };
-
-export default isAuthenticated;
