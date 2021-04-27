@@ -7,6 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/Lock";
 import { Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import PageHeader from "./PageHeader";
 
 import "./LoginPage.scss";
@@ -67,6 +68,14 @@ const LoginForm = () => {
         >
           Sign in
         </Button>
+        <div className="register">
+          <Typography>
+            Dont have an account?
+            <Link to="/register" style={{ marginLeft: "15px" }}>
+              Register here
+            </Link>
+          </Typography>
+        </div>
       </div>
     </Paper>
   );

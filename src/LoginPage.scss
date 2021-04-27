@@ -57,3 +57,10 @@
   margin: 16px;
   width: 100%;
 }
+
+.register {
+  @include center-in-container;
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
