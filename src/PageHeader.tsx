@@ -1,9 +1,10 @@
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./PageHeader.scss";
 
@@ -16,11 +17,13 @@ const PageHeader = (props: HeaderProps) => {
   const { loggedIn } = props;
 
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
-        <Link to="/" className="site-logo" style={{ textDecoration: "none" }}>
-          <Avatar>PM</Avatar>
-        </Link>
+        <div className="site-logo">
+          <IconButton onClick={() => history.push("/")}>
+            <Avatar>PM</Avatar>
+          </IconButton>
+        </div>
         <Typography noWrap variant="h5" className="title">
           Project Manager
         </Typography>

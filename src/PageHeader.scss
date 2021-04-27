@@ -1,21 +1,22 @@
-.grow {
-  flex-grow: 1;
-  flex: 1;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 .site-logo {
-  @extend .grow;
+  flex: 1;
 }
 
 .title {
-  @extend .grow;
   display: flex;
+  flex: 1;
   justify-content: center;
 }
 
 .account-buttons {
-  @extend .grow;
   display: flex;
+  flex: 1;
   justify-content: flex-end;
 }
 

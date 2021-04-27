@@ -73,12 +73,14 @@ const LoginForm = () => {
 };
 
 const LoginPage = () => (
-  <div>
+  <div className="box">
     <PageHeader loggedIn={false} />
-    <div className="center">
+    <div className="login-page">
       <LoginForm />
     </div>
-    {/* TODO: ADD A COPRYTIGHT AT THE BOTTOM OF THE PAGE */}
+    <div className="footer">
+      <Typography>Copyright: dabljues</Typography>
+    </div>
   </div>
 );
 
