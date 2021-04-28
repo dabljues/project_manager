@@ -7,10 +7,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/Lock";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PageHeader from "./PageHeader";
-import { setToken } from "./useToken";
 
+import { setToken } from "./useToken";
 import "./LoginPage.scss";
 
 type Credentials = {
@@ -26,6 +26,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -33,7 +34,10 @@ const LoginForm = () => {
       email,
       password,
     });
-    setToken(token);
+    if (token) {
+      setToken(token);
+      history.push("/");
+    }
   };
 
   return (
