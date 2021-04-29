@@ -4,6 +4,7 @@
 # Virtualenv
 venv/
 
+__pycache__/
 # User-specific files
 *.suo
 *.user
