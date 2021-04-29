@@ -1,5 +1,6 @@
 export type UserToken = {
-  token: string;
+  access: string;
+  refresh: string;
 };
 
 export const getToken = () => {
@@ -8,7 +9,7 @@ export const getToken = () => {
     return null;
   }
   const userToken = JSON.parse(tokenString);
-  return String(userToken?.token);
+  return String(userToken?.access);
 };
 
 export const setToken = (userToken: UserToken) => {
@@ -16,6 +17,7 @@ export const setToken = (userToken: UserToken) => {
 };
 
 export const isAuthenticated = () => {
+  // TODO: Check if token expired etc.
   const token = getToken();
   return token != null;
 };

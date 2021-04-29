@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -19,7 +21,27 @@ type Credentials = {
 };
 
 async function loginUser(credentials: Credentials) {
-  return { token: "ABC" };
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: credentials.email,
+      password: credentials.password,
+    }),
+  };
+  return (
+    fetch("api/token/", requestOptions)
+      // TODO: Handle errors
+      .then((response) => {
+        if (response.status === 401) {
+          console.log("Wrong credentials");
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  );
 }
 
 const LoginForm = () => {
@@ -34,6 +56,7 @@ const LoginForm = () => {
       email,
       password,
     });
+    // TODO: Handle errors, notify the user
     if (token) {
       setToken(token);
       history.push("/");
