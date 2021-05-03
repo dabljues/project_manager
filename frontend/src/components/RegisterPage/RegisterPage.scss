@@ -1,0 +1,29 @@
+@mixin center-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.sign-up-logo {
+  @include center-in-container;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form {
+  @include center-in-container;
+  padding: 40px;
+  min-width: 400px;
+  max-width: 500px;
+  min-height: 500px;
+  max-height: 600px;
+}
+
+.signup-button {
+  margin-top: 20px !important;
+  width: 100%;
+}

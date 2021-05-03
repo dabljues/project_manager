@@ -1,5 +1,3 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable implicit-arrow-linebreak */
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -65,7 +63,7 @@ const LoginForm = () => {
   };
 
   return (
-    <Paper className="paper" variant="elevation">
+    <Paper className="login-form" variant="elevation">
       <div className="sign-in-logo">
         <Avatar className="avatar">
           <LockIcon />
