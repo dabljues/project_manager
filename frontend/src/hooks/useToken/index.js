@@ -1,1 +1,6 @@
-export { getToken, isAuthenticated, setToken, axiosInstance } from "./useToken";
+export {
+  getAccessToken,
+  isAuthenticated,
+  setToken,
+  axiosInstance,
+} from "./useToken";

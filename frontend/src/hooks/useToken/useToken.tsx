@@ -6,8 +6,8 @@ export const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
   headers: {
-    Authorization: localStorage.getItem("token")
-      ? `JWT ${localStorage.getItem("token")}`
+    Authorization: localStorage.getItem("access_token")
+      ? `JWT ${localStorage.getItem("access_token")}`
       : null,
     "Content-Type": "application/json",
     accept: "application/json",
@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
       window.location.href = "/login/";
       return Promise.reject(error);
     }
-    console.log(error.response.data);
     if (
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
@@ -39,13 +38,12 @@ axiosInstance.interceptors.response.use(
 
         // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000);
-        console.log(tokenParts.exp);
 
         if (tokenParts.exp > now) {
           return axiosInstance
             .post("/token/refresh/", { refresh: refreshToken })
             .then((response) => {
-              localStorage.setItem("token", response.data.access);
+              localStorage.setItem("access_token", response.data.access);
               localStorage.setItem("refresh_token", response.data.refresh);
 
               axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
@@ -73,21 +71,28 @@ export type UserToken = {
   refresh: string;
 };
 
-export const getToken = () => {
-  const tokenString = localStorage.getItem("token");
+export const getAccessToken = () => {
+  const tokenString = localStorage.getItem("access_token");
   if (tokenString == null) {
     return null;
   }
-  const userToken = JSON.parse(tokenString);
-  return String(userToken?.access);
+  return String(tokenString);
+};
+
+export const getRefreshToken = () => {
+  const tokenString = localStorage.getItem("refresh_token");
+  if (tokenString == null) {
+    return null;
+  }
+  return String(tokenString);
 };
 
 export const setToken = (userToken: UserToken) => {
-  localStorage.setItem("token", JSON.stringify(userToken));
+  localStorage.setItem("access)token", JSON.stringify(userToken));
 };
 
 export const isAuthenticated = () => {
   // TODO: Check if token expired etc.
-  const token = getToken();
+  const token = getAccessToken();
   return token != null;
 };

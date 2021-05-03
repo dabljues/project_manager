@@ -8,58 +8,51 @@ import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/Lock";
 import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 
 import PageHeader from "../PageHeader";
-import { setToken } from "../../hooks/useToken";
 
 import "./LoginPage.scss";
 
-type Credentials = {
-  email: string;
-  password: string;
-};
-
-async function loginUser(credentials: Credentials) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: credentials.email,
-      password: credentials.password,
-    }),
-  };
-  return (
-    fetch("api/token/", requestOptions)
-      // TODO: Handle errors
-      .then((response) => {
-        if (response.status === 401) {
-          console.log("Wrong credentials");
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  );
+async function loginUser(email: string, password: string) {
+  try {
+    const response = await axios.post("/api/token/", {
+      email,
+      password,
+    });
+    localStorage.setItem("access_token", response.data.access);
+    localStorage.setItem("refresh_token", response.data.refresh);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
+
+const WrongCredentials = () => (
+  <div className="wrong-credentials">
+    <Typography>
+      The e-mail and password you&apos;ve entered do not match any entries in
+      the database. Please try again
+    </Typography>
+  </div>
+);
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [credentialsErrors, setCredentialsErrors] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const token = await loginUser({
-      email,
-      password,
-    });
+    const success = await loginUser(email, password);
     // TODO: Handle errors, notify the user
-    if (token) {
-      setToken(token);
+    if (success) {
       history.push("/");
+      return;
     }
+    setCredentialsErrors(true);
   };
 
   return (
@@ -70,6 +63,7 @@ const LoginForm = () => {
         </Avatar>
         <Typography variant="h6">Sign in</Typography>
       </div>
+      {credentialsErrors ? <WrongCredentials /> : null}
       <TextField
         className="textfield"
         label="Email"
@@ -113,7 +107,7 @@ const LoginForm = () => {
         </Button>
         <div className="register">
           <Typography>
-            Dont have an account?
+            Don&apos;t have an account?
             <Link to="/register" style={{ marginLeft: "15px" }}>
               Register here
             </Link>
