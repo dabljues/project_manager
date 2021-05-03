@@ -10,9 +10,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/Lock";
 import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
-import PageHeader from "./PageHeader";
 
-import { setToken } from "./useToken";
+import PageHeader from "../PageHeader";
+import { setToken } from "../../hooks/useToken";
+
 import "./LoginPage.scss";
 
 type Credentials = {

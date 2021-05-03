@@ -1,8 +1,8 @@
 import "./App.scss";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import HomePage from "./HomePage";
-import PrivateRoute from "./PrivateRoute";
+import LoginPage from "../LoginPage";
+import HomePage from "../HomePage";
+import PrivateRoute from "../PrivateRoute";
 
 const App = () => (
   <Router>

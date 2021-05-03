@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { getToken } from "./useToken";
+import { getToken } from "../../hooks/useToken";
 
 const PrivateRoute = ({ component, ...rest }: any) => {
   const token = getToken();

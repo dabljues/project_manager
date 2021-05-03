@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import PageHeader from "./PageHeader";
+import PageHeader from "../PageHeader";
 
 const HomePage = () => (
   <div className="box">

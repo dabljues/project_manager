@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
-import { isAuthenticated } from "./useToken";
+import { isAuthenticated } from "../../hooks/useToken";
 import "./PageHeader.scss";
 
 const PageHeader = () => {
