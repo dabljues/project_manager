@@ -1,1 +1,1 @@
-from .user import UserViewSet  # noqa: F401
+from .user import UserCreate, UserViewSet  # noqa: F401
