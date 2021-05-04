@@ -9,6 +9,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "first_name", "last_name", "email", "password", "avatar"]
 
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
+
     def validate_password(self, value):
         try:
             validators.validate_password(value)
