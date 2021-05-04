@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-BACKEND_APPS = ["users"]
+BACKEND_APPS = ["users", "tasks"]
 
 INSTALLED_APPS += BACKEND_APPS
 
