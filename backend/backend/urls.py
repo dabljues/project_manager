@@ -21,7 +21,7 @@ from users.api.urls import urlpatterns as users_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/users/", include(users_urlpatterns)),
+    path("api/", include(users_urlpatterns)),
     path("api/", include(tasks_urlpatterns)),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh_pair"),
