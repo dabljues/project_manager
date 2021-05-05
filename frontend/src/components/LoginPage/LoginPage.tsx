@@ -1,7 +1,7 @@
 import "./LoginPage.scss";
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -13,7 +13,8 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 
-import { decodeJWT } from "../../hooks/useToken";
+import { axiosInstance, decodeJWT } from "../../hooks/useToken";
+import { UserContext } from "../../shared/interfaces";
 import PageHeader from "../PageHeader";
 
 async function loginUser(email: string, password: string) {
@@ -46,13 +47,22 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [credentialsErrors, setCredentialsErrors] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+
   const history = useHistory();
+
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const success = await loginUser(email, password);
-    // TODO: Handle errors, notify the user
     if (success) {
+      const c = axiosInstance();
+      const getUser = async () => {
+        const response = await c.get("user/current");
+        setUser(response.data);
+      };
+      getUser();
+      // TODO: Handle errors, notify the user
       history.push("/");
       return;
     }
@@ -122,16 +132,19 @@ const LoginForm = () => {
   );
 };
 
-const LoginPage = () => (
-  <div className="box">
-    <PageHeader />
-    <div className="page">
-      <LoginForm />
+const LoginPage = () => {
+  const { user } = useContext(UserContext);
+  return (
+    <div className="box">
+      <PageHeader currentUser={user} />
+      <div className="page">
+        <LoginForm />
+      </div>
+      <div className="footer">
+        <Typography>Copyright: dabljues</Typography>
+      </div>
     </div>
-    <div className="footer">
-      <Typography>Copyright: dabljues</Typography>
-    </div>
-  </div>
-);
+  );
+};
 
 export default LoginPage;
