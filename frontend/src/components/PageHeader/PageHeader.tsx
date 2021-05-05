@@ -1,7 +1,7 @@
 import "./PageHeader.scss";
 
 /* eslint-disable camelcase */
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -13,14 +13,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { UserContext, defaultUserContext } from "../../shared/interfaces";
+import { getCurrentUser, isAuthenticated } from "../../hooks/auth";
 
 const PageHeader = () => {
+  const loggedIn = isAuthenticated();
+  const currentUser = getCurrentUser(false);
+
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
-  const loggedIn = user.id !== 0;
-  const firstName = user.first_name;
-  const lastName = user.last_name;
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -35,7 +35,6 @@ const PageHeader = () => {
   const handleLogout = () => {
     setAnchorEl(null);
     localStorage.clear();
-    setUser(defaultUserContext);
     history.push("/login");
   };
 
@@ -53,7 +52,7 @@ const PageHeader = () => {
         {loggedIn ? (
           <div className="account-section">
             <Typography>
-              {firstName} {lastName}
+              {currentUser.first_name} {currentUser.last_name}
             </Typography>
             <IconButton
               aria-label="account of current user"

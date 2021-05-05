@@ -1,17 +1,15 @@
-import { useContext } from "react";
-
 import { Typography } from "@material-ui/core";
 
-import { UserContext } from "../../shared/interfaces";
+import { getCurrentUser } from "../../hooks/auth";
 import PageHeader from "../PageHeader";
 
 const HomePage = () => {
-  const { user } = useContext(UserContext);
+  const currentUser = getCurrentUser();
   return (
     <div className="box">
       <PageHeader />
       <div className="page">
-        <Typography variant="h1">Hi, {user.first_name}</Typography>
+        <Typography variant="h1">Hi, {currentUser.first_name}</Typography>
       </div>
     </div>
   );

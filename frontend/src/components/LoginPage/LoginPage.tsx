@@ -1,8 +1,8 @@
 import "./LoginPage.scss";
 
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,8 +13,12 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 
-import { authRequest, decodeJWT } from "../../hooks/useToken";
-import { UserContext } from "../../shared/interfaces";
+import {
+  authRequest,
+  isAuthenticated,
+  setCurrentUser,
+  setToken,
+} from "../../hooks/auth";
 import PageHeader from "../PageHeader";
 
 async function loginUser(email: string, password: string) {
@@ -23,10 +27,10 @@ async function loginUser(email: string, password: string) {
       email,
       password,
     });
-    localStorage.setItem("access_token", response.data.access);
-    localStorage.setItem("refresh_token", response.data.refresh);
-    const decodedToken = decodeJWT(response.data.access);
-    localStorage.setItem("user_id", decodedToken?.user_id);
+    setToken(response.data);
+    const authCommunicator = authRequest();
+    const user = await authCommunicator.get("/user/current");
+    setCurrentUser(user.data);
     return true;
   } catch (error) {
     return false;
@@ -43,6 +47,9 @@ const WrongCredentials = () => (
 );
 
 const LoginForm = () => {
+  if (isAuthenticated()) {
+    return <Redirect to={{ pathname: "/" }} />;
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [credentialsErrors, setCredentialsErrors] = useState(false);
@@ -50,18 +57,10 @@ const LoginForm = () => {
 
   const history = useHistory();
 
-  const { setUser } = useContext(UserContext);
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const success = await loginUser(email, password);
     if (success) {
-      const c = authRequest();
-      const getUser = async () => {
-        const response = await c.get("user/current");
-        setUser(response.data);
-      };
-      await getUser();
       // TODO: Handle errors, notify the user
       history.push("/");
       return;

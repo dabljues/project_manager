@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import { UserContext } from "../../shared/interfaces";
+import { isAuthenticated } from "../../hooks/auth";
 
 const PrivateRoute = ({ component, ...rest }: any) => {
-  const { user } = useContext(UserContext);
-  const isAuthenticated = user.id !== 0;
   const routeComponent = (props: any) =>
-    isAuthenticated ? (
+    isAuthenticated() ? (
       React.createElement(component, props)
     ) : (
       <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
