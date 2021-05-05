@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import LockIcon from "@material-ui/icons/Lock";
-import Typography from "@material-ui/core/Typography";
-import { Link, useHistory } from "react-router-dom";
+import "./LoginPage.scss";
+
 import axios from "axios";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import LockIcon from "@material-ui/icons/Lock";
+
 import { decodeJWT } from "../../hooks/useToken";
 import PageHeader from "../PageHeader";
-
-import "./LoginPage.scss";
 
 async function loginUser(email: string, password: string) {
   try {

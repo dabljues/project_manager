@@ -1,8 +1,10 @@
-import { useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
+
 import { Typography } from "@material-ui/core";
+
 import { axiosInstance } from "../../hooks/useToken";
-import PageHeader from "../PageHeader";
 import { UserContext } from "../../shared/interfaces";
+import PageHeader from "../PageHeader";
 
 const HomePage = () => {
   const { user, setUser } = useContext(UserContext);

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+
 import { getAccessToken } from "../../hooks/useToken";
 
 const PrivateRoute = ({ component, ...rest }: any) => {

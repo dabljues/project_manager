@@ -1,2 +1,2 @@
 export { UserData } from "./userData";
-export { UserContext, defaultUserContext } from "./userContext";
+export { defaultUserContext, UserContext } from "./userContext";

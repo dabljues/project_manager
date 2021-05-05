@@ -4,9 +4,9 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import {
-  UserData,
-  UserContext,
   defaultUserContext,
+  UserContext,
+  UserData,
 } from "../../shared/interfaces";
 import HomePage from "../HomePage";
 import LoginPage from "../LoginPage";

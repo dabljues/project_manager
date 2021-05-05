@@ -1,4 +1,5 @@
 import { createContext } from "react";
+
 import { UserData } from ".";
 
 export type UserContextState = {

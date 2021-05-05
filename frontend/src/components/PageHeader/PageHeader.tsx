@@ -1,16 +1,18 @@
+import "./PageHeader.scss";
+
 /* eslint-disable camelcase */
 import React, { useState } from "react";
-import IconButton from "@material-ui/core/IconButton";
+import { useHistory } from "react-router-dom";
+
 import AppBar from "@material-ui/core/AppBar";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { useHistory } from "react-router-dom";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 
-import "./PageHeader.scss";
 import { UserData } from "../../shared/interfaces";
 
 interface HeaderProps {

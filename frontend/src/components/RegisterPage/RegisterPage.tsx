@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Avatar from "@material-ui/core/Avatar";
-import { useHistory } from "react-router-dom";
-import PersonIcon from "@material-ui/icons/Person";
-import axios from "axios";
-import PageHeader from "../PageHeader";
 import "./RegisterPage.scss";
+
+import axios from "axios";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import PersonIcon from "@material-ui/icons/Person";
+
+import PageHeader from "../PageHeader";
 
 async function registerUser(
   firstName: string,
