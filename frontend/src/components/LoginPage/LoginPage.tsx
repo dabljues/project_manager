@@ -13,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 
-import { axiosInstance, decodeJWT } from "../../hooks/useToken";
+import { authRequest, decodeJWT } from "../../hooks/useToken";
 import { UserContext } from "../../shared/interfaces";
 import PageHeader from "../PageHeader";
 
@@ -56,12 +56,12 @@ const LoginForm = () => {
     e.preventDefault();
     const success = await loginUser(email, password);
     if (success) {
-      const c = axiosInstance();
+      const c = authRequest();
       const getUser = async () => {
         const response = await c.get("user/current");
         setUser(response.data);
       };
-      getUser();
+      await getUser();
       // TODO: Handle errors, notify the user
       history.push("/");
       return;
@@ -132,19 +132,16 @@ const LoginForm = () => {
   );
 };
 
-const LoginPage = () => {
-  const { user } = useContext(UserContext);
-  return (
-    <div className="box">
-      <PageHeader currentUser={user} />
-      <div className="page">
-        <LoginForm />
-      </div>
-      <div className="footer">
-        <Typography>Copyright: dabljues</Typography>
-      </div>
+const LoginPage = () => (
+  <div className="box">
+    <PageHeader />
+    <div className="page">
+      <LoginForm />
     </div>
-  );
-};
+    <div className="footer">
+      <Typography>Copyright: dabljues</Typography>
+    </div>
+  </div>
+);
 
 export default LoginPage;

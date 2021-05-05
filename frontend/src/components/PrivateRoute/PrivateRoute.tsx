@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import { getAccessToken } from "../../hooks/useToken";
+import { UserContext } from "../../shared/interfaces";
 
 const PrivateRoute = ({ component, ...rest }: any) => {
-  const token = getAccessToken();
-  const isAuthenticated = token != null;
+  const { user } = useContext(UserContext);
+  const isAuthenticated = user.id !== 0;
   const routeComponent = (props: any) =>
     isAuthenticated ? (
       React.createElement(component, props)

@@ -1,7 +1,7 @@
 import "./PageHeader.scss";
 
 /* eslint-disable camelcase */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -13,17 +13,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { UserData } from "../../shared/interfaces";
+import { UserContext, defaultUserContext } from "../../shared/interfaces";
 
-interface HeaderProps {
-  currentUser?: UserData;
-}
-
-const PageHeader = ({ currentUser }: HeaderProps) => {
+const PageHeader = () => {
   const history = useHistory();
-  const loggedIn = currentUser !== null;
-  const firstName = currentUser?.first_name;
-  const lastName = currentUser?.last_name;
+  const { user, setUser } = useContext(UserContext);
+  const loggedIn = user.id !== 0;
+  const firstName = user.first_name;
+  const lastName = user.last_name;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -37,8 +34,9 @@ const PageHeader = ({ currentUser }: HeaderProps) => {
 
   const handleLogout = () => {
     setAnchorEl(null);
-    history.push("/login");
     localStorage.clear();
+    setUser(defaultUserContext);
+    history.push("/login");
   };
 
   return (

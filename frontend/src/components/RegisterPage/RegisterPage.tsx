@@ -20,7 +20,7 @@ async function registerUser(
   password: string
 ) {
   try {
-    await axios.post("/api/users/register/", {
+    await axios.post("/api/user/", {
       first_name: firstName,
       last_name: lastName,
       email,

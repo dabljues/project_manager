@@ -9,7 +9,7 @@ const HomePage = () => {
   const { user } = useContext(UserContext);
   return (
     <div className="box">
-      <PageHeader currentUser={user} />
+      <PageHeader />
       <div className="page">
         <Typography variant="h1">Hi, {user.first_name}</Typography>
       </div>
