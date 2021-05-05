@@ -9,7 +9,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-
+import { decodeJWT } from "../../hooks/useToken";
 import PageHeader from "../PageHeader";
 
 import "./LoginPage.scss";
@@ -22,6 +22,8 @@ async function loginUser(email: string, password: string) {
     });
     localStorage.setItem("access_token", response.data.access);
     localStorage.setItem("refresh_token", response.data.refresh);
+    const decodedToken = decodeJWT(response.data.access);
+    localStorage.setItem("user_id", decodedToken?.user_id);
     return true;
   } catch (error) {
     return false;

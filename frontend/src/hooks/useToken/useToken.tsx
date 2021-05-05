@@ -1,70 +1,82 @@
 import axios from "axios";
 
+// eslint-disable-next-line camelcase
+import jwt_decode from "jwt-decode";
+
 const baseURL = "http://127.0.0.1:8000/api/";
 
-export const axiosInstance = axios.create({
-  baseURL,
-  timeout: 5000,
-  headers: {
-    Authorization: localStorage.getItem("access_token")
-      ? `JWT ${localStorage.getItem("access_token")}`
-      : null,
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
-});
+export const decodeJWT = (token: string): Record<string, string> =>
+  jwt_decode(token);
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    const originalRequest = error.config;
+export const axiosInstance = () =>
+  axios.create({
+    baseURL,
+    timeout: 5000,
+    headers: {
+      Authorization: localStorage.getItem("access_token")
+        ? `JWT ${localStorage.getItem("access_token")}`
+        : null,
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+    // params: {
+    //   user: localStorage.getItem("user_id")
+    //     ? localStorage.getItem("user_id")
+    //     : null,
+    // },
+  });
 
-    // Prevent infinite loops
-    if (
-      error.response.status === 401 &&
-      originalRequest.url === `${baseURL}token/refresh/`
-    ) {
-      window.location.href = "/login/";
-      return Promise.reject(error);
-    }
-    if (
-      error.response.status === 401 &&
-      error.response.statusText === "Unauthorized"
-    ) {
-      const refreshToken = localStorage.getItem("refresh_token");
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     const originalRequest = error.config;
 
-      if (refreshToken) {
-        const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
+//     // Prevent infinite loops
+//     if (
+//       error.response.status === 401 &&
+//       originalRequest.url === `${baseURL}token/refresh/`
+//     ) {
+//       window.location.href = "/login/";
+//       return Promise.reject(error);
+//     }
+//     if (
+//       error.response.status === 401 &&
+//       error.response.statusText === "Unauthorized"
+//     ) {
+//       const refreshToken = localStorage.getItem("refresh_token");
 
-        // exp date in token is expressed in seconds, while now() returns milliseconds:
-        const now = Math.ceil(Date.now() / 1000);
+//       if (refreshToken) {
+//         const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
 
-        if (tokenParts.exp > now) {
-          return axiosInstance
-            .post("/token/refresh/", { refresh: refreshToken })
-            .then((response) => {
-              localStorage.setItem("access_token", response.data.access);
-              localStorage.setItem("refresh_token", response.data.refresh);
+//         // exp date in token is expressed in seconds, while now() returns milliseconds:
+//         const now = Math.ceil(Date.now() / 1000);
 
-              axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
-              originalRequest.headers.Authorization = `JWT ${response.data.access}`;
+//         if (tokenParts.exp > now) {
+//           return axiosInstance
+//             .post("/token/refresh/", { refresh: refreshToken })
+//             .then((response) => {
+//               localStorage.setItem("access_token", response.data.access);
+//               localStorage.setItem("refresh_token", response.data.refresh);
 
-              return axiosInstance(originalRequest);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        console.log("Refresh token is expired", tokenParts.exp, now);
-      } else {
-        console.log("Refresh token not available.");
-      }
-    }
+//               axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
+//               originalRequest.headers.Authorization = `JWT ${response.data.access}`;
 
-    // specific error handling done elsewhere
-    return Promise.reject(error);
-  }
-);
+//               return axiosInstance(originalRequest);
+//             })
+//             .catch((err) => {
+//               console.log(err);
+//             });
+//         }
+//         console.log("Refresh token is expired", tokenParts.exp, now);
+//       } else {
+//         console.log("Refresh token not available.");
+//       }
+//     }
+
+//     // specific error handling done elsewhere
+//     return Promise.reject(error);
+//   }
+// );
 
 export type UserToken = {
   access: string;

@@ -1,4 +1,5 @@
 export {
+  decodeJWT,
   getAccessToken,
   isAuthenticated,
   setToken,
