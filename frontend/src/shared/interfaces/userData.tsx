@@ -1,5 +1,5 @@
 interface UserData {
-  id: string;
+  id: number;
   // eslint-disable-next-line camelcase
   first_name: string;
   // eslint-disable-next-line camelcase

@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import "./PageHeader.scss";
-import UserData from "../../shared/interfaces";
+import { UserData } from "../../shared/interfaces";
 
 interface HeaderProps {
   currentUser?: UserData;
