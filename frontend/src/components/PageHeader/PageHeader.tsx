@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,12 +10,18 @@ import { useHistory } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
-import { isAuthenticated } from "../../hooks/useToken";
 import "./PageHeader.scss";
+import UserData from "../../shared/interfaces";
 
-const PageHeader = () => {
+interface HeaderProps {
+  currentUser?: UserData;
+}
+
+const PageHeader = ({ currentUser }: HeaderProps) => {
   const history = useHistory();
-  const loggedIn = isAuthenticated();
+  const loggedIn = currentUser !== null;
+  const firstName = currentUser?.first_name;
+  const lastName = currentUser?.last_name;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -45,6 +52,9 @@ const PageHeader = () => {
         </Typography>
         {loggedIn ? (
           <div className="account-section">
+            <Typography>
+              {firstName} {lastName}
+            </Typography>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -78,6 +88,10 @@ const PageHeader = () => {
       </Toolbar>
     </AppBar>
   );
+};
+
+PageHeader.defaultProps = {
+  currentUser: {},
 };
 
 export default PageHeader;

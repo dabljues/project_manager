@@ -19,11 +19,6 @@ export const axiosInstance = () =>
       "Content-Type": "application/json",
       accept: "application/json",
     },
-    // params: {
-    //   user: localStorage.getItem("user_id")
-    //     ? localStorage.getItem("user_id")
-    //     : null,
-    // },
   });
 
 // axiosInstance.interceptors.response.use(
