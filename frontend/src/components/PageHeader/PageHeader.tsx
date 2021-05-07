@@ -13,10 +13,15 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { getCurrentUser, isAuthenticated } from "../../hooks/auth";
+import { getCurrentUser } from "../../hooks/auth";
 
-const PageHeader = () => {
-  const loggedIn = isAuthenticated();
+interface PageHeaderProps {
+  loggedIn: boolean;
+  logOut: () => void;
+}
+
+const PageHeader = (props: PageHeaderProps) => {
+  const { loggedIn, logOut } = props;
   const currentUser = getCurrentUser(false);
 
   const history = useHistory();
@@ -34,6 +39,7 @@ const PageHeader = () => {
 
   const handleLogout = () => {
     setAnchorEl(null);
+    logOut();
     localStorage.clear();
     history.push("/login");
   };
@@ -87,10 +93,6 @@ const PageHeader = () => {
       </Toolbar>
     </AppBar>
   );
-};
-
-PageHeader.defaultProps = {
-  currentUser: {},
 };
 
 export default PageHeader;

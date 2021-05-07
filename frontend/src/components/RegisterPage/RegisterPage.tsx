@@ -11,8 +11,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import PersonIcon from "@material-ui/icons/Person";
 
-import PageHeader from "../PageHeader";
-
 async function registerUser(
   firstName: string,
   lastName: string,
@@ -163,7 +161,6 @@ const RegisterForm = () => {
 
 const RegisterPage = () => (
   <div className="box">
-    <PageHeader />
     <div className="page">
       <RegisterForm />
     </div>

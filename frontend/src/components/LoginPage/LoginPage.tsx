@@ -19,8 +19,10 @@ import {
   setCurrentUser,
   setToken,
 } from "../../hooks/auth";
-import PageHeader from "../PageHeader";
 
+interface LoginPageProps {
+  logIn: () => void;
+}
 async function loginUser(email: string, password: string) {
   try {
     const response = await axios.post("/api/token/", {
@@ -46,10 +48,11 @@ const WrongCredentials = () => (
   </div>
 );
 
-const LoginForm = () => {
+const LoginForm = (props: LoginPageProps) => {
   if (isAuthenticated()) {
     return <Redirect to={{ pathname: "/" }} />;
   }
+  const { logIn } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [credentialsErrors, setCredentialsErrors] = useState(false);
@@ -62,6 +65,7 @@ const LoginForm = () => {
     const success = await loginUser(email, password);
     if (success) {
       // TODO: Handle errors, notify the user
+      logIn();
       history.push("/");
       return;
     }
@@ -131,16 +135,18 @@ const LoginForm = () => {
   );
 };
 
-const LoginPage = () => (
-  <div className="box">
-    <PageHeader />
-    <div className="page">
-      <LoginForm />
+const LoginPage = (props: LoginPageProps) => {
+  const { logIn } = props;
+  return (
+    <div className="box">
+      <div className="page">
+        <LoginForm logIn={logIn} />
+      </div>
+      <div className="footer">
+        <Typography>Copyright: dabljues</Typography>
+      </div>
     </div>
-    <div className="footer">
-      <Typography>Copyright: dabljues</Typography>
-    </div>
-  </div>
-);
+  );
+};
 
 export default LoginPage;
