@@ -3,11 +3,11 @@ import "./App.scss";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { isAuthenticated } from "../../hooks/auth";
+import { isAuthenticated } from "../../api/auth";
 import HomePage from "../HomePage";
 import LoginPage from "../LoginPage";
 import PageHeader from "../PageHeader";
-import PrivateRoute from "../PrivateRoute";
+import PrivateRoute from "../../components/PrivateRoute";
 import RegisterPage from "../RegisterPage";
 
 const App = () => {

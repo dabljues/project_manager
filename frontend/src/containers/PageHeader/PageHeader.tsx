@@ -13,7 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { getCurrentUser } from "../../hooks/auth";
+import { getCurrentUser } from "../../api/auth";
 
 interface PageHeaderProps {
   loggedIn: boolean;

@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 // eslint-disable-next-line camelcase
 import jwt_decode from "jwt-decode";
 
-import { UserData } from "../../shared/interfaces";
+import { UserData } from "../../types";
 
 const baseURL = "http://127.0.0.1:8000/api/";
 

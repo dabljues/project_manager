@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-import { getCurrentUser } from "../../hooks/auth";
+import { getCurrentUser } from "../../api/auth";
 
 const HomePage = () => {
   const currentUser = getCurrentUser();
