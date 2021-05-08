@@ -3,7 +3,7 @@ import "./Projects.scss";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { authRequest } from "../../api/auth";
+import { authRequest } from "../../../api/auth";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);

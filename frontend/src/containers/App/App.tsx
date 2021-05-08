@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { isAuthenticated } from "../../api/auth";
 import PrivateRoute from "../../components/PrivateRoute";
-import CreateProject from "../CreateProject";
+import CreateProject from "../Project/CreateProject";
 import HomePage from "../HomePage";
-import LoginPage from "../LoginPage";
+import LoginPage from "../Auth/LoginPage";
 import PageHeader from "../PageHeader";
-import Projects from "../Projects";
-import RegisterPage from "../RegisterPage";
+import Projects from "../Project/Projects";
+import RegisterPage from "../Auth/RegisterPage";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);

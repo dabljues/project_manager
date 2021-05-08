@@ -1,10 +1,10 @@
 import "./CreateProject.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { authRequest } from "../../api/auth";
-import CreateProjectForm from "../../components/CreateProjectForm";
+import { authRequest } from "../../../api/auth";
+import CreateProjectForm from "../../../components/Project/CreateProjectForm";
 
 const CreateProject = () => {
   const [projectName, setProjectName] = useState("");

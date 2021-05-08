@@ -18,7 +18,7 @@ import {
   isAuthenticated,
   setCurrentUser,
   setToken,
-} from "../../api/auth";
+} from "../../../api/auth";
 
 interface LoginPageProps {
   logIn: () => void;
