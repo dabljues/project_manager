@@ -18,11 +18,13 @@ from django.urls import include, path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from tasks.api.urls import urlpatterns as tasks_urlpatterns
 from users.api.urls import urlpatterns as users_urlpatterns
+from projects.api.urls import urlpatterns as projects_urlpatters
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(users_urlpatterns)),
     path("api/", include(tasks_urlpatterns)),
+    path("api/", include(projects_urlpatters)),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh_pair"),
 ]
