@@ -12,17 +12,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { getCurrentUser } from "../../api/auth";
+import UserData from "../../types/userData";
 
-interface PageHeaderProps {
-  loggedIn: boolean;
+type PageHeaderProps = {
+  currentUser: UserData | null;
   logOut: () => void;
-}
+};
 
 const PageHeader = (props: PageHeaderProps) => {
-  const { loggedIn, logOut } = props;
-  const currentUser = getCurrentUser(false);
-
+  const { currentUser, logOut } = props;
+  const loggedIn = currentUser !== null;
   const history = useHistory();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -53,7 +52,7 @@ const PageHeader = (props: PageHeaderProps) => {
         {loggedIn ? (
           <div className="account-section">
             <Typography>
-              {currentUser.first_name} {currentUser.last_name}
+              {currentUser?.first_name} {currentUser?.last_name}
             </Typography>
             <IconButton
               aria-label="account of current user"

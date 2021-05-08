@@ -1,9 +1,26 @@
 import { Grid, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { getCurrentUser } from "../../../api/auth";
+import { UserData } from "../../../types";
 import "./Profile.scss";
 
 const Profile = () => {
-  const { email, first_name, last_name, avatar } = getCurrentUser();
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [avatar, setAvatar] = useState("");
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await getCurrentUser();
+      setCurrentUser(user);
+      setEmail(user.email);
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setAvatar(user.avatar);
+    };
+    getUser();
+  }, []);
 
   return (
     <div className="profile-box">
@@ -20,12 +37,12 @@ const Profile = () => {
               {email}
             </Grid>
             <Grid item xs={6}>
-              {first_name}
+              {firstName}
             </Grid>
           </Grid>
           <Grid container item xs={12}>
             <Grid item xs={6}>
-              {last_name}
+              {lastName}
             </Grid>
             <Grid item xs={6}>
               {avatar}

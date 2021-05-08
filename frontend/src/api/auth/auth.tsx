@@ -91,15 +91,15 @@ export const setCurrentUser = (user: UserData) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-export const getCurrentUser = (fetchIfNone: boolean = true): UserData => {
-  const userString = localStorage.getItem("user");
-  if (userString) {
-    const userJSON = JSON.parse(userString);
-    return userJSON;
-  }
-  if (fetchIfNone) {
-    const authCommunicator = authRequest();
-    const user = authCommunicator.get("/user/current");
+export const getCurrentUser = async (): UserData => {
+  const userResponse = await authRequest()
+    .get("/user/current")
+    .then((response) => response)
+    .catch((error) => {
+      console.log(error);
+    });
+  if (userResponse) {
+    const user = userResponse.data;
     setCurrentUser(user);
     return user;
   }

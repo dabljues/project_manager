@@ -3,7 +3,7 @@ import "./App.scss";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { isAuthenticated } from "../../api/auth";
+import { getCurrentUser, isAuthenticated } from "../../api/auth";
 import PrivateRoute from "../../components/PrivateRoute";
 import CreateProject from "../Project/CreateProject";
 import HomePage from "../HomePage";
@@ -12,11 +12,18 @@ import PageHeader from "../PageHeader";
 import Projects from "../Project/Projects";
 import RegisterPage from "../Auth/RegisterPage";
 import Profile from "../Profile/Profile";
+import UserData from "../../types/userData";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+
   useEffect(() => {
     setLoggedIn(isAuthenticated());
+    const getUser = async () => {
+      setCurrentUser(await getCurrentUser());
+    };
+    getUser();
   }, []);
 
   const logIn = () => {
@@ -27,7 +34,7 @@ const App = () => {
   };
   return (
     <Router>
-      <PageHeader loggedIn={loggedIn} logOut={logOut} />
+      <PageHeader currentUser={currentUser} logOut={logOut} />
       <Switch>
         <PrivateRoute exact path="/" component={HomePage} />
         <Route
