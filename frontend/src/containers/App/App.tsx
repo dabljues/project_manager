@@ -11,6 +11,7 @@ import LoginPage from "../Auth/LoginPage";
 import PageHeader from "../PageHeader";
 import Projects from "../Project/Projects";
 import RegisterPage from "../Auth/RegisterPage";
+import Profile from "../Profile/Profile";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ const App = () => {
         <Route exact path="/register" component={RegisterPage} />
         <PrivateRoute exact path="/projects" component={Projects} />
         <PrivateRoute exact path="/projects/create" component={CreateProject} />
+        <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </Router>
   );

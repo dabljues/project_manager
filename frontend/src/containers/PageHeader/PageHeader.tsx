@@ -1,6 +1,5 @@
 import "./PageHeader.scss";
 
-/* eslint-disable camelcase */
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -31,10 +30,6 @@ const PageHeader = (props: PageHeaderProps) => {
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const handleLogout = () => {
@@ -81,9 +76,16 @@ const PageHeader = (props: PageHeaderProps) => {
                 horizontal: "right",
               }}
               open={open}
-              onClose={handleClose}
+              onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setAnchorEl(null);
+                  history.push("/profile");
+                }}
+              >
+                Profile
+              </MenuItem>
               <MenuItem onClick={handleLogout}>Log out</MenuItem>
             </Menu>
           </div>
