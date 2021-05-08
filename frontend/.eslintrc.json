@@ -39,8 +39,7 @@
         "@typescript-eslint/no-use-before-define": [
             "error"
         ],
-        "no-unused-vars":"warn",
-        "no-undef":"warn"
+        "no-unused-vars": "off"
     },
     "settings": {
         "import/resolver": {
