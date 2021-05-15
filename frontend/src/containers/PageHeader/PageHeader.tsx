@@ -52,7 +52,7 @@ const PageHeader = (props: PageHeaderProps) => {
         {loggedIn ? (
           <div className="account-section">
             <Typography>
-              {currentUser?.first_name} {currentUser?.last_name}
+              {currentUser?.firstName} {currentUser?.lastName}
             </Typography>
             <IconButton
               aria-label="account of current user"

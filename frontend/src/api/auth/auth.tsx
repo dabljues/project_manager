@@ -100,8 +100,15 @@ export const getCurrentUser = async (): UserData => {
     });
   if (userResponse) {
     const user = userResponse.data;
-    setCurrentUser(user);
-    return user;
+    const userData = {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      avatar: user.avatar,
+    };
+    setCurrentUser(userData);
+    return userData;
   }
   return null;
 };

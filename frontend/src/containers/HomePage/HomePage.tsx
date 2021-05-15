@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <div className="box">
       <div className="page">
-        <Typography variant="h1">Hi, {currentUser?.first_name}</Typography>
+        <Typography variant="h1">Hi, {currentUser?.firstName}</Typography>
       </div>
     </div>
   );
