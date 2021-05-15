@@ -1,14 +1,29 @@
 .profile-box {
-  display: flex;
-  flex-direction: row;
+  //   display: flex;
+  //   flex-direction: column;
+  border-radius: 50px;
   border: 1px solid black;
-  margin-top: 25px;
+  margin: 100px;
+  padding: 30px;
 }
 
-.profile-info {
-  width: 30%;
-  background-color: burlywood;
-  display: flex;
-  flex-direction: column;
+.profile-information-title {
+  margin-bottom: 50px !important;
+}
+
+.profile-entry {
   align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.profile-entry-name {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.profile-edit-menu {
+  margin-top: 50px !important;
+  button + button {
+    margin-left: 10px !important;
+  }
 }

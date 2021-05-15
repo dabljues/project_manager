@@ -1,8 +1,25 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "../../../api/auth";
 import { UserData } from "../../../types";
 import "./Profile.scss";
+
+interface ProfileInfoRowProps {
+  name: string;
+  content: string;
+}
+
+const ProfileInfoRow = (props: ProfileInfoRowProps) => {
+  const { name, content } = props;
+  return (
+    <Grid container item xs={12} className="profile-entry">
+      <Grid item xs={1} className="profile-entry-name">
+        {name}
+      </Grid>
+      <Grid item>{content}</Grid>
+    </Grid>
+  );
+};
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
@@ -10,6 +27,7 @@ const Profile = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [avatar, setAvatar] = useState("");
+
   useEffect(() => {
     const getUser = async () => {
       const user = await getCurrentUser();
@@ -20,35 +38,28 @@ const Profile = () => {
       setAvatar(user.avatar);
     };
     getUser();
-  }, []);
+  });
 
   return (
     <div className="profile-box">
-      <div className="profile-info">
-        <p>avatar</p>
-        <Typography>Name</Typography>
-        <Typography>Email</Typography>
-      </div>
-      <div>
-        <Typography variant="h3">Profile information</Typography>
-        <Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              {email}
-            </Grid>
-            <Grid item xs={6}>
-              {firstName}
-            </Grid>
-          </Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              {lastName}
-            </Grid>
-            <Grid item xs={6}>
-              {avatar}
-            </Grid>
-          </Grid>
+      <Typography variant="h3" className="profile-information-title">
+        Profile information
+      </Typography>
+      <Grid>
+        <Grid container item xs={12}>
+          <ProfileInfoRow name="First name" content={firstName} />
+          <ProfileInfoRow name="Last name" content={lastName} />
+          <ProfileInfoRow name="Email" content={email} />
+          <ProfileInfoRow name="Avatar" content={avatar} />
         </Grid>
+      </Grid>
+      <div className="profile-edit-menu">
+        <Button color="primary" variant="contained">
+          Change profile info
+        </Button>
+        <Button color="primary" variant="contained">
+          Change password
+        </Button>
       </div>
     </div>
   );
