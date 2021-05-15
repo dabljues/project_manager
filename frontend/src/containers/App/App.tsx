@@ -19,12 +19,17 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
 
   useEffect(() => {
-    setLoggedIn(isAuthenticated());
+    const isLoggedIn = isAuthenticated();
+    setLoggedIn(isLoggedIn);
     const getUser = async () => {
       setCurrentUser(await getCurrentUser());
     };
-    getUser();
-  }, []);
+    if (isLoggedIn) {
+      getUser();
+    } else {
+      setCurrentUser(null);
+    }
+  }, [loggedIn]);
 
   const logIn = () => {
     setLoggedIn(true);
