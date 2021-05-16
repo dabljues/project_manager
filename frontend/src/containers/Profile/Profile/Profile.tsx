@@ -1,8 +1,12 @@
-import { Grid, Typography, Button } from "@material-ui/core";
-import { useEffect, useState } from "react";
-import { getCurrentUser } from "../../../api/auth";
-import { UserData } from "../../../types";
 import "./Profile.scss";
+
+import { useEffect, useState } from "react";
+
+import { Button, Grid, Typography } from "@material-ui/core";
+
+import { getCurrentUser } from "../../../api/auth";
+import EditProfile from "../../../components/Profile/EditProfile";
+import { UserData } from "../../../types";
 
 interface ProfileInfoRowProps {
   name: string;
@@ -29,6 +33,7 @@ const Profile = () => {
   const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
     const getUser = async () => {
       const user = await getCurrentUser();
       setCurrentUser(user);
@@ -37,8 +42,13 @@ const Profile = () => {
       setLastName(user.lastName);
       setAvatar(user.avatar);
     };
-    getUser();
-  });
+    if (isMounted) {
+      getUser();
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="profile-box">
@@ -54,12 +64,8 @@ const Profile = () => {
         </Grid>
       </Grid>
       <div className="profile-edit-menu">
-        <Button color="primary" variant="contained">
-          Change profile info
-        </Button>
-        <Button color="primary" variant="contained">
-          Change password
-        </Button>
+        <EditProfile userData={currentUser} />
+        <EditProfile userData={currentUser} />
       </div>
     </div>
   );

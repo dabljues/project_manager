@@ -22,8 +22,10 @@
 }
 
 .profile-edit-menu {
+  display: flex;
+  flex-direction: row;
   margin-top: 50px !important;
-  button + button {
-    margin-left: 10px !important;
+  div + div {
+    margin-left: 20px;
   }
 }
