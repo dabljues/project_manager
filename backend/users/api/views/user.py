@@ -1,33 +1,48 @@
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from users.api.serializers import UserSerializer
+from users.api.serializers import PasswordSerializer, UserSerializer
 from users.models import User
 
 
-class NotSafeMethodAndAllowAny(permissions.AllowAny):
+class RegisterPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        return (
-            view.action
-            not in [
-                "update",
-                "partial_update",
-                "destroy",
-            ]
-            and super(NotSafeMethodAndAllowAny, self).has_permission(request, view)
-        )
+        return view.action == "create"
+
+
+class OnlyModifyYourselfPermission(permissions.BasePermission):
+    message = "You cannot modify another user."
+
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if not request.user.id or not view.kwargs.get("pk"):
+            return True
+        if int(request.user.id) != int(view.kwargs["pk"]):
+            return False
+        return True
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [NotSafeMethodAndAllowAny | permissions.IsAuthenticated]
+    permission_classes = [
+        RegisterPermission | permissions.IsAuthenticated,
+        OnlyModifyYourselfPermission,
+    ]
 
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return User.objects.all()
-        else:
-            return User.objects.filter(id=self.request.user.id)
+    def get_object(self):
+        return self.request.user
 
     @action(detail=False, methods=["get"])
     def current(self, request, *args, **kwargs):
         return Response(self.get_serializer(request.user).data)
+
+    @action(detail=True, methods=["post"])
+    def change_password(self, request, pk):
+        user = self.get_object()
+        serializer = PasswordSerializer(data=request.data, context={"user": user})
+        if serializer.is_valid(raise_exception=True):
+            user.set_password(serializer.data["password"])
+            user.save()
+            return Response("Password has been changed")
