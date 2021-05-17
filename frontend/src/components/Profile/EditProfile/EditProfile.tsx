@@ -51,6 +51,7 @@ const EditProfile = (props: EditProfileProps) => {
 
   const handleClose = () => {
     setOpen(false);
+    setEmailErrors([]);
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -65,7 +66,7 @@ const EditProfile = (props: EditProfileProps) => {
   };
 
   return (
-    <div>
+    <>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Edit profile
       </Button>
@@ -125,7 +126,7 @@ const EditProfile = (props: EditProfileProps) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 export default EditProfile;

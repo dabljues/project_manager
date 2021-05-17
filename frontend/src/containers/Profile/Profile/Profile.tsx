@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 
 import { getCurrentUser } from "../../../api/auth";
+import ChangePassword from "../../../components/Profile/ChangePassword";
 import EditProfile from "../../../components/Profile/EditProfile";
 import { UserData } from "../../../types";
 
@@ -65,7 +66,7 @@ const Profile = () => {
       </Grid>
       <div className="profile-edit-menu">
         <EditProfile userData={currentUser} />
-        <EditProfile userData={currentUser} />
+        <ChangePassword userData={currentUser} />
       </div>
     </div>
   );
