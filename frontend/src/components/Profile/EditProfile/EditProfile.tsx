@@ -8,10 +8,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
 
 import { authRequest } from "../../../api/auth";
 import UserData from "../../../types/userData";
+import ValidatedTextField from "../../ValidatedTextField";
 
 interface EditProfileProps {
   userData: UserData;
@@ -41,9 +41,9 @@ const EditProfile = (props: EditProfileProps) => {
   const [firstName, setFirstName] = useState(userData?.firstName);
   const [lastName, setLastName] = useState(userData?.lastName);
   const [email, setEmail] = useState(userData?.email);
+  const [firstNameErrors, setFirstNameErrors] = useState<string[]>([]);
+  const [lastNameErrors, setLastNameErrors] = useState<string[]>([]);
   const [emailErrors, setEmailErrors] = useState<string[]>([]);
-
-  const errorsOccurred = emailErrors.length > 0;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,18 +51,21 @@ const EditProfile = (props: EditProfileProps) => {
 
   const handleClose = () => {
     setOpen(false);
+    setFirstNameErrors([]);
+    setLastNameErrors([]);
     setEmailErrors([]);
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const errors = await editUser(userData.id, firstName, lastName, email);
-    if (errors) {
-      setEmailErrors(errors.email);
-    } else {
-      setEmailErrors([]);
-      setOpen(false);
+    if (!errors) {
+      handleClose();
+      return;
     }
+    setFirstNameErrors(errors.fist_name || []);
+    setLastNameErrors(errors.last_name || []);
+    setEmailErrors(errors.email || []);
   };
 
   return (
@@ -76,44 +79,34 @@ const EditProfile = (props: EditProfileProps) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Edit profile</DialogTitle>
-        {errorsOccurred ? (
-          <div className="form-errors">
-            Profile edit was unsucessful:
-            <ul>
-              {emailErrors.map((error, index) => (
-                <li className="form-error">{error}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        <DialogContent>
-          <TextField
+        <DialogContent className="dialog-content">
+          <ValidatedTextField
             autoFocus
-            id="firstName"
             label="First name"
             defaultValue={userData?.firstName}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               setFirstName(event.target.value);
             }}
+            errors={firstNameErrors}
             fullWidth
           />
-          <TextField
-            id="lastName"
+          <ValidatedTextField
             label="Last name"
             defaultValue={userData?.lastName}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               setLastName(event.target.value);
             }}
+            errors={lastNameErrors}
             fullWidth
           />
-          <TextField
-            id="email"
+          <ValidatedTextField
             label="Email address"
             type="email"
             defaultValue={userData?.email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               setEmail(event.target.value);
             }}
+            errors={emailErrors}
             fullWidth
           />
         </DialogContent>

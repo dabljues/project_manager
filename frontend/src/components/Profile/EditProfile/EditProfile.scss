@@ -10,3 +10,9 @@
 .form-error {
   text-transform: lowercase;
 }
+
+.dialog-content {
+  div + div {
+    margin-top: 15px !important;
+  }
+}
