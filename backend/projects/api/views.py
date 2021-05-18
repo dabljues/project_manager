@@ -11,7 +11,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if self.request.user.is_superuser:
             return Project.objects.all()
         else:
-            return Project.objects.filter(id=self.request.user.id)
+            return Project.objects.filter(creator=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
