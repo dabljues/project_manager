@@ -85,6 +85,14 @@ const PageHeader = (props: PageHeaderProps) => {
               >
                 Profile
               </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setAnchorEl(null);
+                  history.push("/projects");
+                }}
+              >
+                Projects
+              </MenuItem>
               <MenuItem onClick={handleLogout}>Log out</MenuItem>
             </Menu>
           </div>
