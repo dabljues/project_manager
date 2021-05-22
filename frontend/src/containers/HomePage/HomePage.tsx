@@ -9,7 +9,6 @@ const HomePage = () => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   useEffect(() => {
     const getUser = async () => {
-      console.log("Getting the user from Home Page");
       setCurrentUser(await getCurrentUser());
     };
     getUser();

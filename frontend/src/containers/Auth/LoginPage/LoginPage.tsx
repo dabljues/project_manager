@@ -13,12 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 
-import {
-  authRequest,
-  isAuthenticated,
-  setCurrentUser,
-  setToken,
-} from "../../../api/auth";
+import { isAuthenticated, setToken } from "../../../api/auth";
 
 interface LoginPageProps {
   logIn: () => void;
@@ -30,9 +25,6 @@ async function loginUser(email: string, password: string) {
       password,
     });
     setToken(response.data);
-    const authCommunicator = authRequest();
-    const user = await authCommunicator.get("/user/current");
-    setCurrentUser(user.data);
     return true;
   } catch (error) {
     return false;

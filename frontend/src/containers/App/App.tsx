@@ -21,7 +21,6 @@ const App = () => {
   useEffect(() => {
     const authenticated = isAuthenticated();
     const getUser = async () => {
-      console.log("Getting the user from App");
       setCurrentUser(await getCurrentUser());
     };
     if (authenticated) {
