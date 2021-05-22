@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 // eslint-disable-next-line camelcase
 import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
 
 import { UserData } from "../../types";
 
@@ -24,53 +25,111 @@ export const getRefreshToken = (): string | null => {
   return refreshToken;
 };
 
+const getAccessTokenExp = (): string | null => {
+  const tokenExpirationDate = localStorage.getItem("access_token_exp");
+  return tokenExpirationDate;
+};
+
+const getRefreshTokenExp = (): string | null => {
+  const tokenExpirationDate = localStorage.getItem("refresh_token_exp");
+  return tokenExpirationDate;
+};
+
 export const setToken = (token: UserToken) => {
   localStorage.setItem("access_token", token.access);
   localStorage.setItem("refresh_token", token.refresh);
+  const decodedAccessToken = decodeJWT(token.access);
+  const decodedRefreshToken = decodeJWT(token.refresh);
+  localStorage.setItem("access_token_exp", decodedAccessToken.exp);
+  localStorage.setItem("refresh_token_exp", decodedRefreshToken.exp);
 };
 
 const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
-  axiosInstance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      const originalRequest = error.config;
-
+  axiosInstance.interceptors.request.use(
+    async (request) => {
       if (
-        error.response.status === 401 &&
-        originalRequest.url === `${baseURL}token/refresh/`
+        request.url?.endsWith("/api/token") ||
+        request.url?.endsWith("/api/token/refresh")
       ) {
+        return request;
+      }
+      const accessTokenExp = getAccessTokenExp();
+      const refreshTokenExp = getRefreshTokenExp();
+      if (accessTokenExp === null || refreshTokenExp === null) {
+        return request;
+      }
+      const accessTokenExpDate = new Date(parseInt(accessTokenExp, 10) * 1000);
+      const refreshTokenExpDate = new Date(
+        parseInt(refreshTokenExp, 10) * 1000
+      );
+      const currentDate = new Date();
+      if (currentDate > refreshTokenExpDate) {
         window.location.href = "/login/";
         localStorage.clear();
-        return Promise.reject(error);
+        return Promise.reject();
       }
-      if (
-        error.response.status === 401 &&
-        error.response.statusText === "Unauthorized"
-      ) {
+      if (currentDate > accessTokenExpDate) {
         const refreshToken = getRefreshToken();
 
         if (refreshToken) {
-          const parsedToken = decodeJWT(refreshToken);
+          await axios
+            .post("/api/token/refresh/", { refresh: refreshToken })
+            .then((response) => {
+              setToken(response.data);
 
-          if (parseInt(parsedToken.exp, 10) * 1000 > Date.now()) {
-            return axiosInstance
-              .post("/token/refresh/", { refresh: refreshToken })
-              .then((response) => {
-                setToken(response.data);
-
-                // eslint-disable-next-line no-param-reassign
-                axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
-                originalRequest.headers.Authorization = `JWT ${response.data.access}`;
-
-                return axiosInstance(originalRequest);
-              })
-              .catch(() => {});
-          }
+              // eslint-disable-next-line no-param-reassign
+              axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
+              request.headers.Authorization = `JWT ${response.data.access}`;
+            })
+            .catch(() => {});
+          return request;
         }
       }
-      return Promise.reject(error);
-    }
+      return request;
+    },
+    (error) => Promise.reject(error)
   );
+  //   axiosInstance.interceptors.response.use(
+  //     (response) => response,
+  //     (error) => {
+  //       const originalRequest = error.config;
+
+  //       if (
+  //         error.response.status === 401 &&
+  //         originalRequest.url === `${baseURL}token/refresh/`
+  //       ) {
+  //         window.location.href = "/login/";
+  //         localStorage.clear();
+  //         return Promise.reject(error);
+  //       }
+  //       if (
+  //         error.response.status === 401 &&
+  //         error.response.statusText === "Unauthorized"
+  //       ) {
+  //         const refreshToken = getRefreshToken();
+
+  //         if (refreshToken) {
+  //           const parsedToken = decodeJWT(refreshToken);
+
+  //           if (parseInt(parsedToken.exp, 10) * 1000 > Date.now()) {
+  //             return axiosInstance
+  //               .post("/token/refresh/", { refresh: refreshToken })
+  //               .then((response) => {
+  //                 setToken(response.data);
+
+  //                 // eslint-disable-next-line no-param-reassign
+  //                 axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
+  //                 originalRequest.headers.Authorization = `JWT ${response.data.access}`;
+
+  //                 return axiosInstance(originalRequest);
+  //               })
+  //               .catch(() => {});
+  //           }
+  //         }
+  //       }
+  //       return Promise.reject(error);
+  //     }
+  //   );
   return axiosInstance;
 };
 
