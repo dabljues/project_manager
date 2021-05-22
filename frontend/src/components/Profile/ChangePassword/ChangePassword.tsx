@@ -92,7 +92,7 @@ const ChangePassword = (props: ChangePasswordProps) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Edit profile</DialogTitle>
+        <DialogTitle id="form-dialog-title">Change password</DialogTitle>
         <DialogContent className="dialog-content">
           <ValidatedTextField
             autoFocus

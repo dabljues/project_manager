@@ -3,6 +3,7 @@ interface UserData {
   firstName: string;
   lastName: string;
   email: string;
+  avatar: string;
 }
 
 export default UserData;

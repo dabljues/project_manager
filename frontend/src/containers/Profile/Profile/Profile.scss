@@ -11,6 +11,12 @@
   margin-bottom: 50px !important;
 }
 
+.profile-avatar {
+  margin-bottom: 50px;
+  width: 120px !important;
+  height: 120px !important;
+}
+
 .profile-entry {
   align-items: center;
   border-bottom: 1px solid black;
@@ -26,6 +32,9 @@
   flex-direction: row;
   margin-top: 50px !important;
   button + button {
+    margin-left: 20px;
+  }
+  button + label {
     margin-left: 20px;
   }
 }

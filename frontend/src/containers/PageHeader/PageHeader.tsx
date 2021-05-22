@@ -61,7 +61,7 @@ const PageHeader = (props: PageHeaderProps) => {
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle fontSize="large" />
+              <Avatar src={currentUser?.avatar} />
             </IconButton>
             <Menu
               id="menu-appbar"
