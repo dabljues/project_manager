@@ -47,12 +47,6 @@ export const setToken = (token: UserToken) => {
 const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     async (request) => {
-      if (
-        request.url?.endsWith("/api/token") ||
-        request.url?.endsWith("/api/token/refresh")
-      ) {
-        return request;
-      }
       const accessTokenExp = getAccessTokenExp();
       const refreshTokenExp = getRefreshTokenExp();
       if (accessTokenExp === null || refreshTokenExp === null) {
@@ -63,6 +57,9 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
         parseInt(refreshTokenExp, 10) * 1000
       );
       const currentDate = new Date();
+      // It's the same as in refreshTokenExpired, but it has to be here because
+      // refreshTokenExpired only handles component switching (routing), not some
+      // lonely API calls on the same component
       if (currentDate > refreshTokenExpDate) {
         window.location.href = "/login/";
         localStorage.clear();
@@ -76,7 +73,6 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
             .post("/api/token/refresh/", { refresh: refreshToken })
             .then((response) => {
               setToken(response.data);
-
               // eslint-disable-next-line no-param-reassign
               axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
               request.headers.Authorization = `JWT ${response.data.access}`;
@@ -89,47 +85,6 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
     },
     (error) => Promise.reject(error)
   );
-  //   axiosInstance.interceptors.response.use(
-  //     (response) => response,
-  //     (error) => {
-  //       const originalRequest = error.config;
-
-  //       if (
-  //         error.response.status === 401 &&
-  //         originalRequest.url === `${baseURL}token/refresh/`
-  //       ) {
-  //         window.location.href = "/login/";
-  //         localStorage.clear();
-  //         return Promise.reject(error);
-  //       }
-  //       if (
-  //         error.response.status === 401 &&
-  //         error.response.statusText === "Unauthorized"
-  //       ) {
-  //         const refreshToken = getRefreshToken();
-
-  //         if (refreshToken) {
-  //           const parsedToken = decodeJWT(refreshToken);
-
-  //           if (parseInt(parsedToken.exp, 10) * 1000 > Date.now()) {
-  //             return axiosInstance
-  //               .post("/token/refresh/", { refresh: refreshToken })
-  //               .then((response) => {
-  //                 setToken(response.data);
-
-  //                 // eslint-disable-next-line no-param-reassign
-  //                 axiosInstance.defaults.headers.Authorization = `JWT ${response.data.access}`;
-  //                 originalRequest.headers.Authorization = `JWT ${response.data.access}`;
-
-  //                 return axiosInstance(originalRequest);
-  //               })
-  //               .catch(() => {});
-  //           }
-  //         }
-  //       }
-  //       return Promise.reject(error);
-  //     }
-  //   );
   return axiosInstance;
 };
 
@@ -175,5 +130,19 @@ export const getCurrentUser = async (): UserData => {
 export const isAuthenticated = (): boolean => {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
-  return accessToken !== null && refreshToken !== null;
+  return accessToken !== null && refreshToken != null;
+};
+
+export const refreshTokenExpired = (): boolean => {
+  const refreshTokenExp = getRefreshTokenExp();
+  if (refreshTokenExp === null) {
+    return false;
+  }
+  const refreshTokenExpDate = new Date(parseInt(refreshTokenExp, 10) * 1000);
+  const currentDate = new Date();
+  if (currentDate > refreshTokenExpDate) {
+    localStorage.clear();
+    return true;
+  }
+  return false;
 };

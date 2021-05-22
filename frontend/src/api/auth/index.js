@@ -4,6 +4,7 @@ export {
   getCurrentUser,
   getRefreshToken,
   isAuthenticated,
+  refreshTokenExpired,
   setCurrentUser,
   setToken,
 } from "./auth";

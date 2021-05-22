@@ -2,11 +2,11 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import { isAuthenticated } from "../../api/auth";
+import { isAuthenticated, refreshTokenExpired } from "../../api/auth";
 
 const PrivateRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
-    isAuthenticated() ? (
+    isAuthenticated() && !refreshTokenExpired() ? (
       React.createElement(component, props)
     ) : (
       <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
