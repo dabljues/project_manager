@@ -1,7 +1,7 @@
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from users.api.serializers import PasswordSerializer, UserSerializer
+from users.api.serializers import AvatarSerializer, PasswordSerializer, UserSerializer
 from users.models import User
 
 
@@ -46,3 +46,12 @@ class UserViewSet(viewsets.ModelViewSet):
             user.set_password(serializer.data["password"])
             user.save()
             return Response("Password has been changed")
+
+    @action(detail=True, methods=["post"])
+    def change_avatar(self, request, pk):
+        user = self.get_object()
+        serializer = AvatarSerializer(data=request.data, context={"user": user})
+        print(request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response("Avatar has been changed")
