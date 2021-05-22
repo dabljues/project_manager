@@ -13,19 +13,18 @@ import Projects from "../Project/Projects";
 import RegisterPage from "../Auth/RegisterPage";
 import Profile from "../Profile/Profile";
 import UserData from "../../types/userData";
-import PageNotFound from "../PageNotFound";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
 
   useEffect(() => {
-    const isLoggedIn = isAuthenticated();
-    setLoggedIn(isLoggedIn);
+    const authenticated = isAuthenticated();
     const getUser = async () => {
+      console.log("Getting the user from App");
       setCurrentUser(await getCurrentUser());
     };
-    if (isLoggedIn) {
+    if (authenticated) {
       getUser();
     } else {
       setCurrentUser(null);
@@ -49,7 +48,6 @@ const App = () => {
           component={() => <LoginPage logIn={logIn} />}
         />
         <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/404" component={PageNotFound} />
         <PrivateRoute exact path="/projects" component={Projects} />
         <PrivateRoute exact path="/projects/create" component={CreateProject} />
         <PrivateRoute exact path="/profile" component={Profile} />

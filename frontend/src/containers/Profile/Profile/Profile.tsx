@@ -45,6 +45,7 @@ const Profile = () => {
       setAvatar(user.avatar);
     };
     if (isMounted) {
+      console.log("Getting the user from Profile page");
       getUser();
     }
     return () => {
