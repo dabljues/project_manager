@@ -3,7 +3,6 @@ from django.db import models
 from .task_base import TaskBase
 from .utils import SUB_TASK_TYPES
 from .task import Task
-from users.models import User
 
 
 class SubTask(TaskBase):
