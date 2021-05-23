@@ -2,6 +2,7 @@ from django.db import models
 
 from .task_base import TaskBase
 from .utils import TASK_TYPES
+from users.models import User
 
 
 class Task(TaskBase):

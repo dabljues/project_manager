@@ -13,3 +13,6 @@ class TaskBase(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        abstract = True
