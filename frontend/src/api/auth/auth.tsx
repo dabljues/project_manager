@@ -61,7 +61,8 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
       // refreshTokenExpired only handles component switching (routing), not some
       // lonely API calls on the same component
       if (currentDate > refreshTokenExpDate) {
-        window.location.href = "/login/";
+        const history = useHistory();
+        history.push("/login");
         localStorage.clear();
         return Promise.reject();
       }
