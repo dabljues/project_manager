@@ -40,16 +40,16 @@ const App = () => {
     <Router>
       <PageHeader currentUser={currentUser} logOut={logOut} />
       <Switch>
-        <PrivateRoute exact path="/" component={HomePage} />
         <Route
           exact
           path="/login"
-          component={() => <LoginPage logIn={logIn} />}
+          component={() => <LoginPage logIn={logIn} logOut={logOut} />}
         />
         <Route exact path="/register" component={RegisterPage} />
+        <PrivateRoute exact path="/" component={HomePage} />
+        <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/projects" component={Projects} />
         <PrivateRoute exact path="/projects/create" component={CreateProject} />
-        <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </Router>
   );
