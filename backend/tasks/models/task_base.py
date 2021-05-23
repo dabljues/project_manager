@@ -10,10 +10,10 @@ class TaskBase(models.Model):
     title = models.CharField("Title", max_length=100)
     description = models.CharField("Description", max_length=2000, default="")
     creator = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_creator"
+        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_creator"
     )
     asignee = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_asignee"
+        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_asignee"
     )
 
     created_at = models.DateTimeField(default=timezone.now)
