@@ -12,8 +12,8 @@ class Project(models.Model):
     )
     description = models.CharField("Description", max_length=3000, default="")
 
-    creator = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="project_creator"
+    owner = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="project_owner"
     )
     participants = models.ManyToManyField(User, related_name="project_participants", blank=True)
 

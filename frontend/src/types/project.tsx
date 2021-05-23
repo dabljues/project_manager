@@ -1,7 +1,7 @@
 interface ProjectData {
   name: string;
   status: string;
-  creator: number;
+  owner: number;
   participants: number[];
   description: string;
   created_at: string;

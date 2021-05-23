@@ -75,8 +75,8 @@ const Projects = () => {
       const projectsData = await authRequest().get("/project");
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
-          const { creator } = projectData;
-          const ownerData = await authRequest().get(`/user/${creator}`);
+          const { owner } = projectData;
+          const ownerData = await authRequest().get(`/user/${owner}`);
           projectsCollected.push({
             name: projectData.name,
             status: projectData.status,
