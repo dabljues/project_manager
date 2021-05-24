@@ -21,7 +21,6 @@ const Project = ({ match }: ProjectProps) => {
       const projectData = await authCommunicator
         .get(`/project/${projectName}`)
         .then((response) => response.data);
-      console.log(projectData);
       setProject(projectData);
     };
     getProject();

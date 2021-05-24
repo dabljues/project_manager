@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 
 import { UserData } from "../../types";
+import toCamelCase from "../utils";
 
 const baseURL = "http://127.0.0.1:8000/api/";
 
@@ -83,6 +84,14 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
         }
       }
       return request;
+    },
+    (error) => Promise.reject(error)
+  );
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      //   response.data = toCamelCase(response.data);
+      const x = 2 + 2;
+      return response;
     },
     (error) => Promise.reject(error)
   );
