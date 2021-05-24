@@ -8,6 +8,7 @@ from .utils import generate_task_id
 class SubTaskViewSet(viewsets.ModelViewSet):
     queryset = SubTask.objects.all()
     serializer_class = SubTaskSerializer
+    lookup_field = "name"
 
     def perform_create(self, serializer):
         task_id = self.request.data["parent_task"]

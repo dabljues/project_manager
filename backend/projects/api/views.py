@@ -6,6 +6,7 @@ from projects.api.serializers import ProjectSerializer
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    lookup_field = "name"
 
     def get_queryset(self):
         if self.request.user.is_superuser:

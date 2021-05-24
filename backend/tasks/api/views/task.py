@@ -9,6 +9,7 @@ from .utils import generate_task_id
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    lookup_field = "name"
 
     def perform_create(self, serializer):
         project_id = self.request.data["project"]
