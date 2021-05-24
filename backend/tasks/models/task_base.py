@@ -10,6 +10,7 @@ class TaskBase(models.Model):
     status = models.CharField("State", max_length=2, default="NW", choices=TASK_STATUSES)
     title = models.CharField("Title", max_length=100)
     description = models.CharField("Description", max_length=2000, default="")
+
     creator = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_creator"
     )

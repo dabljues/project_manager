@@ -1,8 +1,8 @@
 from django.db import models
+from projects.models import Project
 
 from .task_base import TaskBase
 from .utils import TASK_TYPES
-from projects.models import Project
 
 
 class Task(TaskBase):
