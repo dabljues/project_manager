@@ -31,6 +31,12 @@ const Projects = () => {
       );
       setRows(projectsCollected);
     };
+    // const x = [];
+    // let i;
+    // for (i = 0; i <= 20; i += 1) {
+    //   x.push({ name: "xD", status: "open", owner: "haha", created_at: "xD" });
+    // }
+    // setRows(x);
     getProjects();
   }, []);
   return (

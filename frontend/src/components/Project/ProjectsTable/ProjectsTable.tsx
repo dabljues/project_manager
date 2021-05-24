@@ -58,7 +58,7 @@ const ProjectsTable = (props: ProjectsTableProps) => {
   };
 
   return (
-    <Paper className="projects-list">
+    <Paper>
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
