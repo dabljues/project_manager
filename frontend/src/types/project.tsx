@@ -1,8 +1,10 @@
+import UserData from "./userData";
+
 interface ProjectData {
   name: string;
   status: string;
-  owner: number;
-  participants: number[];
+  owner: UserData;
+  participants: UserData[];
   description: string;
   created_at: string;
 }
