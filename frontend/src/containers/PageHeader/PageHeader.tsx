@@ -39,7 +39,7 @@ const PageHeader = (props: PageHeaderProps) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <div className="site-logo">
           <IconButton onClick={() => history.push("/")}>

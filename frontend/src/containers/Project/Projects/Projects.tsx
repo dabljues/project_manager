@@ -34,7 +34,7 @@ const Projects = () => {
     getProjects();
   }, []);
   return (
-    <div className="hahaxd">
+    <div className="center">
       {rows.length === 0 ? (
         <Typography variant="h1" className="no-projects">
           You have no projects

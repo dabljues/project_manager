@@ -52,9 +52,8 @@ const RegisterForm = () => {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [passwordConfirmationError, setPasswordConfirmationError] = useState(
-    ""
-  );
+  const [passwordConfirmationError, setPasswordConfirmationError] =
+    useState("");
   const history = useHistory();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -160,10 +159,8 @@ const RegisterForm = () => {
 };
 
 const RegisterPage = () => (
-  <div className="box">
-    <div className="page">
-      <RegisterForm />
-    </div>
+  <div className="center">
+    <RegisterForm />
     <div className="footer">
       <Typography>Copyright: dabljues</Typography>
     </div>

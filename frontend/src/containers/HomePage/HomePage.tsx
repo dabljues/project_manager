@@ -14,10 +14,8 @@ const HomePage = () => {
     getUser();
   }, []);
   return (
-    <div className="box">
-      <div className="page">
-        <Typography variant="h1">Hi, {currentUser?.firstName}</Typography>
-      </div>
+    <div className="center">
+      <Typography variant="h1">Hi, {currentUser?.firstName}</Typography>
     </div>
   );
 };

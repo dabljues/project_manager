@@ -134,10 +134,8 @@ const LoginPage = (props: LoginPageProps) => {
   const { logIn } = props;
   const { logOut } = props;
   return (
-    <div className="box">
-      <div className="page">
-        <LoginForm logIn={logIn} logOut={logOut} />
-      </div>
+    <div className="center">
+      <LoginForm logIn={logIn} logOut={logOut} />
       <div className="footer">
         <Typography>Copyright: dabljues</Typography>
       </div>

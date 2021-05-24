@@ -1,20 +1,9 @@
-.box {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 @mixin center-in-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
   justify-content: center;
-}
-
-.page {
-  @include center-in-container;
-  height: 100%;
 }
 
 .login-form {
@@ -33,7 +22,7 @@
 }
 
 .sign-in-logo {
-  @include center-in-container;
+  align-items: center;
   margin-top: 0px;
   margin-bottom: 80px;
   display: flex;
@@ -60,9 +49,7 @@
 }
 
 .register {
-  @include center-in-container;
-  display: flex;
-  flex-direction: row;
+  text-align: center;
   margin-top: 30px;
 }
 
