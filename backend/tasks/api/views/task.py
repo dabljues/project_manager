@@ -1,7 +1,9 @@
+from projects.models import Project
 from rest_framework import viewsets
 from tasks.api.serializers import TaskSerializer
 from tasks.models import Task
-from projects.models import Project
+
+from .utils import generate_task_id
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -12,12 +14,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         project_id = self.request.data["project"]
         project = Project.objects.get(id=project_id)
         project_tasks = Task.objects.filter(project=project_id)
-        if not project_tasks:
-            task_id = 1
-        else:
-            latest_task_name = project_tasks.last().name
-            latest_task_id_in_project = int(latest_task_name.split("-")[-1])
-            task_id = latest_task_id_in_project + 1
-        task_name = f"{project.name}-{task_id}"
+
+        new_task_id = generate_task_id(project_tasks)
+        task_name = f"{project.name}-{new_task_id}"
 
         serializer.save(name=task_name)
