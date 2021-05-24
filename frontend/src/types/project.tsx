@@ -6,7 +6,7 @@ interface ProjectData {
   owner: UserData;
   participants: UserData[];
   description: string;
-  created_at: string;
+  createdAt: string;
 }
 
 export default ProjectData;

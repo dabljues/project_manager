@@ -34,7 +34,7 @@ const columns: ProjectsTableColumn[] = [
     align: "right",
   },
   {
-    id: "created_at",
+    id: "createdAt",
     label: "Created at",
     minWidth: 170,
     align: "right",

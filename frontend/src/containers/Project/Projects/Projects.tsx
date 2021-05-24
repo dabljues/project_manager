@@ -21,12 +21,11 @@ const Projects = () => {
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
           const { owner } = projectData;
-          const ownerData = await authRequest().get(`/user/${owner}`);
           projectsCollected.push({
             name: projectData.name,
             status: projectData.status,
-            owner: `${ownerData.data.first_name} ${ownerData.data.last_name}`,
-            created_at: projectData.created_at,
+            owner: `${owner.firstName} ${owner.lastName}`,
+            createdAt: projectData.createdAt,
           });
         })
       );

@@ -1,6 +1,19 @@
-import _ from "lodash";
+import { camelCase } from "lodash";
 
-const toCamelCase = (obj: object): object =>
-  _.mapKeys(obj, (_v, k) => _.camelCase(k));
+const toCamelCase = (obj: any): object => {
+  if (Array.isArray(obj)) {
+    return obj.map((v) => toCamelCase(v));
+  }
+  if (obj != null && obj.constructor === Object) {
+    return Object.keys(obj).reduce(
+      (result, key) => ({
+        ...result,
+        [camelCase(key)]: toCamelCase(obj[key]),
+      }),
+      {}
+    );
+  }
+  return obj;
+};
 
 export default toCamelCase;
