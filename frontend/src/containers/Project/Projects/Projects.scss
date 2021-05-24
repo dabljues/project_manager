@@ -1,8 +1,20 @@
-.page-title {
+html,
+body {
+  height: 100%;
+}
+
+.projets-table-title {
   text-align: center;
   margin: 50px !important;
 }
-.projects-list {
-  margin: auto;
-  max-width: 70%;
+
+.no-projects {
+  text-align: center;
+}
+
+.hahaxd {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }

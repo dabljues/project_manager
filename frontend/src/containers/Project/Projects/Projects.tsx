@@ -1,77 +1,21 @@
 import "./Projects.scss";
 
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
+import ProjectsTable, {
+  ProjectsTableRow,
+} from "../../../components/Project/ProjectsTable";
 import { ProjectData } from "../../../types";
 
-interface Column {
-  id: "name" | "status" | "owner" | "created_at";
-  label: string;
-  minWidth?: number;
-  align?: "right";
-}
-
-const columns: Column[] = [
-  {
-    id: "name",
-    label: "Name",
-    minWidth: 170,
-  },
-  { id: "status", label: "Status", minWidth: 50 },
-  {
-    id: "owner",
-    label: "Owner",
-    minWidth: 250,
-    align: "right",
-  },
-  {
-    id: "created_at",
-    label: "Created at",
-    minWidth: 170,
-    align: "right",
-  },
-];
-
-interface Data {
-  name: string;
-  status: string;
-  owner: string;
-  created_at: string;
-}
-
 const Projects = () => {
-  const [rows, setRows] = useState<Data[]>([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const [rows, setRows] = useState<ProjectsTableRow[]>([]);
 
   useEffect(() => {
     const getProjects = async () => {
-      const projectsCollected: Data[] = [];
+      const projectsCollected: ProjectsTableRow[] = [];
       const projectsData = await authRequest().get("/project");
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
@@ -89,65 +33,21 @@ const Projects = () => {
     };
     getProjects();
   }, []);
-
   return (
-    <>
-      <Typography variant="h2" className="page-title">
-        Your projects:
-      </Typography>
-      <Paper className="projects-list">
-        <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth, fontWeight: "bold" }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.name}
-                    component={Link}
-                    to={`/project/${row.name}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </>
+    <div className="hahaxd">
+      {rows.length === 0 ? (
+        <Typography variant="h1" className="no-projects">
+          You have no projects
+        </Typography>
+      ) : (
+        <>
+          <Typography variant="h2" className="projets-table-title">
+            Your projects:
+          </Typography>
+          <ProjectsTable rows={rows} />
+        </>
+      )}
+    </div>
   );
 };
 
