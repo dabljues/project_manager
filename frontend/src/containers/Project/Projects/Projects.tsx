@@ -1,8 +1,9 @@
 import "./Projects.scss";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
 import ProjectsTable, {
@@ -42,9 +43,16 @@ const Projects = () => {
   return (
     <div className="center">
       {rows.length === 0 ? (
-        <Typography variant="h1" className="no-projects">
-          You have no projects
-        </Typography>
+        <div className="text-align-center">
+          <Typography variant="h1" className="no-projects">
+            You have no projects
+          </Typography>
+          <Link to="/project/create" style={{ textDecoration: "none" }}>
+            <Button variant="contained" color="secondary">
+              Create your first project
+            </Button>
+          </Link>
+        </div>
       ) : (
         <>
           <Typography variant="h2" className="projets-table-title">

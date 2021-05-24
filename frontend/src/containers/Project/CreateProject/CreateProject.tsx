@@ -27,11 +27,13 @@ const CreateProject = () => {
   };
 
   return (
-    <CreateProjectForm
-      setProjectName={setProjectName}
-      projectNameErrors={projectNameErrors}
-      createProject={handleCreate}
-    />
+    <div className="center">
+      <CreateProjectForm
+        setProjectName={setProjectName}
+        projectNameErrors={projectNameErrors}
+        createProject={handleCreate}
+      />
+    </div>
   );
 };
 
