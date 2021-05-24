@@ -1,0 +1,20 @@
+.project {
+  margin: 30px !important;
+}
+
+.project-name {
+  border-bottom: 1px black solid;
+}
+
+.project-actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  button + button {
+    margin-left: 10px;
+  }
+}
+
+.project-views {
+  flex: 1;
+}
