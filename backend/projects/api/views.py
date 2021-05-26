@@ -1,12 +1,20 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from projects.models import Project
-from projects.api.serializers import ProjectSerializer
+from projects.api.serializers import (
+    ReadProjectSerializer,
+    WriteProjectSerializer,
+)
+from utils.viewsets import ReadWriteViewset
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = ReadProjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
     lookup_field = "name"
+
+    read_serializer_class = ReadProjectSerializer
+    write_serializer_class = WriteProjectSerializer
 
     def get_queryset(self):
         if self.request.user.is_superuser:
