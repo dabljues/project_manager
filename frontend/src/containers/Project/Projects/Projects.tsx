@@ -21,10 +21,14 @@ const Projects = () => {
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
           const { owner } = projectData;
+          const ownerString =
+            owner === null
+              ? "<unassigned>"
+              : `${owner.firstName} ${owner.lastName}`;
           projectsCollected.push({
             name: projectData.name,
             status: projectData.status,
-            owner: `${owner.firstName} ${owner.lastName}`,
+            owner: ownerString,
             createdAt: projectData.createdAt,
           });
         })
