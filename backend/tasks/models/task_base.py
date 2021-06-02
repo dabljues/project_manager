@@ -14,8 +14,8 @@ class TaskBase(models.Model):
     creator = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_creator"
     )
-    asignee = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_asignee"
+    assignee = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_assignee"
     )
 
     created_at = models.DateTimeField(default=timezone.now)
