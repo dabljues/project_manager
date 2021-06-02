@@ -14,9 +14,10 @@ import RegisterPage from "../Auth/RegisterPage";
 import HomePage from "../HomePage";
 import PageHeader from "../PageHeader";
 import Profile from "../Profile/Profile";
+import Backlog from "../Project/Backlog";
 import CreateProject from "../Project/CreateProject";
-import Projects from "../Project/Projects";
 import Project from "../Project/Project";
+import Projects from "../Project/Projects";
 
 const styles = makeStyles<Theme>((theme) =>
   createStyles({
@@ -63,6 +64,11 @@ const App = () => {
         <PrivateRoute exact path="/projects" component={Projects} />
         <PrivateRoute exact path="/project/create" component={CreateProject} />
         <PrivateRoute exact path="/project/:projectName" component={Project} />
+        <PrivateRoute
+          exact
+          path="/project/:projectName/backlog"
+          component={Backlog}
+        />
       </Switch>
     </Router>
   );

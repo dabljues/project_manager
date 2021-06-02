@@ -1,7 +1,7 @@
 import "./Project.scss";
 
 import { useEffect, useState } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 
 import {
   Accordion,
@@ -24,6 +24,7 @@ interface ProjectProps extends RouteComponentProps<ProjectParams> {}
 const Project = ({ match }: ProjectProps) => {
   const { projectName } = match.params;
   const [project, setProject] = useState<ProjectData | null>(null);
+  const history = useHistory();
 
   const authCommunicator = authRequest();
   useEffect(() => {
@@ -69,7 +70,11 @@ const Project = ({ match }: ProjectProps) => {
         </Accordion>
         <div className="project-actions">
           <div className="project-views">
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => history.push(`/project/${projectName}/backlog`)}
+            >
               Backlog
             </Button>
             <Button variant="contained" color="primary">
