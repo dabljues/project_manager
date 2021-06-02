@@ -6,19 +6,17 @@ import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
-import ProjectsTable, {
-  ProjectsTableRow,
-} from "../../../components/Project/ProjectsTable";
-import { ProjectData } from "../../../types";
+import ProjectsTable from "../../../components/Project/ProjectsTable";
+import { ProjectData, TableRowInterface } from "../../../types";
 import Spinner from "../../../components/Spinner";
 
 const Projects = () => {
-  const [rows, setRows] = useState<ProjectsTableRow[]>([]);
+  const [rows, setRows] = useState<TableRowInterface[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjects = async () => {
-      const projectsCollected: ProjectsTableRow[] = [];
+      const projectsCollected: TableRowInterface[] = [];
       const projectsData = await authRequest().get("/project");
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
