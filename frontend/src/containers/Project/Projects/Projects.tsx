@@ -10,9 +10,11 @@ import ProjectsTable, {
   ProjectsTableRow,
 } from "../../../components/Project/ProjectsTable";
 import { ProjectData } from "../../../types";
+import Spinner from "../../../components/Spinner";
 
 const Projects = () => {
   const [rows, setRows] = useState<ProjectsTableRow[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjects = async () => {
@@ -34,15 +36,13 @@ const Projects = () => {
         })
       );
       setRows(projectsCollected);
+      setLoading(false);
     };
-    // const x = [];
-    // let i;
-    // for (i = 0; i <= 20; i += 1) {
-    //   x.push({ name: "xD", status: "open", owner: "haha", created_at: "xD" });
-    // }
-    // setRows(x);
     getProjects();
   }, []);
+  if (loading) {
+    return <Spinner centered />;
+  }
   return (
     <div className="center">
       {rows.length === 0 ? (
