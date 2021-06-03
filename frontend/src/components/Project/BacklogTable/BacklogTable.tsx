@@ -30,7 +30,13 @@ const BacklogTable = (props: BacklogTableProps) => {
     },
   ];
 
-  return <PaginatedTable columns={columns} rows={rows} />;
+  return (
+    <PaginatedTable
+      columns={columns}
+      rows={rows}
+      rowClickConfig={{ rowKey: "name", to: "/task/:id" }}
+    />
+  );
 };
 
 export default BacklogTable;

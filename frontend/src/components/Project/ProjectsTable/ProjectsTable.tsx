@@ -30,7 +30,13 @@ const ProjectsTable = (props: ProjectsTableProps) => {
     },
   ];
 
-  return <PaginatedTable columns={columns} rows={rows} />;
+  return (
+    <PaginatedTable
+      columns={columns}
+      rows={rows}
+      rowClickConfig={{ rowKey: "name", to: "/project/:id" }}
+    />
+  );
 };
 
 export default ProjectsTable;

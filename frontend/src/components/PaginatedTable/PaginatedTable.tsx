@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, generatePath } from "react-router-dom";
 
 import {
   Paper,
@@ -67,7 +67,9 @@ const PaginatedTable = (props: PaginatedTableProps) => {
                     : {
                         key: row[rowClickConfig.rowKey],
                         component: Link,
-                        to: rowClickConfig.to,
+                        to: generatePath(rowClickConfig.to, {
+                          id: row[rowClickConfig.rowKey],
+                        }),
                         style: { textDecoration: "none" },
                       };
                 return (
