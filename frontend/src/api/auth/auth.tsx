@@ -133,7 +133,7 @@ export const getCurrentUser = async (): UserData => {
 export const isAuthenticated = (): boolean => {
   const accessToken = getAccessToken();
   const refreshToken = getRefreshToken();
-  return accessToken !== null && refreshToken != null;
+  return accessToken !== null && refreshToken !== null;
 };
 
 export const refreshTokenExpired = (): boolean => {

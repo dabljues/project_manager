@@ -26,20 +26,18 @@ const styles = makeStyles<Theme>((theme) =>
 );
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const classes = styles();
-
   useEffect(() => {
-    const authenticated = isAuthenticated();
+    if (!loggedIn) {
+      setCurrentUser(null);
+      return;
+    }
     const getUser = async () => {
       setCurrentUser(await getCurrentUser());
     };
-    if (authenticated) {
-      getUser();
-    } else {
-      setCurrentUser(null);
-    }
+    getUser();
   }, [loggedIn]);
 
   const logIn = () => {
@@ -56,7 +54,7 @@ const App = () => {
         <Route
           exact
           path="/login"
-          component={() => <LoginPage logIn={logIn} logOut={logOut} />}
+          component={() => <LoginPage logIn={logIn} />}
         />
         <Route exact path="/register" component={RegisterPage} />
         <PrivateRoute exact path="/" component={HomePage} />

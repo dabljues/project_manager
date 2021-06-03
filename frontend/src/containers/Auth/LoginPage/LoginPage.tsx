@@ -17,7 +17,6 @@ import { isAuthenticated, setToken } from "../../../api/auth";
 
 interface LoginPageProps {
   logIn: () => void;
-  logOut: () => void;
 }
 async function loginUser(email: string, password: string) {
   try {
@@ -46,8 +45,6 @@ const LoginForm = (props: LoginPageProps) => {
     return <Redirect to={{ pathname: "/" }} />;
   }
   const { logIn } = props;
-  const { logOut } = props;
-  logOut();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [credentialsErrors, setCredentialsErrors] = useState(false);
@@ -132,10 +129,9 @@ const LoginForm = (props: LoginPageProps) => {
 
 const LoginPage = (props: LoginPageProps) => {
   const { logIn } = props;
-  const { logOut } = props;
   return (
     <div className="center">
-      <LoginForm logIn={logIn} logOut={logOut} />
+      <LoginForm logIn={logIn} />
       <div className="footer">
         <Typography>Copyright: dabljues</Typography>
       </div>
