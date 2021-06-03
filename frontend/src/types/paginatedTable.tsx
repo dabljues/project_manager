@@ -7,6 +7,11 @@ interface TableColumnInterface {
   align?: "right";
 }
 
+interface RowClickConfig {
+  rowKey: string;
+  to: string;
+}
+
 interface TableRowInterface extends Dictionary<string> {}
 
-export type { TableColumnInterface, TableRowInterface };
+export type { RowClickConfig, TableColumnInterface, TableRowInterface };

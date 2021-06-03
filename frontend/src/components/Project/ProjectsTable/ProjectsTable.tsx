@@ -30,7 +30,7 @@ const ProjectsTable = (props: ProjectsTableProps) => {
     },
   ];
 
-  return <PaginatedTable columns={columns} rows={rows} rowKey="name" />;
+  return <PaginatedTable columns={columns} rows={rows} />;
 };
 
 export default ProjectsTable;

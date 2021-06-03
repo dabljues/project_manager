@@ -12,16 +12,20 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-import { TableColumnInterface, TableRowInterface } from "../../types";
+import {
+  RowClickConfig,
+  TableColumnInterface,
+  TableRowInterface,
+} from "../../types";
 
 interface PaginatedTableProps {
   columns: TableColumnInterface[];
   rows: TableRowInterface[];
-  rowKey: string;
+  rowClickConfig?: RowClickConfig;
 }
 
 const PaginatedTable = (props: PaginatedTableProps) => {
-  const { columns, rows, rowKey } = props;
+  const { columns, rows, rowClickConfig } = props;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -56,26 +60,35 @@ const PaginatedTable = (props: PaginatedTableProps) => {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={row[rowKey]}
-                  component={Link}
-                  to={`/project/${row[rowKey]}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
+              .map((row) => {
+                const additionalProps =
+                  rowClickConfig === undefined
+                    ? {}
+                    : {
+                        key: row[rowClickConfig.rowKey],
+                        component: Link,
+                        to: rowClickConfig.to,
+                        style: { textDecoration: "none" },
+                      };
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...additionalProps}
+                  >
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -91,5 +104,7 @@ const PaginatedTable = (props: PaginatedTableProps) => {
     </Paper>
   );
 };
+
+PaginatedTable.defaultProps = { rowClickConfig: undefined };
 
 export default PaginatedTable;

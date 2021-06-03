@@ -30,7 +30,7 @@ const BacklogTable = (props: BacklogTableProps) => {
     },
   ];
 
-  return <PaginatedTable columns={columns} rows={rows} rowKey="name" />;
+  return <PaginatedTable columns={columns} rows={rows} />;
 };
 
 export default BacklogTable;
