@@ -1,5 +1,6 @@
 $border-solid: 1px solid black;
 $padding: 20px;
+$font-size: 15px;
 
 .profile-box {
   margin: 100px;
@@ -24,6 +25,7 @@ $padding: 20px;
     margin-bottom: 30px;
     width: 360px !important;
     height: 360px !important;
+    box-shadow: 0px 0px 50px 30px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -31,7 +33,6 @@ $padding: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 100px 100px 50px 100px;
 
   border-top: $border-solid;
   border-bottom: $border-solid;
@@ -40,33 +41,62 @@ $padding: 20px;
 
   font-family: Arial, Helvetica, sans-serif;
 
-  .row:not(:last-child) {
-    margin-bottom: 60px !important;
-  }
-
-  .tile {
-    min-width: 150px;
-    text-align: center;
-    .name {
-      padding: 2px;
-      font-weight: bold;
-      font-size: 25px;
-    }
-    .content {
-      padding: 15px;
-      font-size: 20px;
-    }
-  }
-
-  .edit-menu {
+  .profile-edit {
+    flex: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    padding: 50px 50px 20px 50px;
+    .rows {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
 
-    button:not(:last-child) {
-      margin-right: 15px;
+      .row:not(:last-child) {
+        margin-bottom: 15px;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
     }
+    .edit-menu {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
 
-    margin-top: 100px !important;
+      button:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      margin-top: 50px;
+    }
+  }
+
+  .user-stats {
+    padding: 20px;
+    display: flex;
+    border-top: 1px solid black;
+    .info-grid {
+      .tile {
+        height: fit-content;
+        min-width: 150px;
+        text-align: center;
+        .name {
+          padding: 2px;
+          border-bottom: 1px solid black;
+          font-weight: bold;
+          font-size: 20px;
+        }
+        .content {
+          padding: 15px;
+          font-size: 20px;
+        }
+      }
+      .tile:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
   }
 }
