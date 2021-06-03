@@ -10,19 +10,17 @@ import EditProfile from "../../../components/Profile/EditProfile";
 import { UserData } from "../../../types";
 import ChangeAvatar from "../../../components/Profile/ChangeAvatar";
 
-interface ProfileInfoRowProps {
+interface ProfileInfoTileProps {
   name: string;
-  content: string;
+  content: string | number;
 }
 
-const ProfileInfoRow = (props: ProfileInfoRowProps) => {
+const ProfileInfoTile = (props: ProfileInfoTileProps) => {
   const { name, content } = props;
   return (
-    <Grid container item xs={12} className="profile-entry">
-      <Grid item xs={1} className="profile-entry-name">
-        {name}
-      </Grid>
-      <Grid item>{content}</Grid>
+    <Grid item xs className="tile">
+      <div className="name">{name}</div>
+      <div className="content">{content}</div>
     </Grid>
   );
 };
@@ -54,21 +52,32 @@ const Profile = () => {
 
   return (
     <div className="profile-box">
-      <Typography variant="h3" className="profile-information-title">
-        Profile information
-      </Typography>
-      <Avatar src={currentUser?.avatar} className="profile-avatar" />
-      <Grid>
-        <Grid container item xs={12}>
-          <ProfileInfoRow name="First name" content={firstName} />
-          <ProfileInfoRow name="Last name" content={lastName} />
-          <ProfileInfoRow name="Email" content={email} />
+      <div className="profile-basic-info">
+        <Avatar src={avatar} className="avatar" />
+        <Typography variant="h5" color="textPrimary">
+          {firstName} {lastName}
+        </Typography>
+        <Typography>{email}</Typography>
+      </div>
+      <div className="profile-detailed-info">
+        <Grid container>
+          <Grid container item className="row">
+            <ProfileInfoTile name="Phone number" content="+48 123 456 789" />
+            <ProfileInfoTile name="Position" content="Software engineer" />
+            <ProfileInfoTile name="Empty" content="empty" />
+          </Grid>
+          <Grid container item className="row">
+            <ProfileInfoTile name="Projects" content={2} />
+            <ProfileInfoTile name="Tasks" content={10} />
+            <ProfileInfoTile name="Tasks done" content={3} />
+          </Grid>
         </Grid>
-      </Grid>
-      <div className="profile-edit-menu">
-        <EditProfile userData={currentUser} />
-        <ChangePassword userData={currentUser} />
-        <ChangeAvatar userData={currentUser} />
+
+        <div className="edit-menu">
+          <EditProfile userData={currentUser} />
+          <ChangePassword userData={currentUser} />
+          <ChangeAvatar userData={currentUser} />
+        </div>
       </div>
     </div>
   );

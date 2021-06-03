@@ -1,38 +1,72 @@
+$border-solid: 1px solid black;
+$padding: 20px;
+
 .profile-box {
-  border-radius: 50px;
-  border: 1px solid black;
   margin: 100px;
-  padding: 30px;
-}
-
-.profile-information-title {
-  margin-bottom: 50px !important;
-}
-
-.profile-avatar {
-  margin-bottom: 50px;
-  width: 120px !important;
-  height: 120px !important;
-}
-
-.profile-entry {
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
-.profile-entry-name {
-  font-weight: bolder;
-  font-size: 20px;
-}
-
-.profile-edit-menu {
   display: flex;
   flex-direction: row;
-  margin-top: 50px !important;
-  button + button {
-    margin-left: 20px;
+  overflow: hidden;
+}
+
+.profile-basic-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+
+  border-radius: 50px 0px 0px 50px;
+  padding: $padding;
+
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+
+  .avatar {
+    margin-bottom: 30px;
+    width: 360px !important;
+    height: 360px !important;
   }
-  button + label {
-    margin-left: 20px;
+}
+
+.profile-detailed-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 100px 100px 50px 100px;
+
+  border-top: $border-solid;
+  border-bottom: $border-solid;
+  border-right: $border-solid;
+  border-radius: 0px 50px 50px 0px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  .row:not(:last-child) {
+    margin-bottom: 60px !important;
+  }
+
+  .tile {
+    min-width: 150px;
+    text-align: center;
+    .name {
+      padding: 2px;
+      font-weight: bold;
+      font-size: 25px;
+    }
+    .content {
+      padding: 15px;
+      font-size: 20px;
+    }
+  }
+
+  .edit-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    button:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    margin-top: 100px !important;
   }
 }
