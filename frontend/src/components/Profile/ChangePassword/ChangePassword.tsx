@@ -84,7 +84,7 @@ const ChangePassword = (props: ChangePasswordProps) => {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
         Change password
       </Button>
       <Dialog
