@@ -4,97 +4,31 @@ import { useEffect, useState } from "react";
 
 import {
   Avatar,
-  Card,
-  CardContent,
-  CardHeader,
   createStyles,
   Grid,
   makeStyles,
-  TextField,
-  Theme,
   Typography,
 } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import EmailIcon from "@material-ui/icons/Email";
+import GroupWorkIcon from "@material-ui/icons/GroupWork";
+import PhoneIcon from "@material-ui/icons/Phone";
 
 import { getCurrentUser } from "../../../api/auth";
 import ChangeAvatar from "../../../components/Profile/ChangeAvatar";
 import ChangePassword from "../../../components/Profile/ChangePassword";
 import { UserData } from "../../../types";
+import { ProfileInfoRow, UserStatsTile } from "./utils";
 
-const useStyles = makeStyles((theme: Theme) => {
-  const fontSize = 15;
-
-  return createStyles({
+const useStyles = makeStyles(() =>
+  createStyles({
     avatarText: {
       mixBlendMode: "difference",
       color: "brown",
     },
-    input: {
-      marginLeft: theme.spacing(1),
-      height: 20,
-      width: "300px",
-      fontSize,
-    },
-    label: {
-      fontSize,
-      fontWeight: "bold",
-      width: "120px",
-      textAlign: "right",
-    },
-  });
-});
-interface ProfileInfoRowProps {
-  label: string;
-  content: string | number;
-}
-
-interface UserStatsTileProps {
-  icon: JSX.Element;
-  name: string;
-  content: string | number;
-  subheader: string;
-}
-
-const ProfileInfoRow = (props: ProfileInfoRowProps) => {
-  const { label, content } = props;
-  const classes = useStyles();
-  return (
-    <div className="row">
-      <Typography className={classes.label}>{label}</Typography>
-      <TextField
-        variant="outlined"
-        InputProps={{
-          className: classes.input,
-        }}
-        defaultValue={content}
-      />
-    </div>
-  );
-};
-
-const UserStatsTile = (props: UserStatsTileProps) => {
-  const { icon, name, content, subheader } = props;
-  return (
-    <Grid item xs className="tile">
-      <Card>
-        <CardHeader
-          title={
-            <div>
-              {icon}
-              <Typography>{name}</Typography>
-            </div>
-          }
-          subheader={subheader}
-        />
-        <CardContent>
-          <Typography>{content}</Typography>
-        </CardContent>
-      </Card>
-    </Grid>
-  );
-};
+  })
+);
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
@@ -140,11 +74,17 @@ const Profile = () => {
       <div className="profile-detailed-info">
         <div className="profile-edit">
           <div className="rows">
-            <ProfileInfoRow label="First name" content={firstName} />
-            <ProfileInfoRow label="Last name" content={lastName} />
-            <ProfileInfoRow label="E-mail" content={email} />
-            <ProfileInfoRow label="Phone number" content="+48 123 456 789" />
-            <ProfileInfoRow label="Position" content="Software engineer" />
+            <ProfileInfoRow name="First name" content={firstName} />
+            <ProfileInfoRow name="Last name" content={lastName} />
+            <ProfileInfoRow
+              name={{ icon: <EmailIcon />, tooltip: "E-mail" }}
+              content={email}
+            />
+            <ProfileInfoRow
+              name={{ icon: <PhoneIcon />, tooltip: "Phone number" }}
+              content="+48 123 456 789"
+            />
+            <ProfileInfoRow name="Position" content="Software engineer" />
           </div>
 
           <div className="edit-menu">
