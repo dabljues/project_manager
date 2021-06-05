@@ -1,4 +1,4 @@
-$border-solid: 1px solid black;
+$border-solid: 1px solid gray;
 $padding: 20px;
 $font-size: 15px;
 
@@ -77,7 +77,7 @@ $font-size: 15px;
   .user-stats {
     padding: 20px;
     display: flex;
-    border-top: 1px solid black;
+    border-top: $border-solid;
     .info-grid {
       .tile {
         height: fit-content;
@@ -85,7 +85,7 @@ $font-size: 15px;
         text-align: center;
         .name {
           padding: 2px;
-          border-bottom: 1px solid black;
+          border-bottom: $border-solid;
           font-weight: bold;
           font-size: 20px;
         }
