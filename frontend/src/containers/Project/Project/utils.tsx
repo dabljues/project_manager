@@ -1,9 +1,12 @@
+import "./Project.scss";
+
 import {
-  makeStyles,
-  createStyles,
-  Typography,
   Button,
+  createStyles,
+  makeStyles,
+  Typography,
 } from "@material-ui/core";
+
 import { UserData } from "../../../types";
 
 const useStyles = makeStyles(() =>
