@@ -4,20 +4,15 @@ import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Button,
   createStyles,
   makeStyles,
-  TextField,
   Typography,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 import { authRequest } from "../../../api/auth";
+import Description from "../../../components/Description";
 import Spinner from "../../../components/Spinner";
 import ProjectData from "../../../types/project";
 import { ProjectParticipants, ProjectStatusRow } from "./utils";
@@ -67,13 +62,13 @@ interface ProjectProps extends RouteComponentProps<ProjectParams> {}
 const Project = ({ match }: ProjectProps) => {
   const { projectName } = match.params;
   const [project, setProject] = useState<ProjectData | null>(null);
-  const [expanded, setExpanded] = useState(true);
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
   const history = useHistory();
 
   const authCommunicator = authRequest();
+
   useEffect(() => {
     const getProject = async () => {
       const projectData = await authCommunicator
@@ -87,6 +82,10 @@ const Project = ({ match }: ProjectProps) => {
       setProject(null);
     };
   }, []);
+
+  const saveDescription = (content: string) => {
+    alert(content);
+  };
 
   if (loading || project == null) {
     return <Spinner centered />;
@@ -124,31 +123,10 @@ const Project = ({ match }: ProjectProps) => {
             }
           />
         </div>
-        <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography style={{ fontWeight: "bold", marginRight: 20 }}>
-              Description
-            </Typography>
-            {expanded ? (
-              <EditIcon />
-            ) : (
-              <Typography>{project.description.slice(0, 30)}...</Typography>
-            )}
-          </AccordionSummary>
-          <AccordionDetails>
-            <TextField
-              multiline
-              variant="outlined"
-              fullWidth
-              defaultValue={project.description}
-              style={{}}
-            />
-          </AccordionDetails>
-        </Accordion>
+        <Description
+          onChangeSubmit={saveDescription}
+          content={project.description}
+        />
       </div>
       <div className="project-views">
         <div className="views-position">
