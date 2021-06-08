@@ -1,15 +1,22 @@
 from projects.models import Project
 from rest_framework import viewsets
-from tasks.api.serializers import TaskSerializer
-from tasks.models import Task, SubTask
+from tasks.api.serializers import ReadTaskSerializer, WriteTaskSerializer
+from tasks.models import SubTask, Task
+
+from utils.viewsets import ReadWriteViewset
 
 from .utils import generate_task_id
 
 
-class TaskViewSet(viewsets.ModelViewSet):
+class TaskViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+    serializer_class = ReadTaskSerializer
     lookup_field = "name"
+    permission_classes = []
+    authentication_classes = []
+
+    read_serializer_class = ReadTaskSerializer
+    write_serializer_class = WriteTaskSerializer
 
     def perform_create(self, serializer):
         project_id = self.request.data["project"]
