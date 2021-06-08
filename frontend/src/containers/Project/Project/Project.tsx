@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 
 import {
+  Avatar,
   Button,
   createStyles,
   makeStyles,
@@ -15,7 +16,7 @@ import { authRequest } from "../../../api/auth";
 import Description from "../../../components/Description";
 import Spinner from "../../../components/Spinner";
 import ProjectData from "../../../types/project";
-import { ProjectParticipants, ProjectStatusRow } from "./utils";
+import { ProjectParticipants, ProjectStatusRow, ProjectInfoRow } from "./utils";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,31 +28,6 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-
-interface ProjectEditRowProps {
-  name: string;
-  content: string;
-  editButton: JSX.Element;
-}
-
-const ProjectEditRow = (props: ProjectEditRowProps) => {
-  const { name, content, editButton } = props;
-  const classes = useStyles();
-
-  return (
-    <div className="info-row">
-      <div className="info">
-        <div className="label">
-          <Typography variant="h5" className={classes.infoLabel}>
-            {name}
-          </Typography>
-        </div>
-        <Typography variant="h6">{content}</Typography>
-      </div>
-      <div className="edit">{editButton}</div>
-    </div>
-  );
-};
 
 interface ProjectParams {
   projectName: string;
@@ -112,17 +88,25 @@ const Project = ({ match }: ProjectProps) => {
       </div>
       <div className="project-details">
         <ProjectStatusRow projectStatus={project.status} />
-        <div>
-          <ProjectEditRow
+        <>
+          <ProjectInfoRow
             name="Owner"
-            content={`${project.owner.firstName} ${project.owner.lastName}`}
+            content={
+              <div className="content">
+                <Avatar
+                  src={project.owner.avatar}
+                  style={{ marginRight: 15 }}
+                />
+                {`${project.owner.firstName} ${project.owner.lastName}`}
+              </div>
+            }
             editButton={
               <Button variant="contained" color="primary">
                 Transfer Ownership
               </Button>
             }
           />
-          <ProjectEditRow
+          <ProjectInfoRow
             name="Created at"
             content={project.createdAt}
             editButton={
@@ -131,7 +115,7 @@ const Project = ({ match }: ProjectProps) => {
               </Button>
             }
           />
-        </div>
+        </>
         <Description
           onChangeSubmit={saveDescription}
           content={project.description}
