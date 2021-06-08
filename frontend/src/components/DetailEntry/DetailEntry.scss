@@ -1,0 +1,25 @@
+.detail-entry {
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+
+  .info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    .label {
+      width: 150px;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.detail-entry:not(:last-child) {
+  margin-bottom: 20px;
+}
