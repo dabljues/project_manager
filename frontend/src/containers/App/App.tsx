@@ -24,6 +24,7 @@ import Backlog from "../Project/Backlog";
 import CreateProject from "../Project/CreateProject";
 import Project from "../Project/Project";
 import Projects from "../Project/Projects";
+import Task from "../Task/Task";
 
 const THEME = createMuiTheme({
   typography: {
@@ -92,6 +93,7 @@ const App = () => {
             path="/project/:projectName/backlog"
             component={Backlog}
           />
+          <PrivateRoute exact path="/task/:taskName" component={Task} />
         </Switch>
       </Router>
     </MuiThemeProvider>
