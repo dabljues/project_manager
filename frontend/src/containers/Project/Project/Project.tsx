@@ -83,13 +83,22 @@ const Project = ({ match }: ProjectProps) => {
     };
   }, []);
 
-  const saveDescription = (content: string) => {
-    alert(content);
-  };
-
   if (loading || project == null) {
     return <Spinner centered />;
   }
+
+  const saveDescription = async (content: string): Promise<boolean> => {
+    const r = await authCommunicator
+      .patch(`/project/${project.name}/`, {
+        description: content,
+      })
+      .then((response) => {
+        setProject(response.data);
+        return true;
+      })
+      .catch(() => false);
+    return r;
+  };
 
   return (
     <div className="project">

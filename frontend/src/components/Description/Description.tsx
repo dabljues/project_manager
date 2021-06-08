@@ -1,6 +1,6 @@
 import "./Description.scss";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Accordion,
@@ -16,7 +16,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SaveIcon from "@material-ui/icons/Save";
 
 interface DescriptionProps {
-  onChangeSubmit?: (content: string) => void;
+  onChangeSubmit?: (content: string) => Promise<boolean>;
   title?: string;
   content: string;
   rows?: number;
@@ -76,7 +76,13 @@ const Description = (props: DescriptionProps) => {
       </AccordionDetails>
       {descriptionChanged && onChangeSubmit !== undefined ? (
         <div className="description-edit-actions">
-          <IconButton onClick={() => onChangeSubmit(descriptionContent)}>
+          <IconButton
+            onClick={async () => {
+              setDescriptionChanged(
+                !(await onChangeSubmit(descriptionContent))
+              );
+            }}
+          >
             <SaveIcon />
           </IconButton>
           <IconButton onClick={() => resetDescription()}>
