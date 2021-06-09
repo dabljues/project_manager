@@ -16,7 +16,8 @@ import { authRequest } from "../../../api/auth";
 import Description from "../../../components/Description";
 import Spinner from "../../../components/Spinner";
 import ProjectData from "../../../types/project";
-import { ProjectParticipants, ProjectStatusRow, ProjectInfoRow } from "./utils";
+import { ProjectParticipants, ProjectInfoRow } from "./utils";
+import ProjectStatus from "../../../components/Project/ProjectStatus";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -87,7 +88,7 @@ const Project = ({ match }: ProjectProps) => {
         </Typography>
       </div>
       <div className="project-details">
-        <ProjectStatusRow projectStatus={project.status} />
+        <ProjectStatus name={project.name} status={project.status} />
         <>
           <ProjectInfoRow
             name="Owner"

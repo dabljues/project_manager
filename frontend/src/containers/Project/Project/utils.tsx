@@ -24,32 +24,6 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-
-interface ProjectStatusRowProps {
-  projectStatus: string;
-}
-
-const ProjectStatusRow = (props: ProjectStatusRowProps) => {
-  const { projectStatus } = props;
-  const classes = useStyles();
-
-  return (
-    <div className="status-row">
-      <Typography
-        variant="h4"
-        className={
-          projectStatus === "Open" ? classes.openProject : classes.closedProject
-        }
-      >
-        {projectStatus}
-      </Typography>
-      <Button variant="contained" color="primary">
-        {projectStatus === "Open" ? "Close project" : "Open project"}
-      </Button>
-    </div>
-  );
-};
-
 interface ProjectInfoRowProps {
   name: string;
   content: JSX.Element | string;
@@ -84,4 +58,4 @@ const ProjectParticipants = (props: ProjectParticipantsProps) => {
   return <div>xD</div>;
 };
 
-export { ProjectStatusRow, ProjectParticipants, ProjectInfoRow };
+export { ProjectParticipants, ProjectInfoRow };
