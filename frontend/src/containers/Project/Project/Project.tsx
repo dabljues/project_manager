@@ -1,7 +1,6 @@
-import "./Project.scss";
-
 import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
+import ProjectData from "types/project";
 
 import {
   Button,
@@ -12,12 +11,12 @@ import {
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 import { authRequest } from "../../../api/auth";
+import ProjectDetails from "../../../components/Project/ProjectDetails";
+import ProjectStatus from "../../../components/Project/ProjectStatus";
 import Description from "../../../components/shared/Description";
 import Spinner from "../../../components/shared/Spinner";
-import ProjectData from "../../../types/project";
+import * as S from "./Project.styles";
 import ProjectParticipants from "./utils";
-import ProjectStatus from "../../../components/Project/ProjectStatus";
-import ProjectDetails from "../../../components/Project/ProjectDetails";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -76,23 +75,23 @@ const Project = ({ match }: ProjectProps) => {
   };
 
   return (
-    <div className="project">
-      <div className="project-name">
+    <S.Project>
+      <S.ProjectName>
         <GroupWorkIcon className={classes.icon} />
         <Typography variant="h2" className={classes.projectName}>
           {project.name}
         </Typography>
-      </div>
-      <div className="project-info">
+      </S.ProjectName>
+      <S.ProjectInfo>
         <ProjectStatus name={project.name} status={project.status} />
         <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
         <Description
           onChangeSubmit={saveDescription}
           content={project.description}
         />
-      </div>
-      <div className="project-views">
-        <div className="views-position">
+      </S.ProjectInfo>
+      <S.ProjectViews>
+        <S.ProjectViewsButtons>
           <Button
             variant="contained"
             color="primary"
@@ -103,9 +102,9 @@ const Project = ({ match }: ProjectProps) => {
           <Button variant="contained" color="primary">
             Kanban Board
           </Button>
-        </div>
-      </div>
-    </div>
+        </S.ProjectViewsButtons>
+      </S.ProjectViews>
+    </S.Project>
   );
 };
 
