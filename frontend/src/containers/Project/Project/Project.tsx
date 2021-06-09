@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 
 import {
-  Avatar,
   Button,
   createStyles,
   makeStyles,
@@ -16,17 +15,16 @@ import { authRequest } from "../../../api/auth";
 import Description from "../../../components/Description";
 import Spinner from "../../../components/Spinner";
 import ProjectData from "../../../types/project";
-import { ProjectParticipants, ProjectInfoRow } from "./utils";
+import ProjectParticipants from "./utils";
 import ProjectStatus from "../../../components/Project/ProjectStatus";
+import ProjectDetails from "../../../components/Project/ProjectDetails";
 
 const useStyles = makeStyles(() =>
   createStyles({
     projectName: {
       color: "snow",
     },
-    infoLabel: {
-      fontWeight: "bold",
-    },
+    icon: { color: "#cc3399", fontSize: 55, marginRight: 15 },
   })
 );
 
@@ -80,43 +78,14 @@ const Project = ({ match }: ProjectProps) => {
   return (
     <div className="project">
       <div className="project-name">
-        <GroupWorkIcon
-          style={{ color: "#cc3399", fontSize: 55, marginRight: 15 }}
-        />
+        <GroupWorkIcon className={classes.icon} />
         <Typography variant="h2" className={classes.projectName}>
           {project.name}
         </Typography>
       </div>
-      <div className="project-details">
+      <div className="project-info">
         <ProjectStatus name={project.name} status={project.status} />
-        <>
-          <ProjectInfoRow
-            name="Owner"
-            content={
-              <div className="content">
-                <Avatar
-                  src={project.owner.avatar}
-                  style={{ marginRight: 15 }}
-                />
-                {`${project.owner.firstName} ${project.owner.lastName}`}
-              </div>
-            }
-            editButton={
-              <Button variant="contained" color="primary">
-                Transfer Ownership
-              </Button>
-            }
-          />
-          <ProjectInfoRow
-            name="Created at"
-            content={project.createdAt}
-            editButton={
-              <Button variant="contained" color="secondary">
-                Delete Project
-              </Button>
-            }
-          />
-        </>
+        <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
         <Description
           onChangeSubmit={saveDescription}
           content={project.description}
