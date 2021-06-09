@@ -28,6 +28,11 @@ const useStyles = makeStyles(() =>
     infoLabel: {
       fontWeight: "bold",
     },
+    icon: {
+      color: "white",
+      fontSize: 55,
+      marginRight: 15,
+    },
   })
 );
 
@@ -79,15 +84,13 @@ const Task = ({ match }: TaskProps) => {
   return (
     <div className="task">
       <div className="task-name">
-        <AssignmentIcon
-          style={{ color: "white", fontSize: 55, marginRight: 15 }}
-        />
+        <AssignmentIcon className={classes.icon} />
         <Typography variant="h2" className={classes.taskName}>
           {task.name}
         </Typography>
       </div>
       <div className="task-info">
-        <TaskStatus status={task.status} />
+        <TaskStatus name={task.name} status={task.status} />
         <TaskDetails
           title={task.title}
           type={task.type}
