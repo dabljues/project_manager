@@ -6,5 +6,7 @@ from .utils import TASK_TYPES
 
 
 class Task(TaskBase):
-    type = models.CharField("Type", max_length=1, default="T", choices=TASK_TYPES)
+    TYPE_CHOICES = TASK_TYPES
+
+    type = models.CharField("Type", max_length=1, default="T", choices=TYPE_CHOICES)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

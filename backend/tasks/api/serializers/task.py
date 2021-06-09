@@ -8,15 +8,15 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = "__all__"
 
-    status = serializers.CharField(source="get_status_display", required=False)
-    type = serializers.CharField(source="get_type_display", required=False)
-
 
 class WriteTaskSerializer(TaskSerializer):
-    pass
+    status = serializers.ChoiceField(choices=Task.STATUS_CHOICES)
+    type = serializers.ChoiceField(choices=Task.TYPE_CHOICES)
 
 
 class ReadTaskSerializer(TaskSerializer):
 
+    status = serializers.CharField(source="get_status_display")
+    type = serializers.CharField(source="get_type_display")
     creator = UserSerializer()
     assignee = UserSerializer()

@@ -6,8 +6,10 @@ from .utils import TASK_STATUSES
 
 
 class TaskBase(models.Model):
+    STATUS_CHOICES = TASK_STATUSES
+
     name = models.CharField("Name", max_length=12, unique=True, blank=True)
-    status = models.CharField("State", max_length=2, default="NW", choices=TASK_STATUSES)
+    status = models.CharField("State", max_length=2, default="NW", choices=STATUS_CHOICES)
     title = models.CharField("Title", max_length=100)
     description = models.CharField("Description", max_length=2000, default="")
 
