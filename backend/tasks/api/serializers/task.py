@@ -10,8 +10,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class WriteTaskSerializer(TaskSerializer):
-    status = serializers.ChoiceField(choices=Task.STATUS_CHOICES)
-    type = serializers.ChoiceField(choices=Task.TYPE_CHOICES)
+    pass
 
 
 class ReadTaskSerializer(TaskSerializer):
