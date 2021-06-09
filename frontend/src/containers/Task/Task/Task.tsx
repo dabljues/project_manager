@@ -17,6 +17,7 @@ import { TaskData } from "../../../types";
 import StatusRow from "../../../components/StatusRow";
 import DetailEntry from "../../../components/DetailEntry";
 import Description from "../../../components/Description";
+import TaskStatus from "../../../components/Task/TaskStatus";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -74,8 +75,6 @@ const Task = ({ match }: TaskProps) => {
     return r;
   };
 
-  console.log(task);
-
   return (
     <div className="task">
       <div className="task-name">
@@ -87,18 +86,7 @@ const Task = ({ match }: TaskProps) => {
         </Typography>
       </div>
       <div className="task-details">
-        <StatusRow status={task.status}>
-          <Button variant="contained">New</Button>
-          <Button variant="contained">To do</Button>
-          <Button variant="contained">In progress</Button>
-          <Button variant="contained">In review</Button>
-          <Button variant="contained" color="primary">
-            Done
-          </Button>
-          <Button variant="contained" color="secondary">
-            Close
-          </Button>
-        </StatusRow>
+        <TaskStatus status={task.status} />
         <>
           <DetailEntry
             name="Title"

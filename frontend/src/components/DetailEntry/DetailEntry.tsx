@@ -9,8 +9,12 @@ import {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    infoLabel: {
+    detailLabel: {
       fontWeight: "bold",
+      fontSize: 20,
+    },
+    detailContent: {
+      fontSize: 18,
     },
   })
 );
@@ -29,11 +33,9 @@ const DetailEntry = (props: DetailEntryProps) => {
     <div className="detail-entry">
       <div className="info">
         <div className="label">
-          <Typography variant="h5" className={classes.infoLabel}>
-            {name}
-          </Typography>
+          <Typography className={classes.detailLabel}>{name}</Typography>
         </div>
-        <Typography variant="h6">{content}</Typography>
+        <Typography className={classes.detailContent}>{content}</Typography>
       </div>
       <div className="edit">{editButton}</div>
     </div>
