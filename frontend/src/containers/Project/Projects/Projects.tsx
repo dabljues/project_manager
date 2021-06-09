@@ -8,7 +8,7 @@ import { Button, Typography } from "@material-ui/core";
 import { authRequest } from "../../../api/auth";
 import ProjectsTable from "../../../components/Project/ProjectsTable";
 import { ProjectData, TableRowInterface } from "../../../types";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/shared/Spinner";
 
 const Projects = () => {
   const [rows, setRows] = useState<TableRowInterface[]>([]);

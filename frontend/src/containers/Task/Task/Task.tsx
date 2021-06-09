@@ -12,11 +12,11 @@ import {
 } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { authRequest } from "../../../api/auth";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../../components/shared/Spinner";
 import { TaskData } from "../../../types";
-import StatusRow from "../../../components/StatusRow";
-import DetailEntry from "../../../components/DetailEntry";
-import Description from "../../../components/Description";
+import StatusRow from "../../../components/shared/StatusRow";
+import DetailEntry from "../../../components/shared/DetailEntry";
+import Description from "../../../components/shared/Description";
 import TaskStatus from "../../../components/Task/TaskStatus";
 import TaskDetails from "../../../components/Task/TaskDetails";
 
