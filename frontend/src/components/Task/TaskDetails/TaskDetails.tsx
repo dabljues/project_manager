@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 
 import { UserData } from "../../../types";
-import DetailEntry from "../../DetailEntry";
+import DetailEntry from "../../shared/DetailEntry";
 
 const useStyles = makeStyles(() =>
   createStyles({

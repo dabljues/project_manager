@@ -12,8 +12,8 @@ import {
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 import { authRequest } from "../../../api/auth";
-import Description from "../../../components/Description";
-import Spinner from "../../../components/Spinner";
+import Description from "../../../components/shared/Description";
+import Spinner from "../../../components/shared/Spinner";
 import ProjectData from "../../../types/project";
 import ProjectParticipants from "./utils";
 import ProjectStatus from "../../../components/Project/ProjectStatus";

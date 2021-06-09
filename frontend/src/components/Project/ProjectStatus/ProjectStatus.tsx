@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import { useState } from "react";
 import { authRequest } from "../../../api/auth";
 import Dictionary from "../../../types/generic";
-import StatusRow from "../../StatusRow";
+import StatusRow from "../../shared/StatusRow";
 
 interface ProjectStatusProps {
   name: string;

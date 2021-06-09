@@ -1,5 +1,5 @@
 import { TableColumnInterface, TableRowInterface } from "../../../types";
-import PaginatedTable from "../../PaginatedTable";
+import PaginatedTable from "../../shared/PaginatedTable";
 
 interface BacklogTableProps {
   rows: TableRowInterface[];
