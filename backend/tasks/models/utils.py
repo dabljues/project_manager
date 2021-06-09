@@ -1,4 +1,5 @@
 TASK_STATUSES = [
+    ("DN", "Done"),
     ("IP", "In progress"),
     ("IR", "In review"),
     ("NW", "New"),
