@@ -1,11 +1,8 @@
 import "./DetailEntry.scss";
 
-import {
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import React from "react";
+
+import { createStyles, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -21,12 +18,11 @@ const useStyles = makeStyles(() =>
 
 interface DetailEntryProps {
   name: string;
-  content: JSX.Element | string;
   editButton: JSX.Element;
 }
 
-const DetailEntry = (props: DetailEntryProps) => {
-  const { name, content, editButton } = props;
+const DetailEntry = (props: React.PropsWithChildren<DetailEntryProps>) => {
+  const { name, editButton, children } = props;
   const classes = useStyles();
 
   return (
@@ -35,7 +31,7 @@ const DetailEntry = (props: DetailEntryProps) => {
         <div className="label">
           <Typography className={classes.detailLabel}>{name}</Typography>
         </div>
-        <Typography className={classes.detailContent}>{content}</Typography>
+        <div className="content">{children}</div>
       </div>
       <div className="edit">{editButton}</div>
     </div>

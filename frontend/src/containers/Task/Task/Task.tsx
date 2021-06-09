@@ -18,6 +18,7 @@ import StatusRow from "../../../components/StatusRow";
 import DetailEntry from "../../../components/DetailEntry";
 import Description from "../../../components/Description";
 import TaskStatus from "../../../components/Task/TaskStatus";
+import TaskDetails from "../../../components/Task/TaskDetails";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -85,68 +86,15 @@ const Task = ({ match }: TaskProps) => {
           {task.name}
         </Typography>
       </div>
-      <div className="task-details">
+      <div className="task-info">
         <TaskStatus status={task.status} />
-        <>
-          <DetailEntry
-            name="Title"
-            content={task.title}
-            editButton={
-              <Button variant="contained" color="primary">
-                Change title
-              </Button>
-            }
-          />
-          <DetailEntry
-            name="Type"
-            content={task.type}
-            editButton={
-              <Button variant="contained" color="primary">
-                Change type
-              </Button>
-            }
-          />
-          <DetailEntry
-            name="Creator"
-            content={
-              <div className="content">
-                <Avatar src={task.creator.avatar} style={{ marginRight: 15 }} />
-                {`${task.creator.firstName} ${task.creator.lastName}`}
-              </div>
-            }
-            editButton={
-              <Button variant="contained" color="primary">
-                Transfer Ownership
-              </Button>
-            }
-          />
-          <DetailEntry
-            name="Assignee"
-            content={
-              <div className="content">
-                <Avatar
-                  src={task.assignee.avatar}
-                  style={{ marginRight: 15 }}
-                />
-                {`${task.assignee.firstName} ${task.assignee.lastName}`}
-              </div>
-            }
-            editButton={
-              <Button variant="contained" color="primary">
-                Assign
-              </Button>
-            }
-          />
-          <DetailEntry
-            name="Created at"
-            content={task.createdAt}
-            editButton={
-              <Button variant="contained" color="secondary">
-                Delete Task
-              </Button>
-            }
-          />
-        </>
+        <TaskDetails
+          title={task.title}
+          type={task.type}
+          creator={task.creator}
+          assignee={task.assignee}
+          createdAt={task.createdAt}
+        />
         <Description
           onChangeSubmit={saveDescription}
           content={task.description}

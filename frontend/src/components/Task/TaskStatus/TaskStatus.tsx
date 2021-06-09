@@ -1,5 +1,4 @@
 import { Button } from "@material-ui/core";
-import task from "../../../types/task";
 import StatusRow from "../../StatusRow";
 
 interface TaskStatusProps {
