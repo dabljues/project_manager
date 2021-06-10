@@ -52,7 +52,7 @@ const Projects = () => {
   }
   return (
     <CenteredDiv>
-      {rows.length !== 0 ? (
+      {rows.length === 0 ? (
         <NoProjects>
           <Typography variant="h1">You have no projects</Typography>
           <CreateProjectLink to="/project/create">
