@@ -1,5 +1,4 @@
-import "./Backlog.scss";
-
+import CenteredDiv from "components/shared/CenteredDiv";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
@@ -54,9 +53,9 @@ const Backlog = ({ match }: BacklogProps) => {
   }, []);
 
   return (
-    <div className="center">
+    <CenteredDiv>
       <BacklogTable rows={rows} />{" "}
-    </div>
+    </CenteredDiv>
   );
 };
 

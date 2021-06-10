@@ -1,5 +1,4 @@
-import "./CreateProject.scss";
-
+import CenteredDiv from "components/shared/CenteredDiv";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -27,13 +26,13 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="center">
+    <CenteredDiv>
       <CreateProjectForm
         setProjectName={setProjectName}
         projectNameErrors={projectNameErrors}
         createProject={handleCreate}
       />
-    </div>
+    </CenteredDiv>
   );
 };
 
