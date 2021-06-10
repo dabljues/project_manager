@@ -1,4 +1,4 @@
-import { Button, Paper, TextField } from "@material-ui/core";
+import { Avatar, Button, Paper, TextField } from "@material-ui/core";
 import styled from "styled-components/macro";
 
 const RegisterForm = styled(Paper)`
@@ -31,4 +31,8 @@ const FormTextField = styled(TextField)`
   width: 100%;
 `;
 
-export { FormTextField, RegisterForm, SignUpButton, SignUpLogo };
+const StyledAvatar = styled(Avatar)`
+  margin-bottom: 8px;
+`;
+
+export { FormTextField, RegisterForm, SignUpButton, SignUpLogo, StyledAvatar };

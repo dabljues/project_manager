@@ -85,9 +85,9 @@ const RegisterForm = () => {
   return (
     <S.RegisterForm>
       <S.SignUpLogo>
-        <Avatar className="avatar">
+        <S.StyledAvatar>
           <PersonIcon />
-        </Avatar>
+        </S.StyledAvatar>
         <Typography variant="h6">Sign up to Project Manager</Typography>
       </S.SignUpLogo>
       <S.FormTextField
