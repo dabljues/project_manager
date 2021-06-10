@@ -21,12 +21,8 @@ const ProjectViews = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px;
-`;
-
-const ProjectViewsButtons = styled.div`
-  display: flex;
   button + button {
-    margin-left: 100px !important;
+    margin-left: 200px !important;
   }
 `;
-export { Project, ProjectInfo, ProjectName, ProjectViews, ProjectViewsButtons };
+export { Project, ProjectInfo, ProjectName, ProjectViews };
