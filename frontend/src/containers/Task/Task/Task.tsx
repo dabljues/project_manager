@@ -1,24 +1,16 @@
-import "./Task.scss";
-
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-import {
-  Avatar,
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { createStyles, makeStyles, Typography } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+
 import { authRequest } from "../../../api/auth";
-import Spinner from "../../../components/shared/Spinner";
-import { TaskData } from "../../../types";
-import StatusRow from "../../../components/shared/StatusRow";
-import DetailEntry from "../../../components/shared/DetailEntry";
 import Description from "../../../components/shared/Description";
-import TaskStatus from "../../../components/Task/TaskStatus";
+import Spinner from "../../../components/shared/Spinner";
 import TaskDetails from "../../../components/Task/TaskDetails";
+import TaskStatus from "../../../components/Task/TaskStatus";
+import { TaskData } from "../../../types";
+import * as S from "./Task.styles";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -82,14 +74,14 @@ const Task = ({ match }: TaskProps) => {
   };
 
   return (
-    <div className="task">
-      <div className="task-name">
+    <S.Task>
+      <S.TaskName>
         <AssignmentIcon className={classes.icon} />
         <Typography variant="h2" className={classes.taskName}>
           {task.name}
         </Typography>
-      </div>
-      <div className="task-info">
+      </S.TaskName>
+      <S.TaskInfo>
         <TaskStatus name={task.name} status={task.status} />
         <TaskDetails
           title={task.title}
@@ -102,8 +94,8 @@ const Task = ({ match }: TaskProps) => {
           onChangeSubmit={saveDescription}
           content={task.description}
         />
-      </div>
-    </div>
+      </S.TaskInfo>
+    </S.Task>
   );
 };
 
