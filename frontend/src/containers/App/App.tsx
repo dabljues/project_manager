@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import {
-  createMuiTheme,
-  createStyles,
-  makeStyles,
-  MuiThemeProvider,
-  Theme,
-} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import { getCurrentUser, isAuthenticated } from "../../api/auth";
 import PrivateRoute from "../../components/PrivateRoute";
@@ -24,16 +18,6 @@ import Projects from "../Project/Projects";
 import Task from "../Task/Task";
 
 import * as S from "./App.styles";
-
-const THEME = createMuiTheme({
-  typography: {
-    fontFamily: `Arial, sans-serif`,
-    fontSize: 16,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-  },
-});
 
 const styles = makeStyles<Theme>((theme) =>
   createStyles({
@@ -63,43 +47,41 @@ const App = () => {
     setLoggedIn(false);
   };
   return (
-    <MuiThemeProvider theme={THEME}>
-      <Router>
-        <S.PageContainer>
-          <PageHeader currentUser={currentUser} logOut={logOut} />
-          <div className={classes.appBarSpacer} />
-          <S.PageContent>
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                component={() => <LoginPage logIn={logIn} />}
-              />
-              <Route exact path="/register" component={RegisterPage} />
-              <PrivateRoute exact path="/" component={HomePage} />
-              <PrivateRoute exact path="/profile" component={Profile} />
-              <PrivateRoute exact path="/projects" component={Projects} />
-              <PrivateRoute
-                exact
-                path="/project/create"
-                component={CreateProject}
-              />
-              <PrivateRoute
-                exact
-                path="/project/:projectName"
-                component={Project}
-              />
-              <PrivateRoute
-                exact
-                path="/project/:projectName/backlog"
-                component={Backlog}
-              />
-              <PrivateRoute exact path="/task/:taskName" component={Task} />
-            </Switch>
-          </S.PageContent>
-        </S.PageContainer>
-      </Router>
-    </MuiThemeProvider>
+    <Router>
+      <S.PageContainer>
+        <PageHeader currentUser={currentUser} logOut={logOut} />
+        <div className={classes.appBarSpacer} />
+        <S.PageContent>
+          <Switch>
+            <Route
+              exact
+              path="/login"
+              component={() => <LoginPage logIn={logIn} />}
+            />
+            <Route exact path="/register" component={RegisterPage} />
+            <PrivateRoute exact path="/" component={HomePage} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/projects" component={Projects} />
+            <PrivateRoute
+              exact
+              path="/project/create"
+              component={CreateProject}
+            />
+            <PrivateRoute
+              exact
+              path="/project/:projectName"
+              component={Project}
+            />
+            <PrivateRoute
+              exact
+              path="/project/:projectName/backlog"
+              component={Backlog}
+            />
+            <PrivateRoute exact path="/task/:taskName" component={Task} />
+          </Switch>
+        </S.PageContent>
+      </S.PageContainer>
+    </Router>
   );
 };
 
