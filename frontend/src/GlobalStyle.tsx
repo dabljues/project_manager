@@ -5,6 +5,9 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
   }
+  * {
+      font-family: Arial, Helvetica, sans-serif;
+  }
   :root {
       --paper-border: 1px solid #dadce0;
       --project-color: #cc3399;

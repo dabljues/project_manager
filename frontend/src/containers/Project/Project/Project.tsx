@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import ProjectData from "types/project";
 
-import {
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
+import { Button, createStyles, makeStyles } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
 import ProjectDetails from "../../../components/Project/ProjectDetails";
@@ -76,12 +70,10 @@ const Project = ({ match }: ProjectProps) => {
 
   return (
     <S.Project>
-      <S.ProjectName>
-        <GroupWorkIcon className={classes.icon} />
-        <Typography variant="h2" className={classes.projectName}>
-          {project.name}
-        </Typography>
-      </S.ProjectName>
+      <S.ProjectHeader>
+        <S.ProjectIcon />
+        <S.ProjectName>{project.name}</S.ProjectName>
+      </S.ProjectHeader>
       <S.ProjectInfo>
         <ProjectStatus name={project.name} status={project.status} />
         <ProjectDetails owner={project.owner} createdAt={project.createdAt} />

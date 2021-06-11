@@ -1,6 +1,6 @@
-import { css } from "styled-components";
+import styled from "styled-components/macro";
 
-const ProjectEntity = css`
+const ProjectEntity = styled.div`
   margin: 30px !important;
   border: 1px solid black;
   border-radius: 30px;
