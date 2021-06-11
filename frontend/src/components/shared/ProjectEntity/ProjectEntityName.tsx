@@ -1,11 +1,7 @@
-import { css } from "styled-components";
+import styled from "styled-components/macro";
 
-const ProjectEntityName = css`
-  display: flex;
-  border-bottom: 1px black solid;
-  padding: 20px;
-
-  background: #3f51b5;
-  align-items: center;
+const ProjectEntityName = styled.span`
+  font-size: 4rem;
+  color: snow;
 `;
 export default ProjectEntityName;

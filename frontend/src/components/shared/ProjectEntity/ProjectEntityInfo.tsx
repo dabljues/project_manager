@@ -1,6 +1,6 @@
-import { css } from "styled-components";
+import styled from "styled-components/macro";
 
-const ProjectEntityInfo = css`
+const ProjectEntityInfo = styled.div`
   margin-top: 20px;
   padding: 20px;
 `;
