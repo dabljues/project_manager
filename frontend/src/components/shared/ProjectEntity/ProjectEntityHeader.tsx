@@ -1,6 +1,6 @@
-import styled from "styled-components/macro";
+import { css } from "styled-components/macro";
 
-const ProjectEntityHeader = styled.div`
+const ProjectEntityHeader = css`
   display: flex;
   border-bottom: 1px black solid;
   padding: 20px;

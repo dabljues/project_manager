@@ -9,17 +9,25 @@ import styled from "styled-components";
 
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
-const Project = styled(ProjectEntity)``;
-const ProjectHeader = styled(ProjectEntityHeader)``;
+const Project = styled.div`
+  ${ProjectEntity}
+`;
+const ProjectHeader = styled.div`
+  ${ProjectEntityHeader}
+`;
 
 const ProjectIcon = styled(GroupWorkIcon)`
   ${ProjectEntityIcon}
   color: var(--project-color);
 `;
 
-const ProjectName = styled(ProjectEntityName)``;
+const ProjectName = styled.span`
+  ${ProjectEntityName}
+`;
 
-const ProjectInfo = styled(ProjectEntityInfo)``;
+const ProjectInfo = styled.div`
+  ${ProjectEntityInfo}
+`;
 
 const ProjectViews = styled.div`
   display: flex;
