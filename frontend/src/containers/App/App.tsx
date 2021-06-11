@@ -28,7 +28,7 @@ import * as S from "./App.styles";
 const THEME = createMuiTheme({
   typography: {
     fontFamily: `Arial, sans-serif`,
-    fontSize: 14,
+    fontSize: 16,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,

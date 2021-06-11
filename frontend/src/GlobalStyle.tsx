@@ -5,6 +5,11 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
   }
+  :root {
+      --paper-border: 1px solid #dadce0;
+      --project-color: #cc3399;
+      --errors-list-color: rgb(255, 210, 218);
+  }
 `;
 
 export default GlobalStyle;
