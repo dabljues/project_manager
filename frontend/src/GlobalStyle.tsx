@@ -8,9 +8,6 @@ const GlobalStyle = createGlobalStyle`
   * {
       font-family: Arial, Helvetica, sans-serif;
   }
-  span, p {
-    font-size: 16px;
-  }
   :root {
       --paper-border: 1px solid #dadce0;
       --project-color: #cc3399;
