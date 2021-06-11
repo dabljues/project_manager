@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "styled-components/macro";
 
 const ProjectEntityIcon = css`
   font-size: 55px;
