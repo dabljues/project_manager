@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-import { createStyles, makeStyles, Typography } from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-
 import { authRequest } from "../../../api/auth";
 import Description from "../../../components/shared/Description";
 import Spinner from "../../../components/shared/Spinner";
@@ -11,22 +8,6 @@ import TaskDetails from "../../../components/Task/TaskDetails";
 import TaskStatus from "../../../components/Task/TaskStatus";
 import { TaskData } from "../../../types";
 import * as S from "./Task.styles";
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    taskName: {
-      color: "snow",
-    },
-    infoLabel: {
-      fontWeight: "bold",
-    },
-    icon: {
-      color: "white",
-      fontSize: 55,
-      marginRight: 15,
-    },
-  })
-);
 
 interface TaskParams {
   taskName: string;
@@ -38,7 +19,6 @@ const Task = ({ match }: TaskProps) => {
   const { taskName } = match.params;
   const [task, setTask] = useState<TaskData | null>(null);
   const [loading, setLoading] = useState(true);
-  const classes = useStyles();
 
   const authCommunicator = authRequest();
 
@@ -75,12 +55,10 @@ const Task = ({ match }: TaskProps) => {
 
   return (
     <S.Task>
-      <S.TaskName>
-        <AssignmentIcon className={classes.icon} />
-        <Typography variant="h2" className={classes.taskName}>
-          {task.name}
-        </Typography>
-      </S.TaskName>
+      <S.TaskHeader>
+        <S.TaskIcon />
+        <S.TaskName>{task.name}</S.TaskName>
+      </S.TaskHeader>
       <S.TaskInfo>
         <TaskStatus name={task.name} status={task.status} />
         <TaskDetails
