@@ -1,15 +1,7 @@
-import "./CreateProjectForm.scss";
-
+import FormErrors from "components/shared/FormErrors";
 import React from "react";
 
-import {
-  Avatar,
-  Button,
-  Paper,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import PostAddIcon from "@material-ui/icons/PostAdd";
+import * as S from "./CreateProjectForm.styles";
 
 interface CreateProjectFormProps {
   setProjectName: (projectName: string) => void;
@@ -23,42 +15,37 @@ const CreateProjectForm = (props: CreateProjectFormProps) => {
   const errorsOccurred = projectNameErrors.length > 0;
 
   return (
-    <Paper className="register-form" variant="elevation">
-      <div className="sign-up-logo">
-        <Avatar className="avatar">
-          <PostAddIcon />
-        </Avatar>
-        <Typography variant="h6">Create a new project</Typography>
-      </div>
+    <S.CreateProjectForm>
+      <S.CreateProjectLogo>
+        <S.ProjectIcon />
+        <p>Create a new project</p>
+      </S.CreateProjectLogo>
       {errorsOccurred ? (
-        <div className="form-errors">
+        <FormErrors>
           Project creation was unsuccessful:
           <ul>
             {projectNameErrors.map((error, index) => (
-              <li className="form-error">{error}</li>
+              <li key="{error}">{error}</li>
             ))}
           </ul>
-        </div>
+        </FormErrors>
       ) : null}
-      <TextField
-        className="textfield"
+      <S.FormTextField
         label="Project name"
-        name="projectname"
         size="small"
         variant="outlined"
         onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
           setProjectName(event.target.value);
         }}
       />
-      <Button
-        className="signup-button"
+      <S.FormButton
         variant="contained"
         color="primary"
         onClick={(e) => createProject(e)}
       >
         Create
-      </Button>
-    </Paper>
+      </S.FormButton>
+    </S.CreateProjectForm>
   );
 };
 
