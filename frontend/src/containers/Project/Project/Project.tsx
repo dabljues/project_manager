@@ -86,7 +86,7 @@ const Project = ({ match }: ProjectProps) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => history.push(`/project/${projectName}/backlog`)}
+          onClick={() => history.push(`/projects/${projectName}/backlog`)}
         >
           Backlog
         </Button>

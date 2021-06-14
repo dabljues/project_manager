@@ -2,11 +2,12 @@ import { TableColumnInterface, TableRowInterface } from "../../../types";
 import PaginatedTable from "../../shared/PaginatedTable";
 
 interface BacklogTableProps {
+  projectName: string;
   rows: TableRowInterface[];
 }
 
 const BacklogTable = (props: BacklogTableProps) => {
-  const { rows } = props;
+  const { projectName, rows } = props;
   const columns: TableColumnInterface[] = [
     {
       id: "name",
@@ -34,7 +35,10 @@ const BacklogTable = (props: BacklogTableProps) => {
     <PaginatedTable
       columns={columns}
       rows={rows}
-      rowClickConfig={{ rowKey: "name", to: "/task/:id" }}
+      rowClickConfig={{
+        rowKey: "name",
+        to: `/projects/${projectName}/:id`,
+      }}
     />
   );
 };

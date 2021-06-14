@@ -1,5 +1,12 @@
+import PageHeaderAD from "components/PageHeaderAD";
+import NotFoundPage from "containers/NotFoundPage";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
@@ -16,7 +23,6 @@ import CreateProject from "../Project/CreateProject";
 import Project from "../Project/Project";
 import Projects from "../Project/Projects";
 import Task from "../Task/Task";
-
 import * as S from "./App.styles";
 
 const styles = makeStyles<Theme>((theme) =>
@@ -49,8 +55,9 @@ const App = () => {
   return (
     <Router>
       <S.PageContainer>
-        <PageHeader currentUser={currentUser} logOut={logOut} />
-        <div className={classes.appBarSpacer} />
+        {/* <PageHeader currentUser={currentUser} logOut={logOut} />
+        <div className={classes.appBarSpacer} /> */}
+        <PageHeaderAD currentUser={currentUser} logOut={logOut} />
         <S.PageContent>
           <Switch>
             <Route
@@ -60,7 +67,12 @@ const App = () => {
             />
             <Route exact path="/register" component={RegisterPage} />
             <PrivateRoute exact path="/" component={HomePage} />
-            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute
+              exact
+              path="/profile"
+              component={Profile}
+              key="Profile"
+            />
             <PrivateRoute exact path="/projects" component={Projects} />
             <PrivateRoute
               exact
@@ -69,15 +81,21 @@ const App = () => {
             />
             <PrivateRoute
               exact
-              path="/project/:projectName"
+              path="/projects/:projectName"
               component={Project}
             />
             <PrivateRoute
               exact
-              path="/project/:projectName/backlog"
+              path="/projects/:projectName/backlog"
               component={Backlog}
             />
-            <PrivateRoute exact path="/task/:taskName" component={Task} />
+            <PrivateRoute
+              exact
+              path="/projects/:projectName/:taskName"
+              component={Task}
+            />
+            <PrivateRoute path="/404" exact component={NotFoundPage} />
+            <Redirect from="*" to="/404" />
           </Switch>
         </S.PageContent>
       </S.PageContainer>

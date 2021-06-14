@@ -54,7 +54,7 @@ const Backlog = ({ match }: BacklogProps) => {
 
   return (
     <CenteredDiv>
-      <BacklogTable rows={rows} />{" "}
+      <BacklogTable projectName={projectName} rows={rows} />
     </CenteredDiv>
   );
 };
