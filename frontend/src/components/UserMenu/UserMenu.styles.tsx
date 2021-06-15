@@ -9,13 +9,13 @@ const User = styled(Typography.Text)`
 
 const MenuItem = styled(Menu.Item)`
   font-size: 1.125rem;
-  padding: 0.8rem;
+  /* padding: 0.8rem; */
 `;
 
 const MenuItemIcon = ({ type }: { type: React.ComponentType }) => {
   const StyledIcon = styled(type)`
     font-size: 1em;
-    margin-right: 0.7em;
+    /* margin-right: 0.7em; */
   `;
   return <StyledIcon />;
 };

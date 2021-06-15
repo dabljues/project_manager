@@ -26,15 +26,18 @@ const PageHeaderAD = (props: PageHeaderADProps) => {
   }
 
   return (
-    <S.PageHeader breadcrumb={<Breadcrumbs />}>
-      <S.Nav>
-        <S.NavSection textAlign="left">
+    <S.PageHeader>
+      <S.Nav align="middle">
+        <S.BreadCrumbsWrapper xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+          <Breadcrumbs />
+        </S.BreadCrumbsWrapper>
+        <S.PageTitleWrapper xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
           <S.PageTitle>Project Manager</S.PageTitle>
-        </S.NavSection>
-        <S.NavSection>
+        </S.PageTitleWrapper>
+        <S.UserMenu xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
           <S.SearchBox placeholder="search for..." size="large" allowClear />
-        </S.NavSection>
-        <S.NavSection textAlign="right">{userMenu}</S.NavSection>
+          {userMenu}
+        </S.UserMenu>
       </S.Nav>
     </S.PageHeader>
   );
