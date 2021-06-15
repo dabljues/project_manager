@@ -1,5 +1,6 @@
 import PageHeaderAD from "components/PageHeaderAD";
 import NotFoundPage from "containers/NotFoundPage";
+import TaskAD from "containers/Task/TaskAD";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -94,6 +95,7 @@ const App = () => {
               path="/projects/:projectName/:taskName"
               component={Task}
             />
+            <PrivateRoute path="/TaskAD/:taskName" exact component={TaskAD} />
             <PrivateRoute path="/404" exact component={NotFoundPage} />
             <Redirect from="*" to="/404" />
           </Switch>
