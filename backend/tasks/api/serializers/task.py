@@ -19,3 +19,4 @@ class ReadTaskSerializer(TaskSerializer):
     type = serializers.CharField(source="get_type_display")
     creator = UserSerializer()
     assignee = UserSerializer()
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
