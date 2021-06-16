@@ -16,41 +16,18 @@ const PageHeader = styled(PH)`
 const Nav = styled(Row)`
   padding-left: 3rem;
   padding-right: 3rem;
-  min-width: 425px;
+  min-width: 600px;
 `;
 
-const NavSection = styled(Col)``;
-
 const BreadCrumbsWrapper = styled(Col)`
-  display: flex;
+  display: none;
   justify-content: flex-start;
   @media (min-width: 400px) {
     justify-content: center;
   }
   @media (min-width: 992px) {
+    display: flex;
     justify-content: flex-start;
-  }
-`;
-
-const UserMenu = styled(Col)`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: flex-start;
-  @media (min-width: 400px) {
-    justify-content: center;
-  }
-  @media (min-width: 768px) {
-    justify-content: flex-end;
-  }
-`;
-
-const SearchBox = styled(Search)`
-  display: none;
-  max-width: 400px;
-  margin-right: 3rem;
-  @media (min-width: 768px) {
-    display: block;
   }
 `;
 
@@ -68,13 +45,35 @@ const PageTitle = styled(Text)`
   color: snow;
 `;
 
+const Extra = styled(Col)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  @media (min-width: 400px) {
+    justify-content: center;
+  }
+  @media (min-width: 768px) {
+    justify-content: flex-end;
+  }
+`;
+
+const SearchBox = styled(Search)`
+  max-width: 400px;
+  margin-right: 3rem;
+`;
+
+const UserMenuWrapper = styled(Col)`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export {
   BreadCrumbsWrapper,
+  Extra,
   Nav,
-  NavSection,
   PageTitle,
   SearchBox,
   PageHeader,
   PageTitleWrapper,
-  UserMenu,
+  UserMenuWrapper,
 };

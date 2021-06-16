@@ -1,6 +1,6 @@
 import "antd/dist/antd.css";
 
-import { PageHeader as PH } from "antd";
+import { PageHeader as PH, Row, Col } from "antd";
 import Breadcrumbs from "components/shared/Breadcrumbs";
 import UserMenu from "components/UserMenu";
 import { RouteComponentProps, withRouter } from "react-router-dom";
@@ -34,10 +34,14 @@ const PageHeaderAD = (props: PageHeaderADProps) => {
         <S.PageTitleWrapper xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
           <S.PageTitle>Project Manager</S.PageTitle>
         </S.PageTitleWrapper>
-        <S.UserMenu xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
-          <S.SearchBox placeholder="search for..." size="large" allowClear />
-          {userMenu}
-        </S.UserMenu>
+        <S.Extra xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
+          <Col xl={14} xxl={12}>
+            <S.SearchBox placeholder="search for..." size="large" allowClear />
+          </Col>
+          <S.UserMenuWrapper xl={10} xxl={12}>
+            {userMenu}
+          </S.UserMenuWrapper>
+        </S.Extra>
       </S.Nav>
     </S.PageHeader>
   );
