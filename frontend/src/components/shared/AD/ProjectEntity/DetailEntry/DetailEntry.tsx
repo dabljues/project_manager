@@ -54,29 +54,17 @@ const DetailEntry = ({
 }) => (
   <DetailEntryWrapper>
     <Detail align="middle">
-      <DetailLabel xs={6} sm={6} md={8} lg={6} xl={6} xxl={6}>
-        {label}
-      </DetailLabel>
+      <DetailLabel xs={6}>{label}</DetailLabel>
       <DetailContent
         justifyContent="flex-start"
         xs={10}
-        sm={10}
-        md={8}
         lg={14}
         xl={14}
         xxl={12}
       >
         {content}
       </DetailContent>
-      <EditButtonWrapper
-        justifyContent="flex-end"
-        xs={8}
-        sm={8}
-        md={8}
-        lg={4}
-        xl={4}
-        xxl={6}
-      >
+      <EditButtonWrapper justifyContent="flex-end" xs={8} lg={4} xl={4} xxl={6}>
         <Button type="primary">{editName}</Button>
       </EditButtonWrapper>
     </Detail>

@@ -10,21 +10,11 @@ const StyledCard = styled(Card)`
   border-radius: 50px;
   box-shadow: 0px -1px 15px 2px rgba(0, 0, 0, 0.27);
   overflow: hidden;
-  margin: 30px 50px 0 50px;
+  margin: 30px 12% 0 12%;
 
-  @media (min-width: 992px) {
-    margin-left: 150px;
-    margin-right: 150px;
-  }
-
-  @media (min-width: 1700px) {
-    margin-left: 300px;
-    margin-right: 300px;
-  }
-
-  @media (min-width: 2200px) {
-    margin-left: 500px;
-    margin-right: 500px;
+  @media (min-width: 2000px) {
+    margin-left: 20%;
+    margin-right: 20%;
   }
 `;
 
