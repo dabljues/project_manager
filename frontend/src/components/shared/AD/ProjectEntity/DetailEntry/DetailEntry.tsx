@@ -23,12 +23,12 @@ const ResponsiveCol = styled(Col)<ResponsiveColProps>`
 `;
 
 const Detail = styled(Row)`
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 `;
 
 const DetailLabel = styled(ResponsiveCol)`
   font-weight: bold;
-  font-size: 1.125em;
+  font-size: 1.25em;
 `;
 
 const DetailContent = styled(ResponsiveCol)``;
