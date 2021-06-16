@@ -13,13 +13,18 @@ const StyledCard = styled(Card)`
   margin: 30px 50px 0 50px;
 
   @media (min-width: 992px) {
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 150px;
+    margin-right: 150px;
   }
 
   @media (min-width: 1700px) {
     margin-left: 300px;
     margin-right: 300px;
+  }
+
+  @media (min-width: 2200px) {
+    margin-left: 500px;
+    margin-right: 500px;
   }
 `;
 

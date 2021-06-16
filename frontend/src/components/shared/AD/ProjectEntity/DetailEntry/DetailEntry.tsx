@@ -6,7 +6,7 @@ const DetailEntryWrapper = (props: React.PropsWithChildren<any>) => {
   const { children } = props;
 
   return (
-    <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={8}>
+    <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
       {children}
     </Col>
   );

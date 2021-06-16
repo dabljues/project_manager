@@ -3,7 +3,7 @@ import DetailEntry from "components/shared/AD/ProjectEntity/DetailEntry";
 import { ProjectData } from "types";
 
 const ProjectDetails = ({ project }: { project: ProjectData }) => (
-  <Row align="middle" gutter={16}>
+  <Row align="middle" gutter={32}>
     <DetailEntry
       label="Title"
       content={project.title}

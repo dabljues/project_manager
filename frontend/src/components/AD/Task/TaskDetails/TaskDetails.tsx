@@ -3,7 +3,7 @@ import DetailEntry from "components/shared/AD/ProjectEntity/DetailEntry";
 import { TaskData } from "types";
 
 const TaskDetails = ({ task }: { task: TaskData }) => (
-  <Row align="middle" gutter={16}>
+  <Row align="middle" gutter={32}>
     <DetailEntry label="Title" content={task.title} editName="Change title" />
     <DetailEntry label="Type" content={task.type} editName="Change type" />
     <DetailEntry
