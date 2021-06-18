@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import {
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 
 import { getCurrentUser, isAuthenticated } from "../../api/auth";
 import PrivateRoute from "../../components/PrivateRoute";
@@ -16,7 +22,6 @@ import CreateProject from "../Project/CreateProject";
 import Project from "../Project/Project";
 import Projects from "../Project/Projects";
 import Task from "../Task/Task";
-
 import * as S from "./App.styles";
 
 const styles = makeStyles<Theme>((theme) =>
@@ -24,6 +29,31 @@ const styles = makeStyles<Theme>((theme) =>
     appBarSpacer: theme.mixins.toolbar,
   })
 );
+
+declare module "@material-ui/core/styles/createBreakpoints" {
+  interface BreakpointOverrides {
+    xxs: true;
+    xxl: true;
+    twoK: true;
+    forK: true;
+  }
+}
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xxs: 0,
+      xs: 400,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1600,
+      xxl: 1920,
+      twoK: 2560,
+      forK: 3860,
+    },
+  },
+});
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(isAuthenticated());
@@ -47,41 +77,43 @@ const App = () => {
     setLoggedIn(false);
   };
   return (
-    <Router>
-      <S.PageContainer>
-        <PageHeader currentUser={currentUser} logOut={logOut} />
-        <div className={classes.appBarSpacer} />
-        <S.PageContent>
-          <Switch>
-            <Route
-              exact
-              path="/login"
-              component={() => <LoginPage logIn={logIn} />}
-            />
-            <Route exact path="/register" component={RegisterPage} />
-            <PrivateRoute exact path="/" component={HomePage} />
-            <PrivateRoute exact path="/profile" component={Profile} />
-            <PrivateRoute exact path="/projects" component={Projects} />
-            <PrivateRoute
-              exact
-              path="/project/create"
-              component={CreateProject}
-            />
-            <PrivateRoute
-              exact
-              path="/project/:projectName"
-              component={Project}
-            />
-            <PrivateRoute
-              exact
-              path="/project/:projectName/backlog"
-              component={Backlog}
-            />
-            <PrivateRoute exact path="/task/:taskName" component={Task} />
-          </Switch>
-        </S.PageContent>
-      </S.PageContainer>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <S.PageContainer>
+          <PageHeader currentUser={currentUser} logOut={logOut} />
+          <div className={classes.appBarSpacer} />
+          <S.PageContent>
+            <Switch>
+              <Route
+                exact
+                path="/login"
+                component={() => <LoginPage logIn={logIn} />}
+              />
+              <Route exact path="/register" component={RegisterPage} />
+              <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/projects" component={Projects} />
+              <PrivateRoute
+                exact
+                path="/project/create"
+                component={CreateProject}
+              />
+              <PrivateRoute
+                exact
+                path="/project/:projectName"
+                component={Project}
+              />
+              <PrivateRoute
+                exact
+                path="/project/:projectName/backlog"
+                component={Backlog}
+              />
+              <PrivateRoute exact path="/task/:taskName" component={Task} />
+            </Switch>
+          </S.PageContent>
+        </S.PageContainer>
+      </Router>
+    </ThemeProvider>
   );
 };
 
