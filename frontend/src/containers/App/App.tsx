@@ -1,3 +1,4 @@
+import Breakpoints from "models";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -41,17 +42,7 @@ declare module "@material-ui/core/styles/createBreakpoints" {
 
 const theme = createMuiTheme({
   breakpoints: {
-    values: {
-      xxs: 0,
-      xs: 400,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1600,
-      xxl: 1920,
-      twoK: 2560,
-      forK: 3860,
-    },
+    values: Breakpoints,
   },
 });
 
