@@ -1,6 +1,49 @@
+import React from "react";
 import styled from "styled-components/macro";
 
-import { Grid, Typography, TextField, Toolbar } from "@material-ui/core";
+import {
+  fade,
+  createStyles,
+  Grid,
+  InputAdornment,
+  makeStyles,
+  TextField,
+  Theme,
+  Typography,
+  InputBase,
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    searchIcon: {
+      padding: theme.spacing(0, 2),
+      height: "100%",
+      position: "absolute",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    search: {
+      position: "relative",
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      width: "100%",
+    },
+    inputRoot: {
+      color: "inherit",
+    },
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+    },
+  })
+);
 
 const Nav = styled(Grid)`
   padding-left: 3rem;
@@ -55,10 +98,34 @@ const Extra = styled(Grid)`
   }
 `;
 
-const SearchBox = styled(TextField)`
-  max-width: 400px;
-  margin-right: 3rem;
-`;
+const SearchWrapper = (props: React.PropsWithChildren<any>) => {
+  const { children } = props;
+  const classes = useStyles();
+  return (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const Search = () => {
+  const classes = useStyles();
+
+  return (
+    <SearchWrapper>
+      <InputBase
+        placeholder="Search..."
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+      />
+    </SearchWrapper>
+  );
+};
 
 const UserMenuWrapper = styled(Grid)`
   display: flex;
@@ -70,7 +137,7 @@ export {
   Extra,
   Nav,
   PageTitle,
-  SearchBox,
+  Search,
   SiteLogo,
   PageTitleWrapper,
   UserMenuWrapper,
