@@ -1,5 +1,5 @@
+import { Button, Col, Divider, Row } from "antd";
 import React from "react";
-import { Button, Divider, Row, Col } from "antd";
 import styled from "styled-components/macro";
 
 const DetailEntryWrapper = (props: React.PropsWithChildren<any>) => {
@@ -29,6 +29,11 @@ const Detail = styled(Row)`
 const DetailLabel = styled(ResponsiveCol)`
   font-weight: bold;
   font-size: 1.25em;
+  justify-content: flex-end;
+
+  @media (min-width: 576px) {
+    justify-content: flex-start;
+  }
 `;
 
 const DetailContent = styled(ResponsiveCol)``;
@@ -53,19 +58,23 @@ const DetailEntry = ({
   editName: string;
 }) => (
   <DetailEntryWrapper>
-    <Detail align="middle">
-      <DetailLabel xs={6}>{label}</DetailLabel>
-      <DetailContent
-        justifyContent="flex-start"
-        xs={10}
-        lg={14}
-        xl={14}
-        xxl={12}
-      >
+    <Detail align="middle" justify="center" gutter={8}>
+      <DetailLabel xs={12} sm={6}>
+        {label}
+      </DetailLabel>
+      <DetailContent justifyContent="flex-start" xs={12} sm={10} xxl={12}>
         {content}
       </DetailContent>
-      <EditButtonWrapper justifyContent="flex-end" xs={8} lg={4} xl={4} xxl={6}>
-        <Button type="primary">{editName}</Button>
+      <EditButtonWrapper
+        justifyContent="flex-end"
+        xs={24}
+        sm={8}
+        lg={8}
+        xxl={6}
+      >
+        <Button type="primary" block>
+          {editName}
+        </Button>
       </EditButtonWrapper>
     </Detail>
     <DetailDivider />

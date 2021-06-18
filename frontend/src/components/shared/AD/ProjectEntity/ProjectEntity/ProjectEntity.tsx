@@ -19,7 +19,7 @@ const StyledCard = styled(Card)`
     margin: 30px 12% 0 12%;
   }
 
-  @media (min-width: 2000px) {
+  @media (min-width: 2150px) {
     margin-left: 20%;
     margin-right: 20%;
   }
