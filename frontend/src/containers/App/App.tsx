@@ -6,6 +6,7 @@ import {
   createMuiTheme,
   createStyles,
   makeStyles,
+  StylesProvider,
   Theme,
   ThemeProvider,
 } from "@material-ui/core/styles";
@@ -68,43 +69,45 @@ const App = () => {
     setLoggedIn(false);
   };
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <S.PageContainer>
-          <PageHeader currentUser={currentUser} logOut={logOut} />
-          <div className={classes.appBarSpacer} />
-          <S.PageContent>
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                component={() => <LoginPage logIn={logIn} />}
-              />
-              <Route exact path="/register" component={RegisterPage} />
-              <PrivateRoute exact path="/" component={HomePage} />
-              <PrivateRoute exact path="/profile" component={Profile} />
-              <PrivateRoute exact path="/projects" component={Projects} />
-              <PrivateRoute
-                exact
-                path="/project/create"
-                component={CreateProject}
-              />
-              <PrivateRoute
-                exact
-                path="/project/:projectName"
-                component={Project}
-              />
-              <PrivateRoute
-                exact
-                path="/project/:projectName/backlog"
-                component={Backlog}
-              />
-              <PrivateRoute exact path="/task/:taskName" component={Task} />
-            </Switch>
-          </S.PageContent>
-        </S.PageContainer>
-      </Router>
-    </ThemeProvider>
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <S.PageContainer>
+            <PageHeader currentUser={currentUser} logOut={logOut} />
+            <div className={classes.appBarSpacer} />
+            <S.PageContent>
+              <Switch>
+                <Route
+                  exact
+                  path="/login"
+                  component={() => <LoginPage logIn={logIn} />}
+                />
+                <Route exact path="/register" component={RegisterPage} />
+                <PrivateRoute exact path="/" component={HomePage} />
+                <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/projects" component={Projects} />
+                <PrivateRoute
+                  exact
+                  path="/project/create"
+                  component={CreateProject}
+                />
+                <PrivateRoute
+                  exact
+                  path="/project/:projectName"
+                  component={Project}
+                />
+                <PrivateRoute
+                  exact
+                  path="/project/:projectName/backlog"
+                  component={Backlog}
+                />
+                <PrivateRoute exact path="/task/:taskName" component={Task} />
+              </Switch>
+            </S.PageContent>
+          </S.PageContainer>
+        </Router>
+      </ThemeProvider>
+    </StylesProvider>
   );
 };
 
