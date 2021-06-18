@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  TextField,
-} from "@material-ui/core";
+import { Accordion, AccordionDetails, TextField } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import * as S from "./Description.styles";
 
 interface DescriptionProps {
   content: string;
-  onSubmit?: (content: string) => Promise<boolean>;
+  onSave?: (content: string) => Promise<boolean>;
   title?: string;
   rows?: number;
 }
 
 const Description = (props: DescriptionProps) => {
-  const { content, onSubmit, title, rows } = props;
+  const { content, onSave, title, rows } = props;
   const [descriptionContent, setDescriptionContent] = useState(content);
   const [expanded, setExpanded] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [descriptionChanged, setDescriptionChanged] = useState(false);
-  const editable = onSubmit !== undefined;
-
-  useEffect(
-    () => () => {
-      setDescriptionContent("");
-    },
-    [content]
-  );
+  const editable = onSave !== undefined;
 
   const resetDescription = () => {
     setDescriptionContent(content);
@@ -46,6 +34,7 @@ const Description = (props: DescriptionProps) => {
     descriptionContent.length >= 30
       ? descriptionContent.slice(0, 30)
       : descriptionContent;
+
   let descriptionHeader: JSX.Element | null;
   if (expanded) {
     descriptionHeader = editMode ? <S.EditIcon /> : null;
@@ -57,21 +46,16 @@ const Description = (props: DescriptionProps) => {
     );
   }
 
-  const descriptionTitle = (
-    <>
-      <S.DescriptionTitle>{title}</S.DescriptionTitle>
-      {descriptionHeader}
-    </>
-  );
-
   return (
     <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        {descriptionTitle}
-      </AccordionSummary>
+      <S.DescriptionHeader expandIcon={<ExpandMoreIcon />}>
+        <S.DescriptionTitle>{title}</S.DescriptionTitle>
+        {descriptionHeader}
+      </S.DescriptionHeader>
       <AccordionDetails>
         <TextField
           multiline
+          fullWidth
           variant="outlined"
           value={descriptionContent}
           rows={rows}
@@ -81,25 +65,23 @@ const Description = (props: DescriptionProps) => {
             changeDescription(event.target.value)
           }
         />
-        {/* {descriptionChanged && onSubmit !== undefined ? (
-          <S.DescriptionEditActions>
-            <Space size="middle">
-              <S.SaveIcon
-                onClick={async () => {
-                  setDescriptionChanged(!(await onSubmit(descriptionContent)));
-                }}
-              />
-              <S.CancelIcon onClick={() => resetDescription()} />
-            </Space>
-          </S.DescriptionEditActions>
-        ) : null} */}
       </AccordionDetails>
+      {descriptionChanged && onSave !== undefined ? (
+        <S.DescriptionEditActions>
+          <S.SaveIcon
+            onClick={async () => {
+              setDescriptionChanged(!(await onSave(descriptionContent)));
+            }}
+          />
+          <S.CancelIcon onClick={() => resetDescription()} />
+        </S.DescriptionEditActions>
+      ) : null}
     </Accordion>
   );
 };
 
 Description.defaultProps = {
-  onSubmit: undefined,
+  onSave: undefined,
   title: "Description",
   rows: 10,
 };

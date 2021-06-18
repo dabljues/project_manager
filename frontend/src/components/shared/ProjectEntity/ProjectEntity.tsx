@@ -5,8 +5,6 @@ const ProjectEntity = styled.div`
   border: 1px solid black;
   border-radius: 30px;
   overflow: hidden;
-  min-width: 600px;
-  min-height: 800px;
 `;
 
 const ProjectEntityHeader = styled.div`

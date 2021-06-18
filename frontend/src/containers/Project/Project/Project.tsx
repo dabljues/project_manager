@@ -77,10 +77,7 @@ const Project = ({ match }: ProjectProps) => {
       <S.ProjectInfo>
         <ProjectStatus name={project.name} status={project.status} />
         <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
-        <Description
-          onChangeSubmit={saveDescription}
-          content={project.description}
-        />
+        <Description onSave={saveDescription} content={project.description} />
       </S.ProjectInfo>
       <S.ProjectViews>
         <Button

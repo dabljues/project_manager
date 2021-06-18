@@ -68,10 +68,7 @@ const Task = ({ match }: TaskProps) => {
           assignee={task.assignee}
           createdAt={task.createdAt}
         />
-        <Description
-          onChangeSubmit={saveDescription}
-          content={task.description}
-        />
+        <Description onSave={saveDescription} content={task.description} />
       </S.TaskInfo>
     </S.Task>
   );

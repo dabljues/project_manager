@@ -1,46 +1,53 @@
 import React from "react";
 import styled, { css } from "styled-components/macro";
 
-const DescriptionTitle = styled.span`
-  font-size: 1.125em;
-  margin-right: 1em;
-  /* font-weight: bold; */
-  /* font-style: italic; */
-`;
+import { Edit, Save, Clear } from "@material-ui/icons";
+import {
+  AccordionSummary,
+  createStyles,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
-// const DescriptionHeader = styled(Collapse.Panel)`
-//   font-size: 1.125rem;
-// `;
-
-// const DescriptionContent = styled(TextArea)`
-//   font-size: 1rem;
-//   margin-bottom: 1rem;
-// `;
-
-const DescriptionContentPreview = styled.span`
-  font-size: 0.8em;
-`;
-
-const ExpandIcon = ({
-  isActive,
-}: {
-  isActive?: boolean | undefined;
-}): React.ReactNode => (
-  <CaretRightOutlined rotate={isActive ? 90 : 0} style={{ fontSize: "1em" }} />
+const useStyles = makeStyles(() =>
+  createStyles({
+    content: {
+      display: "flex",
+      alignItems: "center",
+    },
+  })
 );
+const DescriptionTitle = styled(Typography)`
+  font-size: 1.25rem;
+  margin-right: 1em;
+`;
 
-ExpandIcon.defaultProps = { isActive: undefined };
+const DescriptionHeader = (props: React.PropsWithChildren<any>) => {
+  const { children, ...rest } = props;
+  const classes = useStyles();
 
-// const EditIcon = styled(EditOutlined)`
-//   font-size: 1.125em;
-// `;
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <AccordionSummary {...rest} classes={{ content: classes.content }}>
+      {children}
+    </AccordionSummary>
+  );
+};
+
+const DescriptionContentPreview = styled(Typography)`
+  font-size: 1.1rem;
+  color: gray;
+`;
+
+const EditIcon = styled(Edit)`
+  font-size: 1.125em;
+`;
 
 const DescriptionEditActions = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 1em;
   margin-bottom: 0.5em;
-  margin-top: 2.5em;
 `;
 
 const ClickableIcon = css`
@@ -48,22 +55,20 @@ const ClickableIcon = css`
   font-size: 2em;
 `;
 
-// const SaveIcon = styled(SaveOutlined)`
-//   ${ClickableIcon}
-// `;
+const SaveIcon = styled(Save)`
+  ${ClickableIcon}
+`;
 
-// const CancelIcon = styled(ClearOutlined)`
-//   ${ClickableIcon}
-// `;
+const CancelIcon = styled(Clear)`
+  ${ClickableIcon}
+`;
 
 export {
-  //   CancelIcon,
-  //   DescriptionContent,
+  CancelIcon,
   DescriptionContentPreview,
   DescriptionEditActions,
-  //   DescriptionHeader,
+  DescriptionHeader,
   DescriptionTitle,
   EditIcon,
-  ExpandIcon,
-  //   SaveIcon,
+  SaveIcon,
 };
