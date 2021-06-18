@@ -5,12 +5,19 @@ import styled from "styled-components/macro";
 import EntityName from "../EntityName";
 
 const StyledCard = styled(Card)`
-  min-width: 500px;
-  min-height: 500px;
   border-radius: 50px;
   box-shadow: 0px -1px 15px 2px rgba(0, 0, 0, 0.27);
   overflow: hidden;
-  margin: 30px 12% 0 12%;
+
+  margin: 0;
+
+  @media (min-width: 576px) {
+    margin: 30px 5% 0 5%;
+  }
+
+  @media (min-width: 1600px) {
+    margin: 30px 12% 0 12%;
+  }
 
   @media (min-width: 2000px) {
     margin-left: 20%;

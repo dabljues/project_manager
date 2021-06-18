@@ -16,7 +16,7 @@ const PageHeader = styled(PH)`
 const Nav = styled(Row)`
   padding-left: 3rem;
   padding-right: 3rem;
-  min-width: 600px;
+  /* min-width: 300px; */
 `;
 
 const BreadCrumbsWrapper = styled(Col)`
@@ -34,7 +34,7 @@ const BreadCrumbsWrapper = styled(Col)`
 const PageTitleWrapper = styled(Col)`
   display: flex;
   justify-content: flex-start;
-  @media (min-width: 400px) {
+  @media (min-width: 200px) {
     justify-content: center;
   }
 `;
