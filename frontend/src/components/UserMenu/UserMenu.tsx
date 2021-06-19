@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserData } from "types";
 
-import { Avatar, IconButton, Menu } from "@material-ui/core";
+import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import * as S from "./UserMenu.styles";
 
 interface UserMenuProps {
@@ -42,9 +42,23 @@ const UserMenu = (props: UserMenuProps) => {
       open={open}
       onClose={() => setAnchorEl(null)}
     >
-      <S.MenuItem icon={S.ProfileIcon} text="Profile" />
-      <S.MenuItem icon={S.ProjectsIcon} text="Projects" />
-      <S.MenuItem icon={S.LogoutIcon} text="Logout" />
+      <S.MenuItem
+        icon={S.ProfileIcon}
+        text="Profile"
+        onClick={() => {
+          setAnchorEl(null);
+          history.push("/profile");
+        }}
+      />
+      <S.MenuItem
+        icon={S.ProjectsIcon}
+        text="Projects"
+        onClick={() => {
+          setAnchorEl(null);
+          history.push("/projects");
+        }}
+      />
+      <S.MenuItem icon={S.LogoutIcon} text="Logout" onClick={handleLogout} />
     </Menu>
   );
 

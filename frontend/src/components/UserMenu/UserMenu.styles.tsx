@@ -34,12 +34,13 @@ const LogoutIcon = styled(ExitToApp)`
 interface MenuItemProps {
   icon: React.ComponentType;
   text: React.ReactNode | string;
+  onClick: React.MouseEventHandler<HTMLLIElement>;
 }
 const MenuItem = (props: MenuItemProps) => {
-  const { icon, text } = props;
+  const { icon, text, onClick } = props;
   const Icon = icon;
   return (
-    <MenuItemWrapper>
+    <MenuItemWrapper onClick={onClick}>
       <Icon />
       {text}
     </MenuItemWrapper>
