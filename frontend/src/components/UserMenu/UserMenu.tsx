@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserData } from "types";
 
-import {
-  Avatar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@material-ui/core";
-
+import { Avatar, IconButton, Menu } from "@material-ui/core";
 import * as S from "./UserMenu.styles";
 
 interface UserMenuProps {
@@ -34,11 +27,32 @@ const UserMenu = (props: UserMenuProps) => {
     history.push("/login");
   };
 
+  const menu = (
+    <Menu
+      anchorEl={anchorEl}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={open}
+      onClose={() => setAnchorEl(null)}
+    >
+      <S.MenuItem icon={S.ProfileIcon} text="Profile" />
+      <S.MenuItem icon={S.ProjectsIcon} text="Projects" />
+      <S.MenuItem icon={S.LogoutIcon} text="Logout" />
+    </Menu>
+  );
+
   return (
     <>
-      <Typography>
+      <S.User>
         {currentUser?.firstName} {currentUser?.lastName}
-      </Typography>
+      </S.User>
       <IconButton
         aria-label="account of current user"
         aria-controls="menu-appbar"
@@ -48,38 +62,7 @@ const UserMenu = (props: UserMenuProps) => {
       >
         <Avatar src={currentUser?.avatar} />
       </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-      >
-        <S.MenuItem
-          onClick={() => {
-            setAnchorEl(null);
-            history.push("/profile");
-          }}
-        >
-          Profile
-        </S.MenuItem>
-        <S.MenuItem
-          onClick={() => {
-            setAnchorEl(null);
-            history.push("/projects");
-          }}
-        >
-          Projects
-        </S.MenuItem>
-        <MenuItem onClick={handleLogout}>Log out</MenuItem>
-      </Menu>
+      {menu}
     </>
   );
 };
