@@ -43,6 +43,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const AppBar = styled.div`
+  box-sizing: border-box;
+  background-color: #3f51b5;
+  color: white;
+  margin-bottom: 0.1rem;
+`;
+
 const Nav = styled(Grid)`
   padding-left: 0rem;
   padding-right: 0rem;
@@ -132,6 +139,7 @@ const UserMenuWrapper = styled(Grid)`
 `;
 
 export {
+  AppBar,
   BreadCrumbsWrapper,
   Extra,
   Nav,

@@ -3,7 +3,6 @@ import UserMenu from "components/UserMenu";
 import { useHistory } from "react-router-dom";
 
 import { Grid } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -21,7 +20,7 @@ const PageHeader = (props: PageHeaderProps) => {
   const history = useHistory();
 
   return (
-    <AppBar position="fixed">
+    <S.AppBar>
       <S.Nav container alignItems="center" wrap="nowrap">
         <S.BreadCrumbsWrapper item xs={4}>
           <Breadcrumbs />
@@ -45,7 +44,7 @@ const PageHeader = (props: PageHeaderProps) => {
           ) : null}
         </S.Extra>
       </S.Nav>
-    </AppBar>
+    </S.AppBar>
   );
 };
 

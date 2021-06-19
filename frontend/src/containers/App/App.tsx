@@ -5,11 +5,8 @@ import { ThemeProvider } from "styled-components";
 
 import {
   createMuiTheme,
-  createStyles,
-  makeStyles,
   MuiThemeProvider,
   StylesProvider,
-  Theme,
 } from "@material-ui/core/styles";
 
 import { getCurrentUser, isAuthenticated } from "../../api/auth";
@@ -26,12 +23,6 @@ import Project from "../Project/Project";
 import Projects from "../Project/Projects";
 import Task from "../Task/Task";
 import * as S from "./App.styles";
-
-const styles = makeStyles<Theme>((theme) =>
-  createStyles({
-    appBarSpacer: theme.mixins.toolbar,
-  })
-);
 
 declare module "@material-ui/core/styles/createBreakpoints" {
   interface BreakpointOverrides {
@@ -51,7 +42,6 @@ const theme = createMuiTheme({
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(isAuthenticated());
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
-  const classes = styles();
   useEffect(() => {
     if (!loggedIn) {
       setCurrentUser(null);
@@ -76,9 +66,8 @@ const App = () => {
         {/* SC THEME PROVIDER */}
         <ThemeProvider theme={theme}>
           <Router>
+            <PageHeader currentUser={currentUser} logOut={logOut} />
             <S.PageContainer>
-              <PageHeader currentUser={currentUser} logOut={logOut} />
-              <div className={classes.appBarSpacer} />
               <S.PageContent>
                 <Switch>
                   <Route
