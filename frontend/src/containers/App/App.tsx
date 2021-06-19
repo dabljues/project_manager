@@ -1,14 +1,15 @@
 import Breakpoints from "models";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
 import {
   createMuiTheme,
   createStyles,
   makeStyles,
+  MuiThemeProvider,
   StylesProvider,
   Theme,
-  ThemeProvider,
 } from "@material-ui/core/styles";
 
 import { getCurrentUser, isAuthenticated } from "../../api/auth";
@@ -70,43 +71,47 @@ const App = () => {
   };
   return (
     <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <S.PageContainer>
-            <PageHeader currentUser={currentUser} logOut={logOut} />
-            <div className={classes.appBarSpacer} />
-            <S.PageContent>
-              <Switch>
-                <Route
-                  exact
-                  path="/login"
-                  component={() => <LoginPage logIn={logIn} />}
-                />
-                <Route exact path="/register" component={RegisterPage} />
-                <PrivateRoute exact path="/" component={HomePage} />
-                <PrivateRoute exact path="/profile" component={Profile} />
-                <PrivateRoute exact path="/projects" component={Projects} />
-                <PrivateRoute
-                  exact
-                  path="/project/create"
-                  component={CreateProject}
-                />
-                <PrivateRoute
-                  exact
-                  path="/project/:projectName"
-                  component={Project}
-                />
-                <PrivateRoute
-                  exact
-                  path="/project/:projectName/backlog"
-                  component={Backlog}
-                />
-                <PrivateRoute exact path="/task/:taskName" component={Task} />
-              </Switch>
-            </S.PageContent>
-          </S.PageContainer>
-        </Router>
-      </ThemeProvider>
+      {/* MUI THEME PROVIDER */}
+      <MuiThemeProvider theme={theme}>
+        {/* SC THEME PROVIDER */}
+        <ThemeProvider theme={theme}>
+          <Router>
+            <S.PageContainer>
+              <PageHeader currentUser={currentUser} logOut={logOut} />
+              <div className={classes.appBarSpacer} />
+              <S.PageContent>
+                <Switch>
+                  <Route
+                    exact
+                    path="/login"
+                    component={() => <LoginPage logIn={logIn} />}
+                  />
+                  <Route exact path="/register" component={RegisterPage} />
+                  <PrivateRoute exact path="/" component={HomePage} />
+                  <PrivateRoute exact path="/profile" component={Profile} />
+                  <PrivateRoute exact path="/projects" component={Projects} />
+                  <PrivateRoute
+                    exact
+                    path="/project/create"
+                    component={CreateProject}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/project/:projectName"
+                    component={Project}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/project/:projectName/backlog"
+                    component={Backlog}
+                  />
+                  <PrivateRoute exact path="/task/:taskName" component={Task} />
+                </Switch>
+              </S.PageContent>
+            </S.PageContainer>
+          </Router>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </StylesProvider>
   );
 };
