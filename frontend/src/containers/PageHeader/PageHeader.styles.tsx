@@ -43,11 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AppBar = styled.div`
-  box-sizing: border-box;
+const AppBar = styled.header`
   background-color: #3f51b5;
   color: white;
   margin-bottom: 0.1rem;
+  width: 100%;
+  position: sticky;
 `;
 
 const Nav = styled(Grid)`

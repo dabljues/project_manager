@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
   }
   * {
       font-family: Arial, Helvetica, sans-serif;
