@@ -1,3 +1,4 @@
+import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import ProjectData from "types/project";
@@ -69,29 +70,32 @@ const Project = ({ match }: ProjectProps) => {
   };
 
   return (
-    <S.Project>
-      <S.ProjectHeader>
-        <S.ProjectIcon />
-        <S.ProjectName>{project.name}</S.ProjectName>
-      </S.ProjectHeader>
-      <S.ProjectInfo>
-        <ProjectStatus name={project.name} status={project.status} />
-        <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
-        <Description onSave={saveDescription} content={project.description} />
-      </S.ProjectInfo>
-      <S.ProjectViews>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => history.push(`/project/${projectName}/backlog`)}
-        >
-          Backlog
-        </Button>
-        <Button variant="contained" color="primary">
-          Kanban Board
-        </Button>
-      </S.ProjectViews>
-    </S.Project>
+    <ProjectEntity name={projectName}>
+      <Description onSave={saveDescription} content={project.description} />
+    </ProjectEntity>
+    // <S.Project>
+    //   <S.ProjectHeader>
+    //     <S.ProjectIcon />
+    //     <S.ProjectName>{project.name}</S.ProjectName>
+    //   </S.ProjectHeader>
+    //   <S.ProjectInfo>
+    //     <ProjectStatus name={project.name} status={project.status} />
+    //     <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
+    //     <Description onSave={saveDescription} content={project.description} />
+    //   </S.ProjectInfo>
+    //   <S.ProjectViews>
+    //     <Button
+    //       variant="contained"
+    //       color="primary"
+    //       onClick={() => history.push(`/project/${projectName}/backlog`)}
+    //     >
+    //       Backlog
+    //     </Button>
+    //     <Button variant="contained" color="primary">
+    //       Kanban Board
+    //     </Button>
+    //   </S.ProjectViews>
+    // </S.Project>
   );
 };
 

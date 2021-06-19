@@ -1,25 +1,19 @@
-import {
-  ProjectEntity,
-  ProjectEntityHeader,
-  ProjectEntityIcon,
-  ProjectEntityInfo,
-  ProjectEntityName,
-} from "components/shared/ProjectEntity";
+import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity/ProjectEntity";
 import styled from "styled-components";
 
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 const Project = styled(ProjectEntity)``;
-const ProjectHeader = styled(ProjectEntityHeader)``;
+// const ProjectHeader = styled(ProjectEntityHeader)``;
 
-const ProjectIcon = styled(GroupWorkIcon)`
-  ${ProjectEntityIcon}
-  color: var(--project-color);
-`;
+// const ProjectIcon = styled(GroupWorkIcon)`
+//   ${ProjectEntityIcon}
+//   color: var(--project-color);
+// `;
 
-const ProjectName = styled(ProjectEntityName)``;
+// const ProjectName = styled(ProjectEntityName)``;
 
-const ProjectInfo = styled(ProjectEntityInfo)``;
+// const ProjectInfo = styled(ProjectEntityInfo)``;
 
 const ProjectViews = styled.div`
   display: flex;
@@ -31,9 +25,9 @@ const ProjectViews = styled.div`
 `;
 export {
   Project,
-  ProjectIcon,
-  ProjectInfo,
-  ProjectHeader,
-  ProjectName,
+  //   ProjectIcon,
+  //   ProjectInfo,
+  //   ProjectHeader,
+  //   ProjectName,
   ProjectViews,
 };

@@ -1,12 +1,13 @@
+import { authRequest } from "api/auth";
+import Description from "components/shared/Description";
+import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity/ProjectEntity";
+import Spinner from "components/shared/Spinner";
+import StatusRow from "components/shared/ProjectEntity/StatusRow";
+import TaskDetails from "components/Task/TaskDetails";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { TaskData } from "types";
 
-import { authRequest } from "../../../api/auth";
-import Description from "../../../components/shared/Description";
-import Spinner from "../../../components/shared/Spinner";
-import TaskDetails from "../../../components/Task/TaskDetails";
-import TaskStatus from "../../../components/Task/TaskStatus";
-import { TaskData } from "../../../types";
 import * as S from "./Task.styles";
 
 interface TaskParams {
@@ -54,23 +55,11 @@ const Task = ({ match }: TaskProps) => {
   };
 
   return (
-    <S.Task>
-      <S.TaskHeader>
-        <S.TaskIcon />
-        <S.TaskName>{task.name}</S.TaskName>
-      </S.TaskHeader>
-      <S.TaskInfo>
-        <TaskStatus name={task.name} status={task.status} />
-        <TaskDetails
-          title={task.title}
-          type={task.type}
-          creator={task.creator}
-          assignee={task.assignee}
-          createdAt={task.createdAt}
-        />
-        <Description onSave={saveDescription} content={task.description} />
-      </S.TaskInfo>
-    </S.Task>
+    <ProjectEntity name={taskName}>
+      <StatusRow status={task.status} />
+      <TaskDetails task={task} />
+      <Description onSave={saveDescription} content={task.description} />
+    </ProjectEntity>
   );
 };
 
