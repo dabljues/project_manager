@@ -5,9 +5,7 @@ import {
   fade,
   createStyles,
   Grid,
-  InputAdornment,
   makeStyles,
-  TextField,
   Theme,
   Typography,
   InputBase,
@@ -46,31 +44,41 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Nav = styled(Grid)`
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  min-width: 600px;
+  justify-content: center;
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
+    justify-content: unset;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 `;
 
-const SiteLogo = styled(Grid)`
+const BreadCrumbsWrapper = styled(Grid)`
   display: none;
   justify-content: flex-start;
-
-  @media (min-width: 400px) {
-    justify-content: center;
-  }
-
-  @media (min-width: 1280px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.values.md}px) {
     display: flex;
     justify-content: flex-start;
   }
 `;
 
-const PageTitleWrapper = styled(Grid)`
+const SiteLogo = styled(Grid)`
   display: flex;
   justify-content: flex-start;
-  @media (min-width: 400px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.values.md}px) {
+    display: none;
+  }
+`;
+
+const PageTitleWrapper = styled(Grid)`
+  display: none;
+  justify-content: center;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
+    display: flex;
     justify-content: center;
   }
 `;
@@ -83,19 +91,9 @@ const PageTitle = styled(Typography)`
 
 const Extra = styled(Grid)`
   display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-
-  @media (min-width: 400px) {
-    align-items: center;
-    justify-content: center;
-  }
-
-  @media (min-width: 960px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-  }
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const SearchWrapper = (props: React.PropsWithChildren<any>) => {
@@ -129,16 +127,17 @@ const Search = () => {
 
 const UserMenuWrapper = styled(Grid)`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 export {
+  BreadCrumbsWrapper,
   Extra,
   Nav,
   PageTitle,
+  PageTitleWrapper,
   Search,
   SiteLogo,
-  PageTitleWrapper,
   UserMenuWrapper,
 };
