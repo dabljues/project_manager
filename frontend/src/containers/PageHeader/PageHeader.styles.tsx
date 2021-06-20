@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const AppBar = styled.header`
+  // flex-grow, flex-shrink, flex-basis
+  // eqivalent to flex: initial
+  // this is the default for flex, so it doesn't have to be defined
+  flex: 0 1 auto;
   background-color: #3f51b5;
   color: white;
   margin-bottom: 0.1rem;
