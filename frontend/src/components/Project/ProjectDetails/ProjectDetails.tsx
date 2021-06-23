@@ -1,15 +1,10 @@
 import "./ProjectDetails.scss";
 
-import {
-  Avatar,
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
+
+import { Avatar, createStyles, makeStyles } from "@material-ui/core";
 
 import { UserData } from "../../../types";
-import DetailEntry from "../../shared/DetailEntry";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,26 +29,17 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
   return (
     <>
       <DetailEntry
-        name="Owner"
-        editButton={
-          <Button variant="contained" color="primary">
-            Transfer Ownership
-          </Button>
-        }
-      >
-        {ownerAvatar}
-        <Typography>{ownerName}</Typography>
-      </DetailEntry>
+        key="owner"
+        label="Owner"
+        content={ownerName}
+        editName="Transfer ownership"
+      />
       <DetailEntry
-        name="Created at"
-        editButton={
-          <Button variant="contained" color="secondary">
-            Delete Project
-          </Button>
-        }
-      >
-        <Typography>{createdAt}</Typography>
-      </DetailEntry>
+        key="created"
+        label="Created"
+        content={createdAt}
+        editName="Delete project"
+      />
     </>
   );
 };

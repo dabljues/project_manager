@@ -1,8 +1,9 @@
 import styled from "styled-components/macro";
 
-import { Button, Chip, Grid, useMediaQuery } from "@material-ui/core";
+import { Chip, Grid, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { CheckCircleOutlined } from "@material-ui/icons";
+import React from "react";
 
 const Status = styled(Grid)`
   margin-bottom: 4rem;
@@ -42,33 +43,32 @@ const StatusButtons = styled.div`
   }
 `;
 
-const StatusRow = ({ status }: { status: string }) => {
+interface StatusRowProps {
+  status: string;
+}
+
+const StatusRow = (props: React.PropsWithChildren<StatusRowProps>) => {
+  const { status, children } = props;
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.between("xxs", "sm"));
 
-  const buttons = (
-    <>
-      <Button color="primary" fullWidth={small} variant="contained">
-        In progress
-      </Button>
-      <Button color="primary" fullWidth={small} variant="contained">
-        In review
-      </Button>
-      <Button color="primary" fullWidth={small} variant="contained">
-        Done
-      </Button>
-      <Button color="secondary" fullWidth={small} variant="contained">
-        Close
-      </Button>
-    </>
-  );
   return (
     <Status container alignItems="center">
       <StatusTag item xs={12} sm={12} md={2}>
         <Chip icon={<CheckCircleOutlined />} label={status} />
       </StatusTag>
       <StatusButtonsWrapper item xs={12} sm={12} md={10}>
-        <StatusButtons>{buttons}</StatusButtons>
+        <StatusButtons>
+          {React.Children.map(children, (child) => {
+            if (React.isValidElement(child)) {
+              return React.cloneElement(child, {
+                fullWidth: small,
+                variant: "contained",
+              });
+            }
+            return child;
+          })}
+        </StatusButtons>
       </StatusButtonsWrapper>
     </Status>
   );

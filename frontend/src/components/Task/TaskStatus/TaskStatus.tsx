@@ -1,8 +1,10 @@
-import { Button } from "@material-ui/core";
+import StatusRow from "components/shared/ProjectEntity/StatusRow";
 import { useState } from "react";
+
+import { Button } from "@material-ui/core";
+
 import { authRequest } from "../../../api/auth";
 import Dictionary from "../../../types/generic";
-import StatusRow from "../../shared/StatusRow";
 
 interface TaskStatusProps {
   name: string;
@@ -73,8 +75,8 @@ const TaskStatus = (props: TaskStatusProps) => {
         }
         return (
           <Button
-            variant="contained"
             onClick={mapping[statusButtonName].onClick}
+            key={statusButtonName}
           >
             {mapping[statusButtonName].buttonText}
           </Button>
