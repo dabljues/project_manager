@@ -55,8 +55,8 @@ const ProjectStatus = (props: ProjectStatusProps) => {
         }
         return (
           <Button
-            variant="contained"
             onClick={mapping[statusButtonName].onClick}
+            key={statusButtonName}
           >
             {mapping[statusButtonName].buttonText}
           </Button>
