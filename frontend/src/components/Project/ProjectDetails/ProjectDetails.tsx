@@ -2,7 +2,7 @@ import "./ProjectDetails.scss";
 
 import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
 
-import { Avatar, createStyles, makeStyles } from "@material-ui/core";
+import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
 
 import { UserData } from "../../../types";
 
@@ -27,7 +27,7 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
   const ownerName = `${owner.firstName} ${owner.lastName}`;
 
   return (
-    <>
+    <Grid container spacing={2}>
       <DetailEntry
         key="owner"
         label="Owner"
@@ -40,7 +40,7 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
         content={createdAt}
         editName="Delete project"
       />
-    </>
+    </Grid>
   );
 };
 
