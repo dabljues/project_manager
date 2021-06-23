@@ -74,30 +74,19 @@ const Project = ({ match }: ProjectProps) => {
       <ProjectStatus name={projectName} status={project.status} />
       <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
       <Description onSave={saveDescription} content={project.description} />
+      <S.ProjectViews>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push(`/project/${projectName}/backlog`)}
+        >
+          Backlog
+        </Button>
+        <Button variant="contained" color="primary">
+          Kanban Board
+        </Button>
+      </S.ProjectViews>
     </ProjectEntity>
-    // <S.Project>
-    //   <S.ProjectHeader>
-    //     <S.ProjectIcon />
-    //     <S.ProjectName>{project.name}</S.ProjectName>
-    //   </S.ProjectHeader>
-    //   <S.ProjectInfo>
-    //     <ProjectStatus name={project.name} status={project.status} />
-    //     <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
-    //     <Description onSave={saveDescription} content={project.description} />
-    //   </S.ProjectInfo>
-    //   <S.ProjectViews>
-    //     <Button
-    //       variant="contained"
-    //       color="primary"
-    //       onClick={() => history.push(`/project/${projectName}/backlog`)}
-    //     >
-    //       Backlog
-    //     </Button>
-    //     <Button variant="contained" color="primary">
-    //       Kanban Board
-    //     </Button>
-    //   </S.ProjectViews>
-    // </S.Project>
   );
 };
 
