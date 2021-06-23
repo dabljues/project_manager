@@ -16,7 +16,7 @@ import {
   RowClickConfig,
   TableColumnInterface,
   TableRowInterface,
-} from "../../types";
+} from "../../../types";
 
 interface PaginatedTableProps {
   columns: TableColumnInterface[];

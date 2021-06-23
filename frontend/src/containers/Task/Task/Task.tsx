@@ -1,40 +1,14 @@
-import "./Task.scss";
-
+import { authRequest } from "api/auth";
+import Description from "components/shared/Description";
+import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity/ProjectEntity";
+import Spinner from "components/shared/Spinner";
+import StatusRow from "components/shared/ProjectEntity/StatusRow";
+import TaskDetails from "components/Task/TaskDetails";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { TaskData } from "types";
 
-import {
-  Avatar,
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import { authRequest } from "../../../api/auth";
-import Spinner from "../../../components/Spinner";
-import { TaskData } from "../../../types";
-import StatusRow from "../../../components/StatusRow";
-import DetailEntry from "../../../components/DetailEntry";
-import Description from "../../../components/Description";
-import TaskStatus from "../../../components/Task/TaskStatus";
-import TaskDetails from "../../../components/Task/TaskDetails";
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    taskName: {
-      color: "snow",
-    },
-    infoLabel: {
-      fontWeight: "bold",
-    },
-    icon: {
-      color: "white",
-      fontSize: 55,
-      marginRight: 15,
-    },
-  })
-);
+import * as S from "./Task.styles";
 
 interface TaskParams {
   taskName: string;
@@ -46,7 +20,6 @@ const Task = ({ match }: TaskProps) => {
   const { taskName } = match.params;
   const [task, setTask] = useState<TaskData | null>(null);
   const [loading, setLoading] = useState(true);
-  const classes = useStyles();
 
   const authCommunicator = authRequest();
 
@@ -82,28 +55,11 @@ const Task = ({ match }: TaskProps) => {
   };
 
   return (
-    <div className="task">
-      <div className="task-name">
-        <AssignmentIcon className={classes.icon} />
-        <Typography variant="h2" className={classes.taskName}>
-          {task.name}
-        </Typography>
-      </div>
-      <div className="task-info">
-        <TaskStatus name={task.name} status={task.status} />
-        <TaskDetails
-          title={task.title}
-          type={task.type}
-          creator={task.creator}
-          assignee={task.assignee}
-          createdAt={task.createdAt}
-        />
-        <Description
-          onChangeSubmit={saveDescription}
-          content={task.description}
-        />
-      </div>
-    </div>
+    <ProjectEntity name={taskName}>
+      <StatusRow status={task.status} />
+      <TaskDetails task={task} />
+      <Description onSave={saveDescription} content={task.description} />
+    </ProjectEntity>
   );
 };
 

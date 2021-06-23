@@ -1,14 +1,23 @@
-import "./Projects.scss";
-
+import CenteredDiv from "components/shared/CenteredDiv";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 
 import { Button, Typography } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
 import ProjectsTable from "../../../components/Project/ProjectsTable";
+import Spinner from "../../../components/shared/Spinner";
 import { ProjectData, TableRowInterface } from "../../../types";
-import Spinner from "../../../components/Spinner";
+
+const NoProjects = styled.div`
+  text-align: center;
+  margin: 50px !important;
+`;
+
+const CreateProjectLink = styled(Link)`
+  text-decoration: none;
+`;
 
 const Projects = () => {
   const [rows, setRows] = useState<TableRowInterface[]>([]);
@@ -42,27 +51,23 @@ const Projects = () => {
     return <Spinner centered />;
   }
   return (
-    <div className="center">
+    <CenteredDiv>
       {rows.length === 0 ? (
-        <div className="text-align-center">
-          <Typography variant="h1" className="no-projects">
-            You have no projects
-          </Typography>
-          <Link to="/project/create" style={{ textDecoration: "none" }}>
+        <NoProjects>
+          <Typography variant="h1">You have no projects</Typography>
+          <CreateProjectLink to="/project/create">
             <Button variant="contained" color="secondary">
               Create your first project
             </Button>
-          </Link>
-        </div>
+          </CreateProjectLink>
+        </NoProjects>
       ) : (
         <>
-          <Typography variant="h2" className="projets-table-title">
-            Your projects:
-          </Typography>
+          <Typography variant="h2">Your projects:</Typography>
           <ProjectsTable rows={rows} />
         </>
       )}
-    </div>
+    </CenteredDiv>
   );
 };
 

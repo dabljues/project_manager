@@ -1,7 +1,7 @@
 import "./ProjectsTable.scss";
 
 import { TableColumnInterface, TableRowInterface } from "../../../types";
-import PaginatedTable from "../../PaginatedTable";
+import PaginatedTable from "../../shared/PaginatedTable";
 
 interface ProjectsTableProps {
   rows: TableRowInterface[];

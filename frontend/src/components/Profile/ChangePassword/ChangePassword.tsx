@@ -11,7 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { authRequest } from "../../../api/auth";
 import UserData from "../../../types/userData";
-import ValidatedTextField from "../../ValidatedTextField";
+import ValidatedTextField from "../../shared/ValidatedTextField";
 
 interface ChangePasswordProps {
   userData: UserData;

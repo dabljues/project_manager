@@ -1,3 +1,4 @@
+import CenteredDiv from "components/shared/CenteredDiv";
 import { useEffect, useState } from "react";
 
 import { Typography } from "@material-ui/core";
@@ -14,9 +15,9 @@ const HomePage = () => {
     getUser();
   }, []);
   return (
-    <div className="center">
+    <CenteredDiv>
       <Typography variant="h1">Hi, {currentUser?.firstName}</Typography>
-    </div>
+    </CenteredDiv>
   );
 };
 

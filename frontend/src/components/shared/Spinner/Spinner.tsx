@@ -1,4 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
+import CenteredDiv from "components/shared/CenteredDiv";
 
 interface SpinnerProps {
   centered?: boolean;
@@ -12,9 +13,9 @@ const Spinner = (props: SpinnerProps) => {
   const { centered } = props;
   if (centered) {
     return (
-      <div className="center">
+      <CenteredDiv>
         <CircularProgress />
-      </div>
+      </CenteredDiv>
     );
   }
   return <CircularProgress />;

@@ -1,23 +1,17 @@
-import "./Project.scss";
-
+import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
+import ProjectData from "types/project";
 
-import {
-  Button,
-  createStyles,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
+import { Button, createStyles, makeStyles } from "@material-ui/core";
 
 import { authRequest } from "../../../api/auth";
-import Description from "../../../components/Description";
-import Spinner from "../../../components/Spinner";
-import ProjectData from "../../../types/project";
-import ProjectParticipants from "./utils";
-import ProjectStatus from "../../../components/Project/ProjectStatus";
 import ProjectDetails from "../../../components/Project/ProjectDetails";
+import ProjectStatus from "../../../components/Project/ProjectStatus";
+import Description from "../../../components/shared/Description";
+import Spinner from "../../../components/shared/Spinner";
+import * as S from "./Project.styles";
+import ProjectParticipants from "./utils";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -76,36 +70,32 @@ const Project = ({ match }: ProjectProps) => {
   };
 
   return (
-    <div className="project">
-      <div className="project-name">
-        <GroupWorkIcon className={classes.icon} />
-        <Typography variant="h2" className={classes.projectName}>
-          {project.name}
-        </Typography>
-      </div>
-      <div className="project-info">
-        <ProjectStatus name={project.name} status={project.status} />
-        <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
-        <Description
-          onChangeSubmit={saveDescription}
-          content={project.description}
-        />
-      </div>
-      <div className="project-views">
-        <div className="views-position">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => history.push(`/project/${projectName}/backlog`)}
-          >
-            Backlog
-          </Button>
-          <Button variant="contained" color="primary">
-            Kanban Board
-          </Button>
-        </div>
-      </div>
-    </div>
+    <ProjectEntity name={projectName}>
+      <Description onSave={saveDescription} content={project.description} />
+    </ProjectEntity>
+    // <S.Project>
+    //   <S.ProjectHeader>
+    //     <S.ProjectIcon />
+    //     <S.ProjectName>{project.name}</S.ProjectName>
+    //   </S.ProjectHeader>
+    //   <S.ProjectInfo>
+    //     <ProjectStatus name={project.name} status={project.status} />
+    //     <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
+    //     <Description onSave={saveDescription} content={project.description} />
+    //   </S.ProjectInfo>
+    //   <S.ProjectViews>
+    //     <Button
+    //       variant="contained"
+    //       color="primary"
+    //       onClick={() => history.push(`/project/${projectName}/backlog`)}
+    //     >
+    //       Backlog
+    //     </Button>
+    //     <Button variant="contained" color="primary">
+    //       Kanban Board
+    //     </Button>
+    //   </S.ProjectViews>
+    // </S.Project>
   );
 };
 

@@ -1,15 +1,17 @@
-import "./RegisterPage.scss";
+// import "./RegisterPage.scss";
 
 import axios from "axios";
+import CenteredDiv from "components/shared/CenteredDiv";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import PersonIcon from "@material-ui/icons/Person";
+
+import * as S from "./RegisterPage.styles";
 
 async function registerUser(
   firstName: string,
@@ -65,7 +67,6 @@ const RegisterForm = () => {
         history.push("/login");
         return;
       }
-      console.log(errors);
       if (errors.first_name) {
         setFirstNameError(errors.first_name);
       }
@@ -82,15 +83,14 @@ const RegisterForm = () => {
   };
 
   return (
-    <Paper className="register-form" variant="elevation">
-      <div className="sign-up-logo">
-        <Avatar className="avatar">
+    <S.RegisterForm>
+      <S.SignUpLogo>
+        <S.StyledAvatar>
           <PersonIcon />
-        </Avatar>
+        </S.StyledAvatar>
         <Typography variant="h6">Sign up to Project Manager</Typography>
-      </div>
-      <TextField
-        className="textfield"
+      </S.SignUpLogo>
+      <S.FormTextField
         label="First name"
         name="firstname"
         size="small"
@@ -100,8 +100,7 @@ const RegisterForm = () => {
           setFirstName(event.target.value);
         }}
       />
-      <TextField
-        className="textfield"
+      <S.FormTextField
         label="Last name"
         name="lastname"
         size="small"
@@ -111,8 +110,7 @@ const RegisterForm = () => {
           setLastName(event.target.value);
         }}
       />
-      <TextField
-        className="textfield"
+      <S.FormTextField
         label="Email"
         name="email"
         size="small"
@@ -122,8 +120,7 @@ const RegisterForm = () => {
           setEmail(event.target.value);
         }}
       />
-      <TextField
-        className="textfield"
+      <S.FormTextField
         label="Password"
         name="password"
         size="small"
@@ -134,8 +131,7 @@ const RegisterForm = () => {
           setPassword(event.target.value);
         }}
       />
-      <TextField
-        className="textfield"
+      <S.FormTextField
         label="Confirm password"
         name="confirm-password"
         size="small"
@@ -146,25 +142,21 @@ const RegisterForm = () => {
           setPasswordConfirmation(event.target.value);
         }}
       />
-      <Button
-        className="signup-button"
+      <S.SignUpButton
         variant="contained"
         color="primary"
         onClick={handleSubmit}
       >
         Sign up
-      </Button>
-    </Paper>
+      </S.SignUpButton>
+    </S.RegisterForm>
   );
 };
 
 const RegisterPage = () => (
-  <div className="center">
+  <CenteredDiv>
     <RegisterForm />
-    <div className="footer">
-      <Typography>Copyright: dabljues</Typography>
-    </div>
-  </div>
+  </CenteredDiv>
 );
 
 export default RegisterPage;

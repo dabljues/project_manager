@@ -1,19 +1,15 @@
-import "./LoginPage.scss";
-
 import axios from "axios";
+import CenteredDiv from "components/shared/CenteredDiv";
 import React, { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 
 import { isAuthenticated, setToken } from "../../../api/auth";
+import * as S from "./LoginPage.styles";
 
 interface LoginPageProps {
   logIn: () => void;
@@ -32,12 +28,12 @@ async function loginUser(email: string, password: string) {
 }
 
 const WrongCredentials = () => (
-  <div className="wrong-credentials">
+  <S.WrongCredentials>
     <Typography>
       The e-mail and password you&apos;ve entered do not match any entries in
       the database. Please try again
     </Typography>
-  </div>
+  </S.WrongCredentials>
 );
 
 const LoginForm = (props: LoginPageProps) => {
@@ -65,16 +61,15 @@ const LoginForm = (props: LoginPageProps) => {
   };
 
   return (
-    <Paper className="login-form" variant="elevation">
-      <div className="sign-in-logo">
-        <Avatar className="avatar">
+    <S.LoginForm>
+      <S.SignInLogo>
+        <S.StyledAvatar>
           <LockIcon />
-        </Avatar>
+        </S.StyledAvatar>
         <Typography variant="h6">Sign in</Typography>
-      </div>
+      </S.SignInLogo>
       {credentialsErrors ? <WrongCredentials /> : null}
-      <TextField
-        className="textfield"
+      <S.StyledTextField
         label="Email"
         name="email"
         size="small"
@@ -83,8 +78,7 @@ const LoginForm = (props: LoginPageProps) => {
           setEmail(event.target.value);
         }}
       />
-      <TextField
-        className="textfield"
+      <S.StyledTextField
         label="Password"
         name="password"
         size="small"
@@ -94,7 +88,7 @@ const LoginForm = (props: LoginPageProps) => {
           setPassword(event.target.value);
         }}
       />
-      <div className="submit-form">
+      <S.SubmitForm>
         <FormControlLabel
           control={
             <Checkbox
@@ -106,36 +100,32 @@ const LoginForm = (props: LoginPageProps) => {
           }
           label="Remember me"
         />
-        <Button
-          className="button"
+        <S.StyledButton
           variant="contained"
           color="primary"
           onClick={handleSubmit}
         >
           Sign in
-        </Button>
-        <div className="register">
+        </S.StyledButton>
+        <S.RegisterDiv>
           <Typography>
             Don&apos;t have an account?
             <Link to="/register" style={{ marginLeft: "15px" }}>
               Register here
             </Link>
           </Typography>
-        </div>
-      </div>
-    </Paper>
+        </S.RegisterDiv>
+      </S.SubmitForm>
+    </S.LoginForm>
   );
 };
 
 const LoginPage = (props: LoginPageProps) => {
   const { logIn } = props;
   return (
-    <div className="center">
+    <CenteredDiv>
       <LoginForm logIn={logIn} />
-      <div className="footer">
-        <Typography>Copyright: dabljues</Typography>
-      </div>
-    </div>
+    </CenteredDiv>
   );
 };
 
