@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from tasks.api.serializers import TaskSerializer
 from tasks.models import Task
 from utils.viewsets import ReadWriteViewset
+from django.db.models import Q
 
 
 class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
@@ -26,21 +27,27 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, participants=[self.request.user])
 
-    def get_tasks(self, status=None):
+    def get_tasks(self, status=None, status_not=None):
         project = self.get_object()
         project_tasks = Task.objects.filter(project=project)
         if status is not None:
             project_tasks = project_tasks.filter(status=status)
 
-        task_serializer = TaskSerializer(project_tasks, many=True)
-        data = task_serializer.data
+        if status_not is not None:
+            project_tasks = project_tasks.filter(~Q(status=status_not))
 
-        return Response(data)
+        task_serializer = TaskSerializer(project_tasks, many=True)
+
+        return task_serializer.data
 
     @action(detail=True, methods=["get"])
     def tasks(self, *args, **kwargs):
-        return self.get_tasks()
+        return Response(self.get_tasks())
 
     @action(detail=True, methods=["get"])
     def backlog(self, *args, **kwargs):
-        return self.get_tasks("NW")
+        return Response(self.get_tasks(status="NW"))
+
+    @action(detail=True, methods=["get"])
+    def kanban(self, *args, **kwargs):
+        return Response(self.get_tasks(status_not="NW"))
