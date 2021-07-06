@@ -1,6 +1,7 @@
+import { authRequest } from "api/auth";
 import { useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { ColumnData } from "types";
+import { ColumnData, Dictionary } from "types";
 import UserData from "types/userData";
 
 import { AccordionDetails, Grid, Typography } from "@material-ui/core";
@@ -24,6 +25,19 @@ const KanbanRow = (props: RowProps) => {
   const { initialColumns, userData } = props;
   const [columns, setColumns] = useState(initialColumns);
   const [expanded, setExpanded] = useState(true);
+
+  const statusMapping: Dictionary<string> = {
+    toDo: "TD",
+    inProgress: "IP",
+    inReview: "IR",
+    done: "DN",
+  };
+
+  const updateTaskState = async (taskName: string, status: string) => {
+    await authRequest().patch(`/task/${taskName}/`, {
+      status: statusMapping[status],
+    });
+  };
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination
@@ -52,13 +66,20 @@ const KanbanRow = (props: RowProps) => {
       setColumns((state) => ({ ...state, [start.id]: start }));
       return null;
     }
+
     const newStartTasks = start.tasks.filter(
       (_: any, idx: number) => idx !== source.index
     );
 
+    const column = columns[start.id];
+    const { tasks } = column;
+    const task = tasks[source.index];
+    const taskName = task.name;
+
     end.tasks.splice(destination.index, 0, start.tasks[source.index]);
     start.tasks = newStartTasks;
 
+    updateTaskState(taskName, end.id);
     setColumns((state) => ({
       ...state,
       [start.id]: start,

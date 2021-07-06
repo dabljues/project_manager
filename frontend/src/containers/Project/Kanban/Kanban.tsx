@@ -1,13 +1,13 @@
-import { authRequest } from 'api/auth';
-import KanbanRow from 'components/Kanban/KanbanRow';
-import Spinner from 'components/shared/Spinner';
-import { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Dictionary, TaskData, UserData } from 'types';
+import { authRequest } from "api/auth";
+import KanbanRow from "components/Kanban/KanbanRow";
+import Spinner from "components/shared/Spinner";
+import { useEffect, useState } from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Dictionary, TaskData, UserData } from "types";
 
-import { Grid } from '@material-ui/core';
+import { Grid } from "@material-ui/core";
 
-import * as S from './Kanban.styles';
+import * as S from "./Kanban.styles";
 
 interface KanbanParams {
   projectName: string;
