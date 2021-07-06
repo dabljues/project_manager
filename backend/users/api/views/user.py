@@ -31,9 +31,6 @@ class UserViewSet(viewsets.ModelViewSet):
         OnlyModifyYourselfPermission,
     ]
 
-    def get_object(self):
-        return self.request.user
-
     @action(detail=False, methods=["get"])
     def current(self, request, *args, **kwargs):
         return Response(self.get_serializer(request.user).data)

@@ -1,3 +1,4 @@
+import Kanban from "containers/Project/Kanban/Kanban";
 import Breakpoints from "models";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -92,6 +93,11 @@ const App = () => {
                   exact
                   path="/project/:projectName/backlog"
                   component={Backlog}
+                />
+                <PrivateRoute
+                  exact
+                  path="/project/:projectName/kanbanBoard"
+                  component={Kanban}
                 />
                 <PrivateRoute exact path="/task/:taskName" component={Task} />
               </Switch>
