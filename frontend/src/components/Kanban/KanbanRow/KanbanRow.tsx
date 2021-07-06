@@ -1,6 +1,4 @@
-import { authRequest } from "api/auth";
-import Spinner from "components/shared/Spinner";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { ColumnData } from "types";
 import UserData from "types/userData";
@@ -71,10 +69,10 @@ const KanbanRow = (props: RowProps) => {
 
   const rowHeader = (
     <>
-      <Typography>
+      <Typography variant="h5">
         {userData.firstName} {userData.lastName}
       </Typography>
-      <S.KanbanRowAvatar src={userData.avatar} />
+      {expanded ? null : <S.KanbanRowAvatar src={userData.avatar} />}
     </>
   );
 

@@ -1,11 +1,13 @@
-import { Grid } from "@material-ui/core";
-import { authRequest } from "api/auth";
-import KanbanRow from "components/Kanban/KanbanRow";
-import { useEffect, useState } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { Dictionary, TaskData, UserData } from "types";
+import { authRequest } from 'api/auth';
+import KanbanRow from 'components/Kanban/KanbanRow';
+import Spinner from 'components/shared/Spinner';
+import { useEffect, useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Dictionary, TaskData, UserData } from 'types';
 
-import * as S from "./Kanban.styles";
+import { Grid } from '@material-ui/core';
+
+import * as S from './Kanban.styles';
 
 interface KanbanParams {
   projectName: string;
@@ -16,32 +18,25 @@ interface KanbanProps extends RouteComponentProps<KanbanParams> {}
 const Kanban = ({ match }: KanbanProps) => {
   const { projectName } = match.params;
   const authCommunicator = authRequest();
-  const [usersTasks, setUsersTasks] = useState<Dictionary<TaskData[]>>({});
+  const [usersTasks, setUsersTasks] = useState<Dictionary<TaskData[]> | null>(
+    null
+  );
   useEffect(() => {
-    const x: Dictionary<TaskData[]> = {};
     const getTasks = async () => {
       const projectTasks = await authCommunicator.get(
         `/project/${projectName}/kanban`
       );
-      await Promise.all(
-        projectTasks.data.map(async (taskData: TaskData) => {
-          const { assignee } = taskData;
-          const assigneId = assignee.id;
-          if (x[assigneId]) {
-            x[assigneId].push(taskData);
-          } else {
-            x[assigneId] = [];
-            x[assigneId].push(taskData);
-          }
-        })
-      );
-      setUsersTasks(x);
+      setUsersTasks(projectTasks.data);
     };
     getTasks();
     return () => {
-      setUsersTasks({});
+      setUsersTasks([]);
     };
   }, []);
+
+  if (usersTasks === null) {
+    return <Spinner />;
+  }
   return (
     <S.Kanban>
       <S.KanbanColumnHeaderRow>
@@ -60,11 +55,12 @@ const Kanban = ({ match }: KanbanProps) => {
       </S.KanbanColumnHeaderRow>
       {Object.keys(usersTasks).map((userId) => {
         const tasks: TaskData[] = usersTasks[userId];
-        const toDo = tasks.filter((task) => task.status === "TD");
-        const inProgress = tasks.filter((task) => task.status === "IP");
-        const inReview = tasks.filter((task) => task.status === "IR");
-        const done = tasks.filter((task) => task.status === "DN");
-        // const userData =
+        const toDo = tasks.filter((task) => task.status === "To do");
+        const inProgress = tasks.filter(
+          (task) => task.status === "In progress"
+        );
+        const inReview = tasks.filter((task) => task.status === "In review");
+        const done = tasks.filter((task) => task.status === "Done");
         const initialColumns = {
           toDo: { id: "toDo", tasks: toDo },
           inProgress: {
@@ -75,7 +71,10 @@ const Kanban = ({ match }: KanbanProps) => {
           done: { id: "done", tasks: done },
         };
         return (
-          <KanbanRow initialColumns={initialColumns} userData={userData} />
+          <KanbanRow
+            initialColumns={initialColumns}
+            userData={tasks[0].assignee}
+          />
         );
       })}
     </S.Kanban>

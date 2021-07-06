@@ -8,6 +8,8 @@ from tasks.models import Task
 from utils.viewsets import ReadWriteViewset
 from django.db.models import Q
 
+from collections import defaultdict
+
 
 class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     queryset = Project.objects.all()
@@ -50,4 +52,10 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
 
     @action(detail=True, methods=["get"])
     def kanban(self, *args, **kwargs):
-        return Response(self.get_tasks(status_not="NW"))
+        tasks = self.get_tasks(status_not="NW")
+        user_tasks = defaultdict(list)
+        for task in tasks:
+            assignee = task["assignee"]
+            assignee_id = assignee["id"]
+            user_tasks[assignee_id].append(task)
+        return Response(user_tasks)

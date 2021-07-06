@@ -1,7 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components/macro";
-import { Card, CardHeader, CardContent } from "@material-ui/core";
+import { Card, CardHeader, CardContent, Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import TaskData from "types/task";
 
@@ -27,10 +27,11 @@ const TaskTile = (props: TaskTileProps) => {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...provided.dragHandleProps}
         >
-          <CardHeader title={<Link to={`/task/${name}`}>{name}</Link>} />
-          <CardContent>
-            {title} {assignee.firstName} {assignee.lastName}
-          </CardContent>
+          <CardHeader
+            title={<Link to={`/task/${name}`}>{name}</Link>}
+            action={<Avatar src={assignee.avatar} />}
+          />
+          <CardContent>{title}</CardContent>
         </StyledCard>
       )}
     </Draggable>
