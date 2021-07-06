@@ -1,8 +1,10 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components/macro";
-import { Grid } from "@material-ui/core";
-import { ColumnData } from "types";
+import { ColumnData, Dictionary } from "types";
+
+import { Grid, Typography } from "@material-ui/core";
+
 import TaskTile from "../TaskTile";
 
 interface ColumnProps {
@@ -30,15 +32,33 @@ const StyledList = styled.div`
   margin-top: 1rem;
 `;
 
+const ColumnHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  @media (min-width: ${(props) => props.theme.breakpoints.values.md}px) {
+    display: none;
+  }
+`;
+
 const KanbanColumn = (props: ColumnProps) => {
   const { col } = props;
   const { id, tasks } = col;
 
+  const statusNameMapping: Dictionary<string> = {
+    toDo: "To do",
+    inProgress: "In progress",
+    inReview: "In review",
+    done: "Done",
+  };
+
   return (
-    <StyledGrid item xs={12} sm={3}>
+    <StyledGrid item xs={12} md={3}>
       <Droppable droppableId={id}>
         {(provided) => (
           <StyledColumn>
+            <ColumnHeader>
+              <Typography variant="h4">{statusNameMapping[id]}</Typography>
+            </ColumnHeader>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <StyledList {...provided.droppableProps} ref={provided.innerRef}>
               {tasks.map((task, index) => (

@@ -40,16 +40,16 @@ const Kanban = ({ match }: KanbanProps) => {
   return (
     <S.Kanban>
       <S.KanbanColumnHeaderRow>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} md={3}>
           <S.KanbanColumnHeader>To do</S.KanbanColumnHeader>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} md={3}>
           <S.KanbanColumnHeader>In progress</S.KanbanColumnHeader>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} md={3}>
           <S.KanbanColumnHeader>In review</S.KanbanColumnHeader>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} md={3}>
           <S.KanbanColumnHeader>Done</S.KanbanColumnHeader>
         </Grid>
       </S.KanbanColumnHeaderRow>

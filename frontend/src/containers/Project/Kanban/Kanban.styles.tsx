@@ -9,19 +9,27 @@ const Kanban = styled.div`
   margin-top: 3rem;
 `;
 
+const StyledRow = styled(Grid)`
+  margin-bottom: 2rem;
+  display: none;
+  @media (min-width: ${(props) => props.theme.breakpoints.values.md}px) {
+    display: flex;
+  }
+`;
+
 const KanbanColumnHeaderRow = (props: React.PropsWithChildren<any>) => {
   const { children } = props;
-  const StyledRow = styled(Grid)`
-    margin-bottom: 2rem;
-  `;
+
   return <StyledRow container>{children}</StyledRow>;
 };
 
+const StyledHeader = styled(Typography)`
+  margin-left: 2rem;
+`;
+
 const KanbanColumnHeader = (props: React.PropsWithChildren<any>) => {
   const { children } = props;
-  const StyledHeader = styled(Typography)`
-    margin-left: 2rem;
-  `;
+
   return <StyledHeader variant="h4">{children}</StyledHeader>;
 };
 
