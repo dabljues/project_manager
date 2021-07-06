@@ -1,5 +1,5 @@
 from projects.models import Project
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from tasks.api.serializers import ReadTaskSerializer, WriteTaskSerializer
 from tasks.models import SubTask, Task
 
@@ -12,8 +12,7 @@ class TaskViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = ReadTaskSerializer
     lookup_field = "name"
-    permission_classes = []
-    authentication_classes = []
+    permission_classes = [permissions.IsAuthenticated]
 
     read_serializer_class = ReadTaskSerializer
     write_serializer_class = WriteTaskSerializer

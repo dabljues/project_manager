@@ -3,7 +3,7 @@ from projects.models import Project
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from tasks.api.serializers import TaskSerializer
+from tasks.api.serializers import ReadTaskSerializer
 from tasks.models import Task
 from utils.viewsets import ReadWriteViewset
 from django.db.models import Q
@@ -36,7 +36,7 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
         if status_not is not None:
             project_tasks = project_tasks.filter(~Q(status=status_not))
 
-        task_serializer = TaskSerializer(project_tasks, many=True)
+        task_serializer = ReadTaskSerializer(project_tasks, many=True)
 
         return task_serializer.data
 
