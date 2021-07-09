@@ -1,4 +1,6 @@
+from django.core import validators
 from django.db import models
+from django.core.validators import MinLengthValidator
 from django.utils import timezone
 from users.models import User
 
@@ -10,7 +12,9 @@ class TaskBase(models.Model):
 
     name = models.CharField("Name", max_length=12, unique=True, blank=True)
     status = models.CharField("State", max_length=2, default="NW", choices=STATUS_CHOICES)
-    title = models.CharField("Title", max_length=100)
+    title = models.CharField(
+        "Title", max_length=100, validators=[MinLengthValidator(10, "Title's too short")]
+    )
     description = models.CharField("Description", max_length=2000, default="")
 
     creator = models.ForeignKey(
