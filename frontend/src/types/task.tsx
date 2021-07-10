@@ -12,7 +12,7 @@ interface TaskData {
   creator: UserData;
   assignee: UserData;
 
-  project: number;
+  project: { id: number; name: string };
 }
 
 export default TaskData;
