@@ -1,6 +1,6 @@
 from django.core import validators
-from django.db import models
 from django.core.validators import MinLengthValidator
+from django.db import models
 from django.utils import timezone
 from users.models import User
 

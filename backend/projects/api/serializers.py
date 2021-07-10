@@ -17,3 +17,9 @@ class ReadProjectSerializer(serializers.ModelSerializer):
     status = serializers.CharField(source="get_status_display", required=False)
     owner = UserSerializer()
     participants = UserSerializer(many=True)
+
+
+class ProjectNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ["id", "name"]

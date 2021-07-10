@@ -1,3 +1,4 @@
+from projects.api.serializers import ProjectNameSerializer
 from rest_framework import serializers
 from tasks.models import Task
 from users.api.serializers import UserSerializer
@@ -19,4 +20,5 @@ class ReadTaskSerializer(TaskSerializer):
     type = serializers.CharField(source="get_type_display")
     creator = UserSerializer()
     assignee = UserSerializer()
+    project = ProjectNameSerializer()
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
