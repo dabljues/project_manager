@@ -1,5 +1,4 @@
 import { authRequest } from "api/auth";
-import ProjectParticipants from "containers/Project/Project/utils";
 import React, { useEffect, useState } from "react";
 import TaskData from "types/task";
 import UserData from "types/userData";

@@ -1,5 +1,3 @@
-import "./Project.scss";
-
 import { UserData } from "../../../types";
 
 interface ProjectParticipantsProps {

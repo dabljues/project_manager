@@ -72,7 +72,7 @@ const Project = ({ match }: ProjectProps) => {
   return (
     <ProjectEntity name={projectName}>
       <ProjectStatus name={projectName} status={project.status} />
-      <ProjectDetails owner={project.owner} createdAt={project.createdAt} />
+      <ProjectDetails project={project} />
       <Description onSave={saveDescription} content={project.description} />
       <S.ProjectViews>
         <Button

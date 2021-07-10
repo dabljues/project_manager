@@ -1,6 +1,11 @@
 import "./ProjectDetails.scss";
 
+import { authRequest } from "api/auth";
+import ChangeTitle from "components/shared/ProjectEntity/ChangeTitle";
 import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
+import { useState } from "react";
+import ProjectData from "types/project";
+import task from "types/task";
 
 import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
 
@@ -14,17 +19,29 @@ const useStyles = makeStyles(() =>
   })
 );
 interface ProjectDetailsProps {
-  owner: UserData;
-  createdAt: string;
+  project: ProjectData;
 }
 
 const ProjectDetails = (props: ProjectDetailsProps) => {
-  const { owner, createdAt } = props;
+  const { project } = props;
+  const authCommunicator = authRequest();
+  const [projectData, setProjectData] = useState<ProjectData>(project);
+  const changeTitle = async (title: string) => {
+    const updatedProject = await authCommunicator.patch(
+      `/project/${projectData.name}`,
+      {
+        title,
+      }
+    );
+    setProjectData(updatedProject.data);
+  };
 
   const classes = useStyles();
 
-  const ownerAvatar = <Avatar src={owner.avatar} className={classes.avatar} />;
-  const ownerName = `${owner.firstName} ${owner.lastName}`;
+  const ownerAvatar = (
+    <Avatar src={projectData.owner.avatar} className={classes.avatar} />
+  );
+  const ownerName = `${projectData.owner.firstName} ${projectData.owner.lastName}`;
 
   return (
     <Grid container spacing={2}>
@@ -32,13 +49,15 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
         key="owner"
         label="Owner"
         content={ownerName}
-        editName="Transfer ownership"
+        editDialog={<ChangeTitle value={ownerName} onSubmit={changeTitle} />}
       />
       <DetailEntry
         key="created"
         label="Created"
-        content={createdAt}
-        editName="Delete project"
+        content={projectData.createdAt}
+        editDialog={
+          <ChangeTitle value={projectData.createdAt} onSubmit={changeTitle} />
+        }
       />
     </Grid>
   );
