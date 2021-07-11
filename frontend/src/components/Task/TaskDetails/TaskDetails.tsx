@@ -1,10 +1,10 @@
 import { authRequest } from "api/auth";
-import ChangeAssignee from "components/shared/ProjectEntity/Task/ChangeAssignee";
 import ChangeTitle from "components/shared/ProjectEntity/ChangeTitle";
 import ChangeType from "components/shared/ProjectEntity/ChangeType";
 import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
+import ChangeAssignee from "components/shared/ProjectEntity/Task/ChangeAssignee";
 import { useState } from "react";
-import { TaskData } from "types";
+import { Dictionary, TaskData } from "types";
 
 import { Grid } from "@material-ui/core";
 
@@ -41,6 +41,12 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
     await authCommunicator.delete(`/task/${task.name}/`);
   };
 
+  const typeMapping: Dictionary<string> = {
+    Bug: "B",
+    Improvement: "I",
+    Task: "T",
+  };
+
   return (
     <Grid container spacing={2}>
       <DetailEntry
@@ -55,7 +61,13 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
         key="Type"
         label="Type"
         content={taskData.type}
-        editDialog={<ChangeType value={taskData.type} onSubmit={changeType} />}
+        editDialog={
+          <ChangeType
+            value={taskData.type}
+            typeMapping={typeMapping}
+            onSubmit={changeType}
+          />
+        }
       />
       <DetailEntry
         key="Creator"

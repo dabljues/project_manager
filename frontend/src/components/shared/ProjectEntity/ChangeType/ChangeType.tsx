@@ -13,19 +13,14 @@ import {
 
 interface ChangeTypeProps {
   value: string;
+  typeMapping: Dictionary<string>;
   onSubmit: (value: string) => Promise<void>;
 }
 
 const ChangeType = (props: ChangeTypeProps) => {
-  const { value, onSubmit } = props;
+  const { value, typeMapping, onSubmit } = props;
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(value);
-
-  const typeMapping: Dictionary<string> = {
-    Bug: "B",
-    Improvement: "I",
-    Task: "T",
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -62,9 +57,9 @@ const ChangeType = (props: ChangeTypeProps) => {
               setType(event.target.value as string)
             }
           >
-            <MenuItem value="Bug">Bug</MenuItem>
-            <MenuItem value="Improvement">Improvement</MenuItem>
-            <MenuItem value="Task">Task</MenuItem>
+            {Object.keys(typeMapping).map((typeName: string) => (
+              <MenuItem value={typeName}>{typeName}</MenuItem>
+            ))}
           </Select>
         </DialogContent>
         <DialogActions>
