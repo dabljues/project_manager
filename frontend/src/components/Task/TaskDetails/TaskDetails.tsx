@@ -1,8 +1,10 @@
 import { authRequest } from "api/auth";
-import ChangeTitle from "components/shared/ProjectEntity/ChangeTitle";
-import ChangeType from "components/shared/ProjectEntity/ChangeType";
-import ChangeUser from "components/shared/ProjectEntity/ChangeUser";
-import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
+import {
+  ChangeTitle,
+  ChangeType,
+  ChangeUser,
+  DetailEntry,
+} from "components/shared/ProjectEntity/DetailEntry";
 import { useState } from "react";
 import { Dictionary, TaskData, UserData } from "types";
 

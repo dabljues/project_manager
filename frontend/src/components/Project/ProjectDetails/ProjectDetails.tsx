@@ -1,15 +1,12 @@
 import "./ProjectDetails.scss";
 
 import { authRequest } from "api/auth";
-import ChangeTitle from "components/shared/ProjectEntity/ChangeTitle";
-import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
+import { DetailEntry } from "components/shared/ProjectEntity/DetailEntry";
+import ChangeTitle from "components/shared/ProjectEntity/DetailEntry/ChangeTitle";
 import { useState } from "react";
 import ProjectData from "types/project";
-import task from "types/task";
 
 import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
-
-import { UserData } from "../../../types";
 
 const useStyles = makeStyles(() =>
   createStyles({
