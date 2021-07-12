@@ -1,6 +1,4 @@
-import { authRequest } from "api/auth";
 import React, { useEffect, useState } from "react";
-import TaskData from "types/task";
 import UserData from "types/userData";
 
 import {
@@ -16,27 +14,25 @@ import {
   Typography,
 } from "@material-ui/core";
 
-interface ChangeAssigneeProps {
-  task: TaskData;
+interface ChangeUserProps {
+  userType: "assignee" | "creator" | "owner";
+  currentUser: UserData;
+  getAvailableUsers: () => Promise<UserData[]>;
   onSubmit: (value: number) => Promise<void>;
 }
 
-const ChangeAssignee = (props: ChangeAssigneeProps) => {
-  const { task, onSubmit } = props;
+const ChangeUser = (props: ChangeUserProps) => {
+  const { userType, currentUser, getAvailableUsers, onSubmit } = props;
   const [open, setOpen] = useState(false);
-  const [assignee, setAssignee] = useState(task.assignee.id);
-  const [projectParticipants, setProjectParticipants] = useState<UserData[]>(
-    []
-  );
-  const authCommunicator = authRequest();
+  const [currentUserId, setCurrentUserId] = useState(currentUser.id);
+  const [availableUsers, setAvailableUsers] = useState<UserData[]>([]);
 
   useEffect(() => {
-    const getParticipants = async () => {
-      await authCommunicator
-        .get(`/project/${task.project.name}`)
-        .then((response) => setProjectParticipants(response.data.participants));
+    const getUsers = async () => {
+      const users = await getAvailableUsers();
+      setAvailableUsers(users);
     };
-    getParticipants();
+    getUsers();
   }, []);
 
   const handleClose = () => {
@@ -44,20 +40,20 @@ const ChangeAssignee = (props: ChangeAssigneeProps) => {
   };
 
   const handleSubmit = async () => {
-    if (assignee === task.assignee.id) {
+    if (currentUserId === currentUser.id) {
       return;
     }
-    onSubmit(assignee);
+    onSubmit(currentUserId);
     setOpen(false);
   };
 
-  const renderParticipant = (participant: UserData) => (
-    <MenuItem key={participant.id} value={participant.id}>
+  const renderUser = (user: UserData) => (
+    <MenuItem key={user.id} value={user.id}>
       <ListItemAvatar>
-        <Avatar src={participant.avatar} />
+        <Avatar src={user.avatar} />
       </ListItemAvatar>
       <Typography>
-        {participant.firstName} {participant.lastName}
+        {user.firstName} {user.lastName}
       </Typography>
     </MenuItem>
   );
@@ -70,32 +66,30 @@ const ChangeAssignee = (props: ChangeAssigneeProps) => {
         fullWidth
         onClick={() => setOpen(true)}
       >
-        Change assignee
+        Change {userType}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Change assignee</DialogTitle>
+        <DialogTitle>Change {userType}</DialogTitle>
         <DialogContent>
           <Select
-            id="assignee"
-            name="assignee"
+            id="user"
+            name="user"
             fullWidth
-            value={assignee}
+            value={currentUserId}
             onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-              setAssignee(event.target.value as number)
+              setCurrentUserId(event.target.value as number)
             }
             renderValue={(selected) => {
-              const user = projectParticipants.find(
+              const user = availableUsers.find(
                 (u) => u.id === (selected as number)
               );
               if (user === undefined) {
                 return "None";
               }
-              return renderParticipant(user);
+              return renderUser(user);
             }}
           >
-            {projectParticipants.map((participant) =>
-              renderParticipant(participant)
-            )}
+            {availableUsers.map((user) => renderUser(user))}
           </Select>
         </DialogContent>
         <DialogActions>
@@ -111,4 +105,4 @@ const ChangeAssignee = (props: ChangeAssigneeProps) => {
   );
 };
 
-export default ChangeAssignee;
+export default ChangeUser;

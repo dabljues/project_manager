@@ -1,10 +1,10 @@
 import { authRequest } from "api/auth";
 import ChangeTitle from "components/shared/ProjectEntity/ChangeTitle";
 import ChangeType from "components/shared/ProjectEntity/ChangeType";
+import ChangeUser from "components/shared/ProjectEntity/ChangeUser";
 import DetailEntry from "components/shared/ProjectEntity/DetailEntry";
-import ChangeAssignee from "components/shared/ProjectEntity/Task/ChangeAssignee";
 import { useState } from "react";
-import { Dictionary, TaskData } from "types";
+import { Dictionary, TaskData, UserData } from "types";
 
 import { Grid } from "@material-ui/core";
 
@@ -35,6 +35,12 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
       assignee,
     });
     setTaskData(updatedTask.data);
+  };
+  const getParticipants = async (): Promise<UserData[]> => {
+    const project = await authCommunicator.get(
+      `/project/${taskData.project.name}`
+    );
+    return project.data.participants;
   };
 
   const deleteTask = async () => {
@@ -85,7 +91,12 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
         label="Assignee"
         content={`${taskData.assignee.firstName} ${taskData.assignee.lastName}`}
         editDialog={
-          <ChangeAssignee task={taskData} onSubmit={changeAssignee} />
+          <ChangeUser
+            userType="assignee"
+            currentUser={taskData.assignee}
+            getAvailableUsers={getParticipants}
+            onSubmit={changeAssignee}
+          />
         }
       />
       <DetailEntry
