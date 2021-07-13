@@ -17,6 +17,7 @@ class ReadProjectSerializer(serializers.ModelSerializer):
     status = serializers.CharField(source="get_status_display", required=False)
     owner = UserSerializer()
     participants = UserSerializer(many=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
 
 class ProjectNameSerializer(serializers.ModelSerializer):
