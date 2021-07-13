@@ -12,7 +12,12 @@ import { Dictionary, TaskData, UserData } from "types";
 import { Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-const TaskDetails = ({ task }: { task: TaskData }) => {
+interface TaskDetailsProps {
+  task: TaskData;
+}
+
+const TaskDetails = (props: TaskDetailsProps) => {
+  const { task } = props;
   const [taskData, setTaskData] = useState<TaskData>(task);
   const history = useHistory();
   const authCommunicator = authRequest();
@@ -59,6 +64,15 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
     Task: "T",
   };
 
+  const ownerContent =
+    taskData.owner !== null
+      ? `${taskData.owner.firstName} ${taskData.owner.lastName}`
+      : "No owner";
+  const assigneeContent =
+    taskData.assignee !== null
+      ? `${taskData.assignee.firstName} ${taskData.assignee.lastName}`
+      : "Unassigned";
+
   return (
     <Grid container spacing={2}>
       <DetailEntry
@@ -84,18 +98,20 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
       <DetailEntry
         key="Owner"
         label="Owner"
-        content={`${taskData.owner.firstName} ${taskData.owner.lastName}`}
+        content={ownerContent}
         editDialog={
-          <ChangeTitle
-            value={taskData.owner.firstName}
-            onSubmit={changeTitle}
+          <ChangeUser
+            userType="owner"
+            currentUser={taskData.owner}
+            getAvailableUsers={getParticipants}
+            onSubmit={changeOwner}
           />
         }
       />
       <DetailEntry
         key="Assignee"
         label="Assignee"
-        content={`${taskData.assignee.firstName} ${taskData.assignee.lastName}`}
+        content={assigneeContent}
         editDialog={
           <ChangeUser
             userType="assignee"

@@ -9,8 +9,8 @@ interface TaskData {
   lastUpdated: string;
   type: string;
 
-  owner: UserData;
-  assignee: UserData;
+  owner: UserData | null;
+  assignee: UserData | null;
 
   project: { id: number; name: string };
 }

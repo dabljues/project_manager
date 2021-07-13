@@ -2,15 +2,16 @@ import "./ProjectDetails.scss";
 
 import { authRequest } from "api/auth";
 import {
+  ChangeUser,
   DeleteEntity,
   DetailEntry,
 } from "components/shared/ProjectEntity/DetailEntry";
-import ChangeTitle from "components/shared/ProjectEntity/DetailEntry/ChangeTitle";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ProjectData from "types/project";
 
 import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
+import { UserData } from "types";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,11 +29,12 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
   const [projectData, setProjectData] = useState<ProjectData>(project);
   const history = useHistory();
   const authCommunicator = authRequest();
-  const changeTitle = async (title: string) => {
+
+  const changeOwner = async (owner: number) => {
     const updatedProject = await authCommunicator.patch(
-      `/project/${projectData.name}`,
+      `/project/${projectData.name}/`,
       {
-        title,
+        owner,
       }
     );
     setProjectData(updatedProject.data);
@@ -40,6 +42,13 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
   const deleteProject = async () => {
     await authCommunicator.delete(`/project/${projectData.name}/`);
     history.push("/projects");
+  };
+
+  const getParticipants = async (): Promise<UserData[]> => {
+    const projectResponse = await authCommunicator.get(
+      `/project/${projectData.name}`
+    );
+    return projectResponse.data.participants;
   };
 
   const classes = useStyles();
@@ -55,7 +64,14 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
         key="owner"
         label="Owner"
         content={ownerName}
-        editDialog={<ChangeTitle value={ownerName} onSubmit={changeTitle} />}
+        editDialog={
+          <ChangeUser
+            userType="owner"
+            currentUser={projectData.owner}
+            getAvailableUsers={getParticipants}
+            onSubmit={changeOwner}
+          />
+        }
       />
       <DetailEntry
         key="created"

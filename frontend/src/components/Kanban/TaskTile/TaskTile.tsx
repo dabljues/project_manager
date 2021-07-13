@@ -29,7 +29,9 @@ const TaskTile = (props: TaskTileProps) => {
         >
           <CardHeader
             title={<Link to={`/task/${name}`}>{name}</Link>}
-            action={<Avatar src={assignee.avatar} />}
+            action={
+              <Avatar src={assignee === null ? undefined : assignee.avatar} />
+            }
           />
           <CardContent>{title}</CardContent>
         </StyledCard>

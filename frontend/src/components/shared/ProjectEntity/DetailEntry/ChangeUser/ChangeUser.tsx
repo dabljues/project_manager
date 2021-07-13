@@ -16,15 +16,16 @@ import {
 
 interface ChangeUserProps {
   userType: "assignee" | "owner";
-  currentUser: UserData;
+  currentUser: UserData | null;
   getAvailableUsers: () => Promise<UserData[]>;
   onSubmit: (value: number) => Promise<void>;
 }
 
 const ChangeUser = (props: ChangeUserProps) => {
   const { userType, currentUser, getAvailableUsers, onSubmit } = props;
+  const initialUserId = currentUser === null ? -1 : currentUser.id;
   const [open, setOpen] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState(currentUser.id);
+  const [currentUserId, setCurrentUserId] = useState(initialUserId);
   const [availableUsers, setAvailableUsers] = useState<UserData[]>([]);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const ChangeUser = (props: ChangeUserProps) => {
   };
 
   const handleSubmit = async () => {
-    if (currentUserId === currentUser.id) {
+    if (currentUserId === initialUserId) {
       return;
     }
     onSubmit(currentUserId);
