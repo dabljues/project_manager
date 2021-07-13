@@ -3,6 +3,8 @@
 
 # Virtualenv
 venv/
+.eggs
+version.py
 
 __pycache__/
 # User-specific files
