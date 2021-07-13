@@ -3,15 +3,18 @@ import {
   ChangeTitle,
   ChangeType,
   ChangeUser,
+  DeleteEntity,
   DetailEntry,
 } from "components/shared/ProjectEntity/DetailEntry";
 import { useState } from "react";
 import { Dictionary, TaskData, UserData } from "types";
 
 import { Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const TaskDetails = ({ task }: { task: TaskData }) => {
   const [taskData, setTaskData] = useState<TaskData>(task);
+  const history = useHistory();
   const authCommunicator = authRequest();
 
   const changeTitle = async (title: string) => {
@@ -38,15 +41,16 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
     });
     setTaskData(updatedTask.data);
   };
+  const deleteTask = async () => {
+    await authCommunicator.delete(`/task/${task.name}/`);
+    history.push(`/project/${taskData.project.name}`);
+  };
+
   const getParticipants = async (): Promise<UserData[]> => {
     const project = await authCommunicator.get(
       `/project/${taskData.project.name}`
     );
     return project.data.participants;
-  };
-
-  const deleteTask = async () => {
-    await authCommunicator.delete(`/task/${task.name}/`);
   };
 
   const typeMapping: Dictionary<string> = {
@@ -105,9 +109,7 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
         key="Created"
         label="Created"
         content={taskData.createdAt}
-        editDialog={
-          <ChangeTitle value={taskData.createdAt} onSubmit={changeTitle} />
-        }
+        editDialog={<DeleteEntity entityType="task" onSubmit={deleteTask} />}
       />
     </Grid>
   );

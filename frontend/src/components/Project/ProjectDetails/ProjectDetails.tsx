@@ -1,9 +1,13 @@
 import "./ProjectDetails.scss";
 
 import { authRequest } from "api/auth";
-import { DetailEntry } from "components/shared/ProjectEntity/DetailEntry";
+import {
+  DeleteEntity,
+  DetailEntry,
+} from "components/shared/ProjectEntity/DetailEntry";
 import ChangeTitle from "components/shared/ProjectEntity/DetailEntry/ChangeTitle";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import ProjectData from "types/project";
 
 import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
@@ -21,8 +25,9 @@ interface ProjectDetailsProps {
 
 const ProjectDetails = (props: ProjectDetailsProps) => {
   const { project } = props;
-  const authCommunicator = authRequest();
   const [projectData, setProjectData] = useState<ProjectData>(project);
+  const history = useHistory();
+  const authCommunicator = authRequest();
   const changeTitle = async (title: string) => {
     const updatedProject = await authCommunicator.patch(
       `/project/${projectData.name}`,
@@ -31,6 +36,10 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
       }
     );
     setProjectData(updatedProject.data);
+  };
+  const deleteProject = async () => {
+    await authCommunicator.delete(`/project/${projectData.name}/`);
+    history.push("/projects");
   };
 
   const classes = useStyles();
@@ -53,7 +62,7 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
         label="Created"
         content={projectData.createdAt}
         editDialog={
-          <ChangeTitle value={projectData.createdAt} onSubmit={changeTitle} />
+          <DeleteEntity entityType="project" onSubmit={deleteProject} />
         }
       />
     </Grid>
