@@ -54,9 +54,15 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
   const classes = useStyles();
 
   const ownerAvatar = (
-    <Avatar src={projectData.owner.avatar} className={classes.avatar} />
+    <Avatar
+      src={projectData.owner === null ? undefined : projectData.owner.avatar}
+      className={classes.avatar}
+    />
   );
-  const ownerName = `${projectData.owner.firstName} ${projectData.owner.lastName}`;
+  const ownerName =
+    projectData.owner === null
+      ? "No owner"
+      : `${projectData.owner.firstName} ${projectData.owner.lastName}`;
 
   return (
     <Grid container spacing={2}>
