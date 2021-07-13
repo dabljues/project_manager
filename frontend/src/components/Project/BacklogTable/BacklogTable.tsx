@@ -17,8 +17,8 @@ const BacklogTable = (props: BacklogTableProps) => {
     { id: "title", label: "Title", minWidth: 50 },
     { id: "type", label: "Type", minWidth: 50 },
     {
-      id: "creator",
-      label: "Creator",
+      id: "owner",
+      label: "Owner",
       minWidth: 250,
       align: "right",
     },

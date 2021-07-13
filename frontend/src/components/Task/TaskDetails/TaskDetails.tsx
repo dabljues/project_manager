@@ -82,12 +82,12 @@ const TaskDetails = ({ task }: { task: TaskData }) => {
         }
       />
       <DetailEntry
-        key="Creator"
-        label="Creator"
-        content={`${taskData.creator.firstName} ${taskData.creator.lastName}`}
+        key="Owner"
+        label="Owner"
+        content={`${taskData.owner.firstName} ${taskData.owner.lastName}`}
         editDialog={
           <ChangeTitle
-            value={taskData.creator.firstName}
+            value={taskData.owner.firstName}
             onSubmit={changeTitle}
           />
         }

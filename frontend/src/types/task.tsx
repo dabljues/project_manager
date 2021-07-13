@@ -9,7 +9,7 @@ interface TaskData {
   lastUpdated: string;
   type: string;
 
-  creator: UserData;
+  owner: UserData;
   assignee: UserData;
 
   project: { id: number; name: string };

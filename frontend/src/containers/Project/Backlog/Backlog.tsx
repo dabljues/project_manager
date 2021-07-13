@@ -25,11 +25,11 @@ const Backlog = ({ match }: BacklogProps) => {
       );
       await Promise.all(
         projectTasks.data.map(async (taskData: TaskData) => {
-          const { creator, assignee } = taskData;
-          const creatorString =
-            creator === null
+          const { owner, assignee } = taskData;
+          const ownerString =
+            owner === null
               ? "<unassigned>"
-              : `${creator.firstName} ${creator.lastName}`;
+              : `${owner.firstName} ${owner.lastName}`;
           const assigneeString =
             assignee === null
               ? "<unassigned>"
@@ -39,7 +39,7 @@ const Backlog = ({ match }: BacklogProps) => {
             status: taskData.status,
             title: taskData.title,
             type: taskData.type,
-            creator: creatorString,
+            owner: ownerString,
             assignee: assigneeString,
           });
         })

@@ -1,4 +1,3 @@
-from django.core import validators
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
@@ -17,8 +16,8 @@ class TaskBase(models.Model):
     )
     description = models.CharField("Description", max_length=2000, default="")
 
-    creator = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_creator"
+    owner = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_owner"
     )
     assignee = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_assignee"

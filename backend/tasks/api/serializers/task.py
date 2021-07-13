@@ -18,7 +18,7 @@ class ReadTaskSerializer(TaskSerializer):
 
     status = serializers.CharField(source="get_status_display")
     type = serializers.CharField(source="get_type_display")
-    creator = UserSerializer()
+    owner = UserSerializer()
     assignee = UserSerializer()
     project = ProjectNameSerializer()
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")

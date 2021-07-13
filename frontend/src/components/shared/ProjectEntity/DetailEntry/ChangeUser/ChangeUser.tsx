@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 interface ChangeUserProps {
-  userType: "assignee" | "creator" | "owner";
+  userType: "assignee" | "owner";
   currentUser: UserData;
   getAvailableUsers: () => Promise<UserData[]>;
   onSubmit: (value: number) => Promise<void>;
