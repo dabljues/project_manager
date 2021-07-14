@@ -4,7 +4,7 @@ install_requires = [
     "django>=3.2.5",
     "django-cors-headers>=3.7.0",
     "djangorestframework>=3.12.4",
-    "djangorestframework-simplejwt>=4.7.2",
+    "djangorestframework-simplejwt<=4.6.0",
     "pillow>=8.3.1",
     "psycopg2>=2.9.1",
 ]
