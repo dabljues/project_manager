@@ -1,3 +1,4 @@
+import renderUserMenuItem from "helpers";
 import React, { useEffect, useState } from "react";
 import UserData from "types/userData";
 
@@ -9,7 +10,6 @@ import {
   DialogTitle,
   Select,
 } from "@material-ui/core";
-import UserMenuItem from "components/shared/User/UserMenuItem";
 
 interface ChangeUserProps {
   userType: "assignee" | "owner";
@@ -73,12 +73,10 @@ const ChangeUser = (props: ChangeUserProps) => {
               if (user === undefined) {
                 return "None";
               }
-              return <UserMenuItem user={user} />;
+              return renderUserMenuItem(user);
             }}
           >
-            {availableUsers.map((user) => (
-              <UserMenuItem user={user} />
-            ))}
+            {availableUsers.map((user) => renderUserMenuItem(user))}
           </Select>
         </DialogContent>
         <DialogActions>
