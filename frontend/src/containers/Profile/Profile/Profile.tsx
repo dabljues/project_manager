@@ -1,5 +1,6 @@
 import "./Profile.scss";
 
+import Spinner from "components/shared/Spinner";
 import { useEffect, useState } from "react";
 
 import {
@@ -42,11 +43,13 @@ const Profile = () => {
     let isMounted = true;
     const getUser = async () => {
       const user = await getCurrentUser();
-      setCurrentUser(user);
-      setEmail(user.email);
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-      setAvatar(user.avatar);
+      if (user) {
+        setCurrentUser(user);
+        setEmail(user.email);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setAvatar(user.avatar);
+      }
     };
     if (isMounted) {
       getUser();
@@ -55,6 +58,10 @@ const Profile = () => {
       isMounted = false;
     };
   }, []);
+
+  if (currentUser === null) {
+    return <Spinner />;
+  }
 
   return (
     <div className="profile-box">

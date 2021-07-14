@@ -13,7 +13,11 @@ const Breadcrumbs = () => {
   return (
     <BC separator={<Separator>{">"}</Separator>}>
       {breadcrumbs.map((value) => (
-        <NavLink to={value.key} style={{ color: "snow", fontSize: "1rem" }}>
+        <NavLink
+          key={value.key}
+          to={value.key}
+          style={{ color: "snow", fontSize: "1rem" }}
+        >
           {value.breadcrumb}
         </NavLink>
       ))}

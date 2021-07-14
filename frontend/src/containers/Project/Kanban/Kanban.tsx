@@ -1,9 +1,10 @@
 import { authRequest } from "api/auth";
+import getUser from "api/user";
 import KanbanRow from "components/Kanban/KanbanRow";
 import Spinner from "components/shared/Spinner";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { Dictionary, TaskData, UserData } from "types";
+import { Dictionary, TaskData } from "types";
 
 import { Grid } from "@material-ui/core";
 
@@ -53,7 +54,7 @@ const Kanban = ({ match }: KanbanProps) => {
           <S.KanbanColumnHeader>Done</S.KanbanColumnHeader>
         </Grid>
       </S.KanbanColumnHeaderRow>
-      {Object.keys(usersTasks).map((userId) => {
+      {Object.keys(usersTasks).map(async (userId) => {
         const tasks: TaskData[] = usersTasks[userId];
         const toDo = tasks.filter((task) => task.status === "To do");
         const inProgress = tasks.filter(
@@ -70,12 +71,11 @@ const Kanban = ({ match }: KanbanProps) => {
           inReview: { id: "inReview", tasks: inReview },
           done: { id: "done", tasks: done },
         };
-        return (
-          <KanbanRow
-            initialColumns={initialColumns}
-            userData={tasks[0].assignee}
-          />
-        );
+        const user = await getUser(userId);
+        if (user) {
+          return <KanbanRow initialColumns={initialColumns} userData={user} />;
+        }
+        return null;
       })}
     </S.Kanban>
   );

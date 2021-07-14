@@ -1,4 +1,4 @@
-import TaskData from "./task";
+import { TaskData } from "./task";
 
 interface ColumnData {
   id: string;

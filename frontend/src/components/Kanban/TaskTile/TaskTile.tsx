@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components/macro";
 import { Card, CardHeader, CardContent, Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import TaskData from "types/task";
+import { TaskData } from "types/task";
 
 interface TaskTileProps {
   task: TaskData;

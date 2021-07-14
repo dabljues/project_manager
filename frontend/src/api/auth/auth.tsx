@@ -115,7 +115,7 @@ export const setCurrentUser = (user: UserData) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-export const getCurrentUser = async (): UserData => {
+export const getCurrentUser = async (): Promise<UserData | null> => {
   const userResponse = await authRequest()
     .get("/user/current")
     .then((response) => response)

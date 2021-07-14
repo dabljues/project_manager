@@ -15,4 +15,14 @@ interface TaskData {
   project: { id: number; name: string };
 }
 
-export default TaskData;
+interface WriteTaskData {
+  status: string;
+  title: string;
+  description: string;
+  type: string;
+  owner: number | null;
+  assignee: number | null;
+  project: string;
+}
+
+export type { TaskData, WriteTaskData };

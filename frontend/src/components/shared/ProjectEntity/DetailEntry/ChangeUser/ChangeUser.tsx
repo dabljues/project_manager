@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import UserData from "types/userData";
 
 import {
-  Avatar,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  ListItemAvatar,
-  MenuItem,
   Select,
-  Typography,
 } from "@material-ui/core";
+import UserMenuItem from "components/shared/User/UserMenuItem";
 
 interface ChangeUserProps {
   userType: "assignee" | "owner";
@@ -48,17 +45,6 @@ const ChangeUser = (props: ChangeUserProps) => {
     setOpen(false);
   };
 
-  const renderUser = (user: UserData) => (
-    <MenuItem key={user.id} value={user.id}>
-      <ListItemAvatar>
-        <Avatar src={user.avatar} />
-      </ListItemAvatar>
-      <Typography>
-        {user.firstName} {user.lastName}
-      </Typography>
-    </MenuItem>
-  );
-
   return (
     <>
       <Button
@@ -87,10 +73,12 @@ const ChangeUser = (props: ChangeUserProps) => {
               if (user === undefined) {
                 return "None";
               }
-              return renderUser(user);
+              return <UserMenuItem user={user} />;
             }}
           >
-            {availableUsers.map((user) => renderUser(user))}
+            {availableUsers.map((user) => (
+              <UserMenuItem user={user} />
+            ))}
           </Select>
         </DialogContent>
         <DialogActions>
