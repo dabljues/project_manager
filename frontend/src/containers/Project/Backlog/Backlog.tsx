@@ -1,10 +1,12 @@
+import { authRequest } from "api/auth";
+import BacklogTable from "components/Project/BacklogTable";
 import CenteredDiv from "components/shared/CenteredDiv";
+import Spinner from "components/shared/Spinner";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { TableRowInterface, TaskData, WriteTaskData, ProjectData } from "types";
 
-import { authRequest } from "../../../api/auth";
-import BacklogTable from "../../../components/Project/BacklogTable";
-import { TableRowInterface, TaskData } from "../../../types";
+import * as S from "./Backlog.styles";
 
 interface BacklogParams {
   projectName: string;
@@ -14,9 +16,14 @@ interface BacklogProps extends RouteComponentProps<BacklogParams> {}
 
 const Backlog = ({ match }: BacklogProps) => {
   const [rows, setRows] = useState<TableRowInterface[]>([]);
+  const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const { projectName } = match.params;
-
   const authCommunicator = authRequest();
+
+  const createTask = async (task: WriteTaskData) => {
+    await authCommunicator.put("/task/", task);
+  };
+
   useEffect(() => {
     const getTasks = async () => {
       const tasksCollected: TableRowInterface[] = [];
@@ -46,15 +53,26 @@ const Backlog = ({ match }: BacklogProps) => {
       );
       setRows(tasksCollected);
     };
+    const getProject = async () => {
+      const project = await authCommunicator.get(`/project/${projectName}`);
+      setProjectData(project.data);
+    };
     getTasks();
+    getProject();
     return () => {
       setRows([]);
+      setProjectData(null);
     };
   }, []);
 
+  if (rows.length === 0 || projectData === null) {
+    return <Spinner />;
+  }
+
   return (
     <CenteredDiv>
-      <BacklogTable rows={rows} />{" "}
+      <BacklogTable rows={rows} />
+      <S.CreateTaskDialog project={projectData} onSubmit={createTask} />
     </CenteredDiv>
   );
 };
