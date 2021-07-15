@@ -14,6 +14,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  InputLabel,
   Select,
   TextField,
 } from "@material-ui/core";
@@ -123,6 +124,7 @@ const CreateTask = (props: CreateTaskProps) => {
               />
             </FormControl>
             <FormControl fullWidth margin="dense">
+              <InputLabel>Task type</InputLabel>
               <MappingSelect
                 value={formik.values.type}
                 setValue={(value: any) => {
@@ -132,6 +134,7 @@ const CreateTask = (props: CreateTaskProps) => {
               />
             </FormControl>
             <FormControl fullWidth margin="dense">
+              <InputLabel>Assignee</InputLabel>
               <Select
                 id="assignee"
                 name="Assignee"
