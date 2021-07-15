@@ -14,7 +14,7 @@ class TaskBase(models.Model):
     title = models.CharField(
         "Title", max_length=100, validators=[MinLengthValidator(10, "Title's too short")]
     )
-    description = models.CharField("Description", max_length=2000, default="")
+    description = models.CharField("Description", max_length=2000, default="", blank=True)
 
     owner = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="%(app_label)s_%(class)s_owner"
