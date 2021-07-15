@@ -1,4 +1,5 @@
 import { getCurrentUser } from "api/auth";
+import DialogButtons from "components/shared/DialogForm";
 import MappingSelect from "components/shared/MappingSelect";
 import Spinner from "components/shared/Spinner";
 import { useFormik } from "formik";
@@ -9,7 +10,6 @@ import { ProjectData, UserData, WriteTaskData } from "types";
 import * as yup from "yup";
 
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -165,12 +165,11 @@ const CreateTask = (props: CreateTaskProps) => {
                 {availableUsers.map((user) => renderUserMenuItem(user))}
               </Select>
             </FormControl>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button color="primary" type="submit">
-              Create
-            </Button>
+            <DialogButtons
+              okText="Create"
+              cancelText="Cancel"
+              handleClose={handleClose}
+            />
           </form>
         </DialogContent>
       </Dialog>
