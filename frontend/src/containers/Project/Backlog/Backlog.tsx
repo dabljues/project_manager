@@ -5,8 +5,7 @@ import Spinner from "components/shared/Spinner";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { TableRowInterface, TaskData, WriteTaskData, ProjectData } from "types";
-
-import * as S from "./Backlog.styles";
+import CreateTask from "components/Task/CreateTask";
 
 interface BacklogParams {
   projectName: string;
@@ -76,7 +75,7 @@ const Backlog = ({ match }: BacklogProps) => {
   return (
     <CenteredDiv>
       <BacklogTable rows={rows} />
-      <S.CreateTaskDialog project={projectData} onSubmit={createTask} />
+      <CreateTask project={projectData} onSubmit={createTask} />
     </CenteredDiv>
   );
 };

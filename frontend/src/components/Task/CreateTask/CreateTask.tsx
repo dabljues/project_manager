@@ -19,6 +19,8 @@ import {
   TextField,
 } from "@material-ui/core";
 
+import CreateTaskButton from "./CreateTask.styles";
+
 const validationSchema = yup.object().shape({
   title: yup
     .string()
@@ -84,9 +86,13 @@ const CreateTask = (props: CreateTaskProps) => {
 
   return (
     <>
-      <Button color="primary" variant="contained" onClick={() => setOpen(true)}>
+      <CreateTaskButton
+        color="primary"
+        variant="contained"
+        onClick={() => setOpen(true)}
+      >
         Create a task
-      </Button>
+      </CreateTaskButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a task</DialogTitle>
         <DialogContent>
