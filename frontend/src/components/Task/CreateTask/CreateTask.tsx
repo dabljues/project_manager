@@ -1,9 +1,10 @@
 import { getCurrentUser } from "api/auth";
+import MappingSelect from "components/shared/MappingSelect";
 import Spinner from "components/shared/Spinner";
 import { useFormik } from "formik";
 import renderUserMenuItem from "helpers";
-import { rest } from "lodash";
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import { TaskTypes } from "models";
+import React, { useEffect, useState } from "react";
 import { ProjectData, UserData, WriteTaskData } from "types";
 import * as yup from "yup";
 
@@ -21,7 +22,8 @@ const validationSchema = yup.object().shape({
   title: yup
     .string()
     .min(10, "Title must be at least 10 characters")
-    .max(100, "Title cannot exceed 100 characters"),
+    .max(100, "Title cannot exceed 100 characters")
+    .required(),
   description: yup
     .string()
     .max(2000, "Description cannot exceed 2000 characters"),
@@ -50,25 +52,25 @@ const CreateTask = (props: CreateTaskProps) => {
     initialValues: {
       title: "",
       status: "NW",
-      type: "T",
+      type: "Task",
       description: "",
-      assignee: "",
-      project: project.name,
-      owner: currentUser === null ? "" : currentUser.id,
+      assignee: null,
+      project: project.id,
+      owner: currentUser === null ? null : currentUser.id,
     },
     validationSchema,
     onSubmit: async (values) => {
       onSubmit({
         title: values.title,
-        status: values.status,
-        type: values.type,
+        type: TaskTypes[values.type],
         description: values.description,
-        assignee: values.assignee as unknown as number,
+        assignee: values.assignee,
+        owner: values.owner,
         project: values.project,
-        owner: values.owner as number,
       });
       setOpen(false);
     },
+    enableReinitialize: true,
   });
 
   const handleClose = () => {
@@ -91,7 +93,7 @@ const CreateTask = (props: CreateTaskProps) => {
             <FormControl fullWidth margin="dense" variant="outlined">
               <TextField
                 id="title"
-                name="Title"
+                name="title"
                 label="Title"
                 autoFocus
                 variant="outlined"
@@ -104,10 +106,11 @@ const CreateTask = (props: CreateTaskProps) => {
             <FormControl fullWidth margin="dense">
               <TextField
                 id="description"
-                name="Description"
+                name="description"
                 label="Description"
                 multiline
                 variant="outlined"
+                value={formik.values.description}
                 rows={10}
                 onChange={formik.handleChange}
                 error={
@@ -120,14 +123,25 @@ const CreateTask = (props: CreateTaskProps) => {
               />
             </FormControl>
             <FormControl fullWidth margin="dense">
+              <MappingSelect
+                value={formik.values.type}
+                setValue={(value: any) => {
+                  formik.setFieldValue("type", value);
+                }}
+                mapping={TaskTypes}
+              />
+            </FormControl>
+            <FormControl fullWidth margin="dense">
               <Select
                 id="assignee"
                 name="Assignee"
+                label="Assignee"
                 defaultValue=""
                 onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                  console.log(event.target.value as number);
-                  formik.setFieldValue("assignee", "");
-                  console.log(formik.values);
+                  formik.setFieldValue(
+                    "assignee",
+                    event.target.value as number
+                  );
                 }}
                 renderValue={(selected) => {
                   const user = availableUsers.find(

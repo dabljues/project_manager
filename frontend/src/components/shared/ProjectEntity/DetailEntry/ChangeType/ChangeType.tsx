@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
+import MappingSelect from "components/shared/MappingSelect";
 
 interface ChangeTypeProps {
   value: string;
@@ -48,19 +49,11 @@ const ChangeType = (props: ChangeTypeProps) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Change type</DialogTitle>
         <DialogContent>
-          <Select
-            id="type"
-            name="type"
-            fullWidth
+          <MappingSelect
             value={type}
-            onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
-              setType(event.target.value as string)
-            }
-          >
-            {Object.keys(typeMapping).map((typeName: string) => (
-              <MenuItem value={typeName}>{typeName}</MenuItem>
-            ))}
-          </Select>
+            setValue={setType}
+            mapping={typeMapping}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

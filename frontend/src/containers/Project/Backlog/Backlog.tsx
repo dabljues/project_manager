@@ -21,7 +21,7 @@ const Backlog = ({ match }: BacklogProps) => {
   const authCommunicator = authRequest();
 
   const createTask = async (task: WriteTaskData) => {
-    await authCommunicator.put("/task/", task);
+    await authCommunicator.post("/task/", task);
   };
 
   useEffect(() => {
@@ -66,7 +66,11 @@ const Backlog = ({ match }: BacklogProps) => {
   }, []);
 
   if (rows.length === 0 || projectData === null) {
-    return <Spinner />;
+    return (
+      <CenteredDiv>
+        <Spinner />
+      </CenteredDiv>
+    );
   }
 
   return (
