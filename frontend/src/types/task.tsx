@@ -16,13 +16,13 @@ interface TaskData {
 }
 
 interface WriteTaskData {
-  status: string;
   title: string;
-  description: string;
-  type: string;
   owner: number | null;
-  assignee: number | null;
-  project: string;
+  project: number;
+  description?: string;
+  status?: string;
+  type?: string;
+  assignee?: number | null;
 }
 
 export type { TaskData, WriteTaskData };

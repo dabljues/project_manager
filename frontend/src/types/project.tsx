@@ -1,6 +1,7 @@
 import UserData from "./userData";
 
 interface ProjectData {
+  id: number;
   name: string;
   status: string;
   owner: UserData | null;
