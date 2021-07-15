@@ -1,5 +1,5 @@
 import Kanban from "containers/Project/Kanban/Kanban";
-import Breakpoints from "models";
+import { Breakpoints } from "models";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
