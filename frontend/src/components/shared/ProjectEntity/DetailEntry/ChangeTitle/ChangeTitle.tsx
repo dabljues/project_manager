@@ -8,6 +8,7 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
+import DialogButtons from "components/shared/DialogForm";
 
 const validationSchema = yup.object().shape({
   title: yup
@@ -65,12 +66,11 @@ const ChangeTitle = (props: ChangeTitleProps) => {
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
             />
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button color="primary" type="submit">
-              Save
-            </Button>
+            <DialogButtons
+              okText="Save"
+              cancelText="Cancel"
+              handleClose={handleClose}
+            />
           </form>
         </DialogContent>
       </Dialog>
