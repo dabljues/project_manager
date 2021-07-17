@@ -8,35 +8,47 @@ interface ResponsiveColProps {
 
 const ResponsiveCol = styled(Grid)<ResponsiveColProps>`
   display: flex;
-  justify-content: ${(props) => props.justifyContent};
   align-items: center;
+  text-align: center;
+  word-break: break-word;
 `;
 
 const DetailEntryWrapper = (props: React.PropsWithChildren<any>) => {
   const { children } = props;
 
   return (
-    <Grid item xs={12} sm={12} md={12} lg={12} xl={6} xxl={6}>
+    <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
       {children}
     </Grid>
   );
 };
 
 const Detail = styled(Grid)`
-  font-size: 1.125rem;
+  font-size: 1rem;
+  border: 1px solid black;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
+    border: none;
+  }
 `;
 
 const DetailLabel = styled(ResponsiveCol)`
   font-weight: bold;
   font-size: 1.25em;
-  justify-content: flex-end;
+  justify-content: center;
 
-  @media (min-width: 600px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
     justify-content: flex-start;
   }
 `;
 
-const DetailContent = styled(ResponsiveCol)``;
+const DetailContent = styled(ResponsiveCol)`
+  justify-content: center;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
+    justify-content: flex-start;
+  }
+`;
 
 const EditButtonWrapper = styled(ResponsiveCol)`
   @media (min-width: 1200px) {

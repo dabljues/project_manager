@@ -25,7 +25,7 @@ const PageHeader = (props: PageHeaderProps) => {
         <S.BreadCrumbsWrapper item xs={4}>
           <Breadcrumbs />
         </S.BreadCrumbsWrapper>
-        <S.SiteLogo item xxs={1} sm={1} md={4}>
+        <S.SiteLogo item sm={1} md={4}>
           <IconButton onClick={() => history.push("/")}>
             <Avatar>PM</Avatar>
           </IconButton>
@@ -33,7 +33,7 @@ const PageHeader = (props: PageHeaderProps) => {
         <S.PageTitleWrapper item sm={7} md={4}>
           <S.PageTitle>Project Manager</S.PageTitle>
         </S.PageTitleWrapper>
-        <S.Extra item xxs={10} sm={4}>
+        <S.Extra item sm={4}>
           <Grid item md={8} lg={6} xl={7}>
             <S.Search />
           </Grid>

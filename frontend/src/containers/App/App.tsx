@@ -27,7 +27,6 @@ import PageContent from "./App.styles";
 
 declare module "@material-ui/core/styles/createBreakpoints" {
   interface BreakpointOverrides {
-    xxs: true;
     xxl: true;
     twoK: true;
     forK: true;

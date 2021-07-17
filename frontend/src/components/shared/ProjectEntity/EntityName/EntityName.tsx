@@ -16,13 +16,15 @@ const Icon = styled(AssignmentIcon)`
 const NameWrapper = styled.div`
   display: flex;
   justify-content: center;
+  text-align: center;
+  word-break: break-word;
 `;
 
 const Name = styled(Typography)`
   color: white;
   font-size: 1rem;
 
-  @media (min-width: ${(props) => props.theme.breakpoints.values.xs}px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.values.xxsm}px) {
     font-size: 2rem;
   }
   @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {

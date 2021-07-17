@@ -50,7 +50,7 @@ interface StatusRowProps {
 const StatusRow = (props: React.PropsWithChildren<StatusRowProps>) => {
   const { status, children } = props;
   const theme = useTheme();
-  const small = useMediaQuery(theme.breakpoints.between("xxs", "sm"));
+  const small = useMediaQuery(theme.breakpoints.between("xs", "sm"));
 
   return (
     <Status container alignItems="center">

@@ -9,7 +9,7 @@ const StyledCard = styled(Card)`
   box-shadow: 0px -1px 15px 2px rgba(0, 0, 0, 0.27);
   overflow: hidden;
   margin: 0;
-  @media (min-width: 576px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.values.sm}px) {
     margin: 30px 5% 0 5%;
   }
   @media (min-width: 1600px) {
