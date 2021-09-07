@@ -42,7 +42,7 @@ const Task = ({ match }: TaskProps) => {
     return <Spinner centered />;
   }
 
-  const iconInfo = TaskIcons[task.type];
+  const icon = task.type === "Task" ? S.TaskIcon : TaskIcons[task.type];
 
   const saveDescription = async (content: string): Promise<boolean> => {
     const r = await authCommunicator
@@ -58,7 +58,7 @@ const Task = ({ match }: TaskProps) => {
   };
 
   return (
-    <ProjectEntity name={taskName} iconInfo={iconInfo}>
+    <ProjectEntity name={taskName} icon={icon}>
       <TaskStatus name={taskName} status={task.status} />
       <TaskDetails task={task} />
       <Description onSave={saveDescription} content={task.description} />

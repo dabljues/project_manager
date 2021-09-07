@@ -1,5 +1,4 @@
 import { renderUser } from "helpers";
-import { renderIconFromInfo } from "helpers/UI";
 import { TaskIcons } from "models";
 import React from "react";
 import styled from "styled-components/macro";
@@ -61,9 +60,14 @@ const BacklogTable = (props: BacklogTableProps) => {
     const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
     const assigneeInfo =
       assignee === null ? "<unassigned>" : renderUser(assignee);
-    const icon = renderIconFromInfo(TaskIcons[taskData.type]);
+    const Icon = TaskIcons[taskData.type];
+    console.log(Icon);
     return {
-      icon: <TaskIcon>{icon}</TaskIcon>,
+      icon: (
+        <TaskIcon>
+          <Icon />
+        </TaskIcon>
+      ),
       name: taskData.name,
       status: taskData.status,
       title: taskData.title,

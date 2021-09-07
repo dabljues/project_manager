@@ -25,15 +25,15 @@ const StyledCard = styled(Card)`
 
 interface ProjectEntityProps {
   name: string;
-  iconInfo: IconInfo;
+  icon: React.ComponentType;
 }
 
 const ProjectEntity = (props: React.PropsWithChildren<ProjectEntityProps>) => {
-  const { name, iconInfo, children } = props;
+  const { name, icon, children } = props;
 
   return (
     <StyledCard>
-      <EntityName name={name} iconInfo={iconInfo} />
+      <EntityName name={name} icon={icon} />
       <CardContent>{children}</CardContent>
     </StyledCard>
   );

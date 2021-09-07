@@ -12,7 +12,8 @@ const GlobalStyle = createGlobalStyle`
   }
   :root {
       --paper-border: 1px solid #dadce0;
-      --project-color: #cc3399;
+      --primary-color: #3f51b5;
+      --secondary-color: #cc3399;
       --errors-list-color: rgb(255, 210, 218);
   }
 `;

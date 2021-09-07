@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Person, GroupWork, ExitToApp } from "@material-ui/icons";
+import { Person, ExitToApp } from "@material-ui/icons";
 import { Avatar, MenuItem as MI, Typography } from "@material-ui/core";
+import { ProjectIcon } from "models";
 
 const User = styled(Typography)`
   display: none;
@@ -23,9 +24,8 @@ const IconStyle = css`
 const ProfileIcon = styled(Person)`
   ${IconStyle}
 `;
-const ProjectsIcon = styled(GroupWork)`
+const ProjectsIcon = styled(ProjectIcon)`
   ${IconStyle}
-  color: var(--project-color);
 `;
 const LogoutIcon = styled(ExitToApp)`
   ${IconStyle}

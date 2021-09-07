@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components/macro";
 
 import {
@@ -6,10 +7,8 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import { IconInfo } from "types";
 
 const EntityIcon = styled.div`
-  color: white;
   font-size: 4rem;
 `;
 
@@ -40,20 +39,18 @@ const StyledHeader = styled(CardHeader)`
 
 interface EntityNameProps {
   name: string;
-  iconInfo: IconInfo;
+  icon: React.ComponentType;
 }
 
 const EntityName = (props: EntityNameProps) => {
-  const { name, iconInfo } = props;
-  const { Icon, iconProps } = iconInfo;
+  const { name, icon } = props;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   if (matches) {
     return (
       <StyledHeader
         disableTypography
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        avatar={<EntityIcon as={Icon} {...iconProps} />}
+        avatar={<EntityIcon as={icon} />}
         title={<Name>{name}</Name>}
       />
     );

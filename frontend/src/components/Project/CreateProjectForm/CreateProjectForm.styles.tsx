@@ -13,7 +13,7 @@ const CreateProjectForm = styled(Paper)`
   border: var(--paper-border);
 `;
 
-const CreateProjectIcon = styled(ProjectIcon.Icon)`
+const CreateProjectIcon = styled(ProjectIcon)`
   font-size: 3rem;
 `;
 
