@@ -1,7 +1,7 @@
+import { ProjectIcon } from "models";
 import styled from "styled-components/macro";
 
 import { Avatar, Button, Paper, TextField } from "@material-ui/core";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 const CreateProjectForm = styled(Paper)`
   display: flex;
@@ -13,8 +13,7 @@ const CreateProjectForm = styled(Paper)`
   border: var(--paper-border);
 `;
 
-const ProjectIcon = styled(GroupWorkIcon)`
-  color: var(--project-color);
+const CreateProjectIcon = styled(ProjectIcon.Icon)`
   font-size: 3rem;
 `;
 
@@ -51,5 +50,5 @@ export {
   FormAvatar,
   FormButton,
   FormTextField,
-  ProjectIcon,
+  CreateProjectIcon,
 };

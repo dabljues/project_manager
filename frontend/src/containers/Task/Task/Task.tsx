@@ -4,6 +4,7 @@ import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity/Project
 import Spinner from "components/shared/Spinner";
 import TaskDetails from "components/Task/TaskDetails";
 import TaskStatus from "components/Task/TaskStatus";
+import { TaskIcons } from "models";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { TaskData } from "types";
@@ -41,6 +42,8 @@ const Task = ({ match }: TaskProps) => {
     return <Spinner centered />;
   }
 
+  const iconInfo = TaskIcons[task.type];
+
   const saveDescription = async (content: string): Promise<boolean> => {
     const r = await authCommunicator
       .patch(`/task/${task.name}/`, {
@@ -55,7 +58,7 @@ const Task = ({ match }: TaskProps) => {
   };
 
   return (
-    <ProjectEntity name={taskName}>
+    <ProjectEntity name={taskName} iconInfo={iconInfo}>
       <TaskStatus name={taskName} status={task.status} />
       <TaskDetails task={task} />
       <Description onSave={saveDescription} content={task.description} />

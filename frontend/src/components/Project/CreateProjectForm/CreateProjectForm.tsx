@@ -17,7 +17,7 @@ const CreateProjectForm = (props: CreateProjectFormProps) => {
   return (
     <S.CreateProjectForm>
       <S.CreateProjectLogo>
-        <S.ProjectIcon />
+        <S.CreateProjectIcon />
         <p>Create a new project</p>
       </S.CreateProjectLogo>
       {errorsOccurred ? (

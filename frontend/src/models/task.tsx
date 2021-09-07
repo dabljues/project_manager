@@ -11,7 +11,7 @@ const TaskTypes: Dictionary<string> = {
 };
 
 const TaskIcons: Dictionary<IconInfo> = {
-  Bug: { Icon: BugReportIcon, iconProps: { style: { color: "red" } } },
+  Bug: { Icon: BugReportIcon, iconProps: { color: "error" } },
   Improvement: {
     Icon: DoubleArrowIcon,
     iconProps: { style: { color: "green" } },

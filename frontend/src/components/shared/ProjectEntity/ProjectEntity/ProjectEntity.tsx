@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@material-ui/core";
+import { TaskIcons } from "models";
 import React from "react";
 import styled from "styled-components/macro";
+import { IconInfo } from "types";
 
 import EntityName from "../EntityName";
 
@@ -23,14 +25,15 @@ const StyledCard = styled(Card)`
 
 interface ProjectEntityProps {
   name: string;
+  iconInfo: IconInfo;
 }
 
 const ProjectEntity = (props: React.PropsWithChildren<ProjectEntityProps>) => {
-  const { name, children } = props;
+  const { name, iconInfo, children } = props;
 
   return (
     <StyledCard>
-      <EntityName name={name} />
+      <EntityName name={name} iconInfo={iconInfo} />
       <CardContent>{children}</CardContent>
     </StyledCard>
   );

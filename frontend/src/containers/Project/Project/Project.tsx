@@ -1,4 +1,5 @@
 import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity";
+import { ProjectIcon } from "models";
 import { useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import ProjectData from "types/project";
@@ -70,7 +71,7 @@ const Project = ({ match }: ProjectProps) => {
   };
 
   return (
-    <ProjectEntity name={projectName}>
+    <ProjectEntity name={projectName} iconInfo={ProjectIcon}>
       <ProjectStatus name={projectName} status={project.status} />
       <ProjectDetails project={project} />
       <Description onSave={saveDescription} content={project.description} />

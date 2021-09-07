@@ -6,9 +6,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import { IconInfo } from "types";
 
-const Icon = styled(AssignmentIcon)`
+const EntityIcon = styled.div`
   color: white;
   font-size: 4rem;
 `;
@@ -38,14 +38,22 @@ const StyledHeader = styled(CardHeader)`
   align-items: center;
 `;
 
-const EntityName = ({ name }: { name: string }) => {
+interface EntityNameProps {
+  name: string;
+  iconInfo: IconInfo;
+}
+
+const EntityName = (props: EntityNameProps) => {
+  const { name, iconInfo } = props;
+  const { Icon, iconProps } = iconInfo;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   if (matches) {
     return (
       <StyledHeader
         disableTypography
-        avatar={<Icon />}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        avatar={<EntityIcon as={Icon} {...iconProps} />}
         title={<Name>{name}</Name>}
       />
     );
