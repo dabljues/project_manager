@@ -1,6 +1,5 @@
 import CenteredDiv from "components/shared/CenteredDiv";
-import { renderUser } from "helpers";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
@@ -9,7 +8,7 @@ import { Button, Typography } from "@material-ui/core";
 import { authRequest } from "../../../api/auth";
 import ProjectsTable from "../../../components/Project/ProjectsTable";
 import Spinner from "../../../components/shared/Spinner";
-import { ProjectData, TableRowInterface } from "../../../types";
+import { ProjectData } from "../../../types";
 
 const NoProjects = styled.div`
   text-align: center;
@@ -20,34 +19,14 @@ const CreateProjectLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface ProjectsRowInterface extends TableRowInterface {
-  icon?: React.ReactNode;
-  status: string;
-  owner: React.ReactNode;
-  createdAt: string;
-}
-
 const Projects = () => {
-  const [rows, setRows] = useState<TableRowInterface[]>([]);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjects = async () => {
-      const projectsCollected: ProjectsRowInterface[] = [];
       const projectsData = await authRequest().get("/project");
-      await Promise.all(
-        projectsData.data.map(async (projectData: ProjectData) => {
-          const { owner } = projectData;
-          const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
-          projectsCollected.push({
-            name: projectData.name,
-            status: projectData.status,
-            owner: ownerInfo,
-            createdAt: projectData.createdAt,
-          });
-        })
-      );
-      setRows(projectsCollected);
+      setProjects(projectsData.data);
       setLoading(false);
     };
     getProjects();
@@ -57,7 +36,7 @@ const Projects = () => {
   }
   return (
     <CenteredDiv>
-      {rows.length === 0 ? (
+      {projects.length === 0 ? (
         <NoProjects>
           <Typography variant="h1">You have no projects</Typography>
           <CreateProjectLink to="/project/create">
@@ -69,7 +48,7 @@ const Projects = () => {
       ) : (
         <>
           <Typography variant="h2">Your projects:</Typography>
-          <ProjectsTable rows={rows} />
+          <ProjectsTable projects={projects} />
         </>
       )}
     </CenteredDiv>

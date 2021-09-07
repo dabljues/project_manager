@@ -1,14 +1,28 @@
 import "./ProjectsTable.scss";
 
-import { TableColumnInterface, TableRowInterface } from "../../../types";
+import { renderUser } from "helpers";
+import React from "react";
+
+import {
+  ProjectData,
+  TableColumnInterface,
+  TableRowInterface,
+} from "../../../types";
 import PaginatedTable from "../../shared/PaginatedTable";
 
+interface ProjectsRowInterface extends TableRowInterface {
+  icon?: React.ReactNode;
+  status: string;
+  owner: React.ReactNode;
+  createdAt: string;
+}
+
 interface ProjectsTableProps {
-  rows: TableRowInterface[];
+  projects: ProjectData[];
 }
 
 const ProjectsTable = (props: ProjectsTableProps) => {
-  const { rows } = props;
+  const { projects } = props;
   const columns: TableColumnInterface[] = [
     {
       id: "name",
@@ -29,6 +43,19 @@ const ProjectsTable = (props: ProjectsTableProps) => {
       align: "right",
     },
   ];
+
+  const rows: ProjectsRowInterface[] = projects.map(
+    (projectData: ProjectData) => {
+      const { owner } = projectData;
+      const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
+      return {
+        name: projectData.name,
+        status: projectData.status,
+        owner: ownerInfo,
+        createdAt: projectData.createdAt,
+      };
+    }
+  );
 
   return (
     <PaginatedTable
