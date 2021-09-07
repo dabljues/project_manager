@@ -1,14 +1,38 @@
-import { TableColumnInterface, TableRowInterface } from "../../../types";
+import { renderUser } from "helpers";
+import { TaskIcons } from "models";
+import React from "react";
+import styled from "styled-components/macro";
+
+import {
+  TableColumnInterface,
+  TableRowInterface,
+  TaskData,
+} from "../../../types";
 import PaginatedTable from "../../shared/PaginatedTable";
 
+interface BacklogRowInterface extends TableRowInterface {
+  icon?: React.ReactNode;
+  status: string;
+  title: string;
+  type: string;
+  owner: React.ReactNode;
+  assignee: React.ReactNode;
+}
+
+const TaskIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 interface BacklogTableProps {
-  rows: TableRowInterface[];
+  tasks: TaskData[];
 }
 
 const BacklogTable = (props: BacklogTableProps) => {
-  const { rows } = props;
+  const { tasks } = props;
   const columns: TableColumnInterface[] = [
-    { id: "icon", label: "" },
+    { id: "icon", label: "", align: "left" },
     {
       id: "name",
       label: "Name",
@@ -30,6 +54,23 @@ const BacklogTable = (props: BacklogTableProps) => {
       align: "right",
     },
   ];
+
+  const rows: BacklogRowInterface[] = tasks.map((taskData: TaskData) => {
+    const { owner, assignee } = taskData;
+    const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
+    const assigneeInfo =
+      assignee === null ? "<unassigned>" : renderUser(assignee);
+    const icon = TaskIcons[taskData.type];
+    return {
+      icon: <TaskIcon>{icon}</TaskIcon>,
+      name: taskData.name,
+      status: taskData.status,
+      title: taskData.title,
+      type: taskData.type,
+      owner: ownerInfo,
+      assignee: assigneeInfo,
+    };
+  });
 
   return (
     <PaginatedTable
