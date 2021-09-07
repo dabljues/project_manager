@@ -50,9 +50,9 @@ const Backlog = ({ match }: BacklogProps) => {
             assignee === null
               ? "<unassigned>"
               : `${assignee.firstName} ${assignee.lastName}`;
-          const Icon = TaskIcons[taskData.type];
+          const icon = TaskIcons[taskData.type];
           tasksCollected.push({
-            icon: <Icon />,
+            icon,
             name: taskData.name,
             status: taskData.status,
             title: taskData.title,
