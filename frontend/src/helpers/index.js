@@ -1,1 +1,1 @@
-export { default } from "./UI";
+export { renderUser, renderUserMenuItem } from "./UI";
