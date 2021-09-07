@@ -3,7 +3,7 @@ import DialogButtons from "components/shared/DialogForm";
 import MappingSelect from "components/shared/MappingSelect";
 import Spinner from "components/shared/Spinner";
 import { useFormik } from "formik";
-import renderUserMenuItem from "helpers";
+import { renderUserMenuItem } from "helpers";
 import { TaskTypes } from "models";
 import React, { useEffect, useState } from "react";
 import { ProjectData, UserData, WriteTaskData } from "types";

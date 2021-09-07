@@ -1,4 +1,5 @@
 import CenteredDiv from "components/shared/CenteredDiv";
+import { renderUser } from "helpers";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
@@ -22,7 +23,7 @@ const CreateProjectLink = styled(Link)`
 interface ProjectsRowInterface extends TableRowInterface {
   icon?: React.ReactNode;
   status: string;
-  owner: string;
+  owner: React.ReactNode;
   createdAt: string;
 }
 
@@ -37,14 +38,11 @@ const Projects = () => {
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
           const { owner } = projectData;
-          const ownerString =
-            owner === null
-              ? "<unassigned>"
-              : `${owner.firstName} ${owner.lastName}`;
+          const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
           projectsCollected.push({
             name: projectData.name,
             status: projectData.status,
-            owner: ownerString,
+            owner: ownerInfo,
             createdAt: projectData.createdAt,
           });
         })

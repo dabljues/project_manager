@@ -2,11 +2,12 @@ import { authRequest } from "api/auth";
 import BacklogTable from "components/Project/BacklogTable";
 import CenteredDiv from "components/shared/CenteredDiv";
 import Spinner from "components/shared/Spinner";
+import CreateTask from "components/Task/CreateTask";
+import { renderUser } from "helpers";
+import { TaskIcons } from "models";
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { TableRowInterface, TaskData, WriteTaskData, ProjectData } from "types";
-import CreateTask from "components/Task/CreateTask";
-import { TaskIcons } from "models";
+import { ProjectData, TableRowInterface, TaskData, WriteTaskData } from "types";
 
 interface BacklogParams {
   projectName: string;
@@ -17,8 +18,8 @@ interface BacklogRowInterface extends TableRowInterface {
   status: string;
   title: string;
   type: string;
-  owner: string;
-  assignee: string;
+  owner: React.ReactNode;
+  assignee: React.ReactNode;
 }
 
 interface BacklogProps extends RouteComponentProps<BacklogParams> {}
@@ -42,14 +43,9 @@ const Backlog = ({ match }: BacklogProps) => {
       await Promise.all(
         projectTasks.data.map(async (taskData: TaskData) => {
           const { owner, assignee } = taskData;
-          const ownerString =
-            owner === null
-              ? "<unassigned>"
-              : `${owner.firstName} ${owner.lastName}`;
-          const assigneeString =
-            assignee === null
-              ? "<unassigned>"
-              : `${assignee.firstName} ${assignee.lastName}`;
+          const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
+          const assigneeInfo =
+            assignee === null ? "<unassigned>" : renderUser(assignee);
           const icon = TaskIcons[taskData.type];
           tasksCollected.push({
             icon,
@@ -57,8 +53,8 @@ const Backlog = ({ match }: BacklogProps) => {
             status: taskData.status,
             title: taskData.title,
             type: taskData.type,
-            owner: ownerString,
-            assignee: assigneeString,
+            owner: ownerInfo,
+            assignee: assigneeInfo,
           });
         })
       );

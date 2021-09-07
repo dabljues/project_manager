@@ -1,4 +1,4 @@
-import renderUserMenuItem from "helpers";
+import { renderUserMenuItem } from "helpers";
 import React, { useEffect, useState } from "react";
 import UserData from "types/userData";
 
