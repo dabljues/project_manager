@@ -1,9 +1,8 @@
-import { Dictionary } from "types";
+import { Dictionary, IconInfo } from "types";
 
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
-import React from "react";
 
 const TaskTypes: Dictionary<string> = {
   Bug: "B",
@@ -11,10 +10,13 @@ const TaskTypes: Dictionary<string> = {
   Task: "T",
 };
 
-const TaskIcons: Dictionary<React.ReactNode> = {
-  Bug: <BugReportIcon style={{ color: "red" }} />,
-  Improvement: <DoubleArrowIcon style={{ color: "green" }} />,
-  Task: <AssignmentIcon color="primary" />,
+const TaskIcons: Dictionary<IconInfo> = {
+  Bug: { Icon: BugReportIcon, iconProps: { style: { color: "red" } } },
+  Improvement: {
+    Icon: DoubleArrowIcon,
+    iconProps: { style: { color: "green" } },
+  },
+  Task: { Icon: AssignmentIcon, iconProps: { color: "primary" } },
 };
 
 export { TaskIcons, TaskTypes };

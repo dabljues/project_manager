@@ -1,4 +1,5 @@
 import { renderUser } from "helpers";
+import { renderIconFromInfo } from "helpers/UI";
 import { TaskIcons } from "models";
 import React from "react";
 import styled from "styled-components/macro";
@@ -32,7 +33,7 @@ interface BacklogTableProps {
 const BacklogTable = (props: BacklogTableProps) => {
   const { tasks } = props;
   const columns: TableColumnInterface[] = [
-    { id: "icon", label: "", align: "left" },
+    { id: "icon", label: "" },
     {
       id: "name",
       label: "Name",
@@ -60,7 +61,7 @@ const BacklogTable = (props: BacklogTableProps) => {
     const ownerInfo = owner === null ? "<unassigned>" : renderUser(owner);
     const assigneeInfo =
       assignee === null ? "<unassigned>" : renderUser(assignee);
-    const icon = TaskIcons[taskData.type];
+    const icon = renderIconFromInfo(TaskIcons[taskData.type]);
     return {
       icon: <TaskIcon>{icon}</TaskIcon>,
       name: taskData.name,
