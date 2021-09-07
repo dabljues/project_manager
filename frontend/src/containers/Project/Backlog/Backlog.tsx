@@ -2,13 +2,23 @@ import { authRequest } from "api/auth";
 import BacklogTable from "components/Project/BacklogTable";
 import CenteredDiv from "components/shared/CenteredDiv";
 import Spinner from "components/shared/Spinner";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { TableRowInterface, TaskData, WriteTaskData, ProjectData } from "types";
 import CreateTask from "components/Task/CreateTask";
+import { TaskIcons } from "models";
 
 interface BacklogParams {
   projectName: string;
+}
+
+interface BacklogRowInterface extends TableRowInterface {
+  icon?: React.ReactNode;
+  status: string;
+  title: string;
+  type: string;
+  owner: string;
+  assignee: string;
 }
 
 interface BacklogProps extends RouteComponentProps<BacklogParams> {}
@@ -25,7 +35,7 @@ const Backlog = ({ match }: BacklogProps) => {
 
   useEffect(() => {
     const getTasks = async () => {
-      const tasksCollected: TableRowInterface[] = [];
+      const tasksCollected: BacklogRowInterface[] = [];
       const projectTasks = await authCommunicator.get(
         `/project/${projectName}/backlog`
       );
@@ -40,7 +50,9 @@ const Backlog = ({ match }: BacklogProps) => {
             assignee === null
               ? "<unassigned>"
               : `${assignee.firstName} ${assignee.lastName}`;
+          const Icon = TaskIcons[taskData.type];
           tasksCollected.push({
+            icon: <Icon />,
             name: taskData.name,
             status: taskData.status,
             title: taskData.title,

@@ -1,3 +1,4 @@
+import React from "react";
 import Dictionary from "./generic";
 
 interface TableColumnInterface {
@@ -12,6 +13,9 @@ interface RowClickConfig {
   to: string;
 }
 
-interface TableRowInterface extends Dictionary<string> {}
+interface TableRowInterface {
+  name: string;
+  [key: string]: any;
+}
 
 export type { RowClickConfig, TableColumnInterface, TableRowInterface };

@@ -8,6 +8,7 @@ interface BacklogTableProps {
 const BacklogTable = (props: BacklogTableProps) => {
   const { rows } = props;
   const columns: TableColumnInterface[] = [
+    { id: "icon", label: "" },
     {
       id: "name",
       label: "Name",

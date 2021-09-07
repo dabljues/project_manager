@@ -65,10 +65,10 @@ const PaginatedTable = (props: PaginatedTableProps) => {
                   rowClickConfig === undefined
                     ? {}
                     : {
-                        key: row[rowClickConfig.rowKey],
+                        key: row.name,
                         component: Link,
                         to: generatePath(rowClickConfig.to, {
-                          id: row[rowClickConfig.rowKey],
+                          id: row.name,
                         }),
                         style: { textDecoration: "none" },
                       };
@@ -80,7 +80,7 @@ const PaginatedTable = (props: PaginatedTableProps) => {
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...additionalProps}
                   >
-                    {columns.map((column) => {
+                    {columns.map((column: TableColumnInterface) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>

@@ -1,5 +1,5 @@
 import CenteredDiv from "components/shared/CenteredDiv";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
@@ -19,13 +19,20 @@ const CreateProjectLink = styled(Link)`
   text-decoration: none;
 `;
 
+interface ProjectsRowInterface extends TableRowInterface {
+  icon?: React.ReactNode;
+  status: string;
+  owner: string;
+  createdAt: string;
+}
+
 const Projects = () => {
   const [rows, setRows] = useState<TableRowInterface[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjects = async () => {
-      const projectsCollected: TableRowInterface[] = [];
+      const projectsCollected: ProjectsRowInterface[] = [];
       const projectsData = await authRequest().get("/project");
       await Promise.all(
         projectsData.data.map(async (projectData: ProjectData) => {
