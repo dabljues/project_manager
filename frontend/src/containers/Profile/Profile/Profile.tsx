@@ -1,6 +1,7 @@
 import "./Profile.scss";
 
 import Spinner from "components/shared/Spinner";
+import { ProjectIcon, TaskIcons } from "models";
 import { useEffect, useState } from "react";
 
 import {
@@ -102,13 +103,13 @@ const Profile = () => {
         <div className="user-stats">
           <Grid container item className="info-grid">
             <UserStatsTile
-              icon={<GroupWorkIcon style={{ color: "#cc3399" }} />}
+              icon={<ProjectIcon />}
               name="Projects"
               subheader="Participating in"
               content={2}
             />
             <UserStatsTile
-              icon={<AssignmentIcon color="primary" />}
+              icon={<TaskIcons.Task />}
               name="Tasks"
               subheader="Assigned"
               content={10}
