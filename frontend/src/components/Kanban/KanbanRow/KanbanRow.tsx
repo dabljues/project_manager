@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Column from "../KanbanColumn";
 import * as S from "./KanbanRow.styles";
 
-interface RowProps {
+interface KanbanRowProps {
   initialColumns: {
     toDo: ColumnData;
     inReview: ColumnData;
@@ -21,7 +21,7 @@ interface RowProps {
   userData: UserData;
 }
 
-const KanbanRow = (props: RowProps) => {
+const KanbanRow = (props: KanbanRowProps) => {
   const { initialColumns, userData } = props;
   const [columns, setColumns] = useState(initialColumns);
   const [expanded, setExpanded] = useState(true);
@@ -115,4 +115,5 @@ const KanbanRow = (props: RowProps) => {
   );
 };
 
-export default KanbanRow;
+export { KanbanRow };
+export type { KanbanRowProps };
