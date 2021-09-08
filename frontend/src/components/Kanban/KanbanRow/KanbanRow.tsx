@@ -4,11 +4,22 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { ColumnData, Dictionary } from "types";
 import UserData from "types/userData";
 
-import { AccordionDetails, Grid, Typography } from "@material-ui/core";
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  makeStyles,
+} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import Column from "../KanbanColumn";
 import * as S from "./KanbanRow.styles";
+
+const useStyles = makeStyles({
+  expandedPanel: {
+    backgroundColor: "var(--primary-color)",
+  },
+});
 
 interface KanbanRowProps {
   initialColumns: {
@@ -25,6 +36,7 @@ const KanbanRow = (props: KanbanRowProps) => {
   const { initialColumns, userData } = props;
   const [columns, setColumns] = useState(initialColumns);
   const [expanded, setExpanded] = useState(true);
+  const classes = useStyles();
 
   const statusMapping: Dictionary<string> = {
     toDo: "TD",
@@ -90,9 +102,9 @@ const KanbanRow = (props: KanbanRowProps) => {
 
   const rowHeader = (
     <>
-      <Typography variant="h5">
+      <S.KanbanRowHeader variant="h5" expanded={expanded}>
         {userData.firstName} {userData.lastName}
-      </Typography>
+      </S.KanbanRowHeader>
       {expanded ? null : <S.KanbanRowAvatar src={userData.avatar} />}
     </>
   );
@@ -100,9 +112,12 @@ const KanbanRow = (props: KanbanRowProps) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <S.Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
-        <S.AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          classes={{ expanded: classes.expandedPanel }}
+        >
           {rowHeader}
-        </S.AccordionSummary>
+        </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={1}>
             {Object.values(columns).map((column) => (

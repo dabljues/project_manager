@@ -1,13 +1,11 @@
 import styled from "styled-components/macro";
 
-import {
-  Avatar,
-  createStyles,
-  makeStyles,
-  withStyles,
-} from "@material-ui/core";
+import { Avatar, Typography, withStyles } from "@material-ui/core";
 import MuiAccordion from "@material-ui/core/Accordion";
-import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+
+const KanbanRowHeader = styled(Typography)<{ expanded: boolean }>`
+  color: ${(props) => (props.expanded ? "white" : "black")};
+`;
 
 const Accordion = withStyles({
   root: {
@@ -27,24 +25,8 @@ const Accordion = withStyles({
   expanded: {},
 })(MuiAccordion);
 
-const AccordionSummary = withStyles({
-  content: {
-    display: "flex",
-    alignItems: "center",
-  },
-})(MuiAccordionSummary);
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    content: {
-      display: "flex",
-      alignItems: "center",
-    },
-  })
-);
-
 const KanbanRowAvatar = styled(Avatar)`
   margin-left: 1rem;
 `;
 
-export { Accordion, AccordionSummary, KanbanRowAvatar };
+export { Accordion, KanbanRowAvatar, KanbanRowHeader };
