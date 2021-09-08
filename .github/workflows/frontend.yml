@@ -1,0 +1,28 @@
+name: Frontend
+on: [push]
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: "npm ci --include=dev"
+      - run: "npx eslint src/**/*.tsx"
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # TODO: Replace with `npm install-ci-test` when test are added
+      - run: "npm ci"
+      - run: "CI=true npm test -- --passWithNoTests"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: "npm ci"
+      # TODO: remove any warnings and remove CI=false
+      - run: "CI=false npm run build"
