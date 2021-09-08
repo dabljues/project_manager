@@ -1,26 +1,17 @@
-import "./Profile.scss";
-
+import { getCurrentUser } from "api/auth";
+import ChangeAvatar from "components/Profile/ChangeAvatar";
+import ChangePassword from "components/Profile/ChangePassword";
 import Spinner from "components/shared/Spinner";
 import { ProjectIcon, TaskIcons } from "models";
 import { useEffect, useState } from "react";
+import { UserData } from "types";
 
-import {
-  Avatar,
-  createStyles,
-  Grid,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import { createStyles, Grid, makeStyles, Typography } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import EmailIcon from "@material-ui/icons/Email";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import PhoneIcon from "@material-ui/icons/Phone";
 
-import { getCurrentUser } from "../../../api/auth";
-import ChangeAvatar from "../../../components/Profile/ChangeAvatar";
-import ChangePassword from "../../../components/Profile/ChangePassword";
-import { UserData } from "../../../types";
+import * as S from "./Profile.styles";
 import { ProfileInfoRow, UserStatsTile } from "./utils";
 
 const useStyles = makeStyles(() =>
@@ -65,9 +56,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-box">
-      <div className="profile-basic-info">
-        <Avatar src={avatar} className="avatar" />
+    <S.ProfileWrapper>
+      <S.ProfileBasicInfo>
+        <S.ProfileAvatar src={avatar} />
         <Typography variant="h3" className={classes.avatarText}>
           {firstName} {lastName}
         </Typography>
@@ -78,10 +69,10 @@ const Profile = () => {
         >
           {email}
         </Typography>
-      </div>
-      <div className="profile-detailed-info">
-        <div className="profile-edit">
-          <div className="rows">
+      </S.ProfileBasicInfo>
+      <S.ProfileDetailedInfo>
+        <S.ProfileEdit>
+          <S.Rows>
             <ProfileInfoRow name="First name" content={firstName} />
             <ProfileInfoRow name="Last name" content={lastName} />
             <ProfileInfoRow
@@ -93,15 +84,15 @@ const Profile = () => {
               content="+48 123 456 789"
             />
             <ProfileInfoRow name="Position" content="Software engineer" />
-          </div>
+          </S.Rows>
 
-          <div className="edit-menu">
+          <S.EditMenu>
             <ChangeAvatar userData={currentUser} />
             <ChangePassword userData={currentUser} />
-          </div>
-        </div>
-        <div className="user-stats">
-          <Grid container item className="info-grid">
+          </S.EditMenu>
+        </S.ProfileEdit>
+        <S.UserStats>
+          <Grid container item>
             <UserStatsTile
               icon={<ProjectIcon />}
               name="Projects"
@@ -121,9 +112,9 @@ const Profile = () => {
               content={3}
             />
           </Grid>
-        </div>
-      </div>
-    </div>
+        </S.UserStats>
+      </S.ProfileDetailedInfo>
+    </S.ProfileWrapper>
   );
 };
 

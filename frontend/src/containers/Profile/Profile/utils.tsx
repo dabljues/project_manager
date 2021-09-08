@@ -1,17 +1,16 @@
-import "./Profile.scss";
-
 import {
   Card,
   CardContent,
   CardHeader,
   createStyles,
-  Grid,
   makeStyles,
   TextField,
   Theme,
   Tooltip,
   Typography,
 } from "@material-ui/core";
+
+import * as S from "./Profile.styles";
 
 const useStyles = makeStyles((theme: Theme) => {
   const fontSize = 15;
@@ -72,7 +71,7 @@ const ProfileInfoRow = (props: ProfileInfoRowProps) => {
       </div>
     );
   return (
-    <div className="row">
+    <S.ProfileInfoRow>
       {formattedName}
       <TextField
         variant="outlined"
@@ -81,14 +80,14 @@ const ProfileInfoRow = (props: ProfileInfoRowProps) => {
         }}
         defaultValue={content}
       />
-    </div>
+    </S.ProfileInfoRow>
   );
 };
 
 const UserStatsTile = (props: UserStatsTileProps) => {
   const { icon, name, content, subheader } = props;
   return (
-    <Grid item xs className="tile">
+    <S.Tile item xs>
       <Card>
         <CardHeader
           title={
@@ -103,7 +102,7 @@ const UserStatsTile = (props: UserStatsTileProps) => {
           <Typography>{content}</Typography>
         </CardContent>
       </Card>
-    </Grid>
+    </S.Tile>
   );
 };
 
