@@ -1,5 +1,3 @@
-import "./ProjectDetails.scss";
-
 import { authRequest } from "api/auth";
 import {
   ChangeUser,
@@ -8,10 +6,10 @@ import {
 } from "components/shared/ProjectEntity/DetailEntry";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { UserData } from "types";
 import ProjectData from "types/project";
 
 import { Avatar, createStyles, Grid, makeStyles } from "@material-ui/core";
-import { UserData } from "types";
 
 const useStyles = makeStyles(() =>
   createStyles({

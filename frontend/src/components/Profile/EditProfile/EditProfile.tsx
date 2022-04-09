@@ -1,17 +1,14 @@
-import "./EditProfile.scss";
-
-import axios from "axios";
 import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { authRequest } from "../../../api/auth";
 import UserData from "../../../types/userData";
 import ValidatedTextField from "../../shared/ValidatedTextField";
+import DialogContent from "./EditProfile.styles";
 
 interface EditProfileProps {
   userData: UserData;

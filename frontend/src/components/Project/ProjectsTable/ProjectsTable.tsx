@@ -1,5 +1,3 @@
-import "./ProjectsTable.scss";
-
 import { renderUser } from "helpers";
 import React from "react";
 

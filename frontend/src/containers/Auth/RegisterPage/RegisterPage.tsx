@@ -1,5 +1,3 @@
-// import "./RegisterPage.scss";
-
 import axios from "axios";
 import CenteredDiv from "components/shared/CenteredDiv";
 import React, { useState } from "react";
