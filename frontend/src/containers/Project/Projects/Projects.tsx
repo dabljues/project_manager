@@ -19,6 +19,10 @@ const CreateProjectLink = styled(Link)`
   text-decoration: none;
 `;
 
+const ProjectsTitle = styled(Typography)`
+  margin-bottom: 0.5em;
+`;
+
 const Projects = () => {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +51,7 @@ const Projects = () => {
         </NoProjects>
       ) : (
         <>
-          <Typography variant="h2">Your projects:</Typography>
+          <ProjectsTitle variant="h2">Your projects:</ProjectsTitle>
           <ProjectsTable projects={projects} />
         </>
       )}
