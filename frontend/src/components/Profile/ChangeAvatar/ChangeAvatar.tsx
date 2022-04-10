@@ -46,13 +46,11 @@ const ChangeAvatar = (props: ChangeAvatarProps) => {
       return;
     }
     const avatar = files[0];
-    console.log(avatar);
     const errors = await changeAvatar(userData.id, avatar);
     if (!errors) {
       handleClose();
       return;
     }
-    console.log(errors);
     setAvatarErrors(errors.avatar || []);
   };
 
