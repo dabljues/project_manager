@@ -17,7 +17,18 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class WriteTaskSerializer(TaskSerializer):
-    pass
+    def validate(self, data):
+        project = data["project"]
+        parent = data["parent"]
+
+        if parent.project.id != project.id:
+            raise serializers.ValidationError(
+                {
+                    "project_id": f"Project ID ({project.id}) doesn't match parent's project ID ({parent.project.id})",
+                }
+            )
+
+        return data
 
 
 class ReadTaskSerializer(TaskSerializer):
