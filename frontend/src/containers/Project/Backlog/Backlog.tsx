@@ -52,7 +52,7 @@ const Backlog = ({ match }: BacklogProps) => {
 
   return (
     <CenteredDiv>
-      <BacklogTable tasks={tasks} />
+      <BacklogTable projectName={projectName} tasks={tasks} />
       <CreateTask project={projectData} onSubmit={createTask} />
     </CenteredDiv>
   );

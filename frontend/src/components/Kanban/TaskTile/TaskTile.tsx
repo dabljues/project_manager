@@ -38,7 +38,7 @@ const TaskTile = (props: TaskTileProps) => {
           <TileCover color={TaskColors[type]} />
           <StyledCard>
             <CardHeader
-              title={<Link to={`/task/${name}`}>{name}</Link>}
+              title={<Link to={`/${task.project.name}/${name}`}>{name}</Link>}
               action={
                 <Avatar src={assignee === null ? undefined : assignee.avatar} />
               }

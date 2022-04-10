@@ -7,6 +7,7 @@ from tasks.api.serializers import ReadTaskSerializer
 from tasks.models import Task
 from utils.viewsets import ReadWriteViewset
 from django.db.models import Q
+from typing import Optional
 
 from collections import defaultdict
 
@@ -29,7 +30,7 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, participants=[self.request.user])
 
-    def get_tasks(self, status=None, status_not=None):
+    def get_tasks(self, status=None, status_not=None, parent: Optional[str] = ""):
         project = self.get_object()
         project_tasks = Task.objects.filter(project=project)
         if status is not None:
@@ -37,6 +38,9 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
 
         if status_not is not None:
             project_tasks = project_tasks.filter(~Q(status=status_not))
+
+        if parent or parent is None:
+            project_tasks = project_tasks.filter(parent=parent)
 
         task_serializer = ReadTaskSerializer(project_tasks, many=True)
 
@@ -48,7 +52,7 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
 
     @action(detail=True, methods=["get"])
     def backlog(self, *args, **kwargs):
-        return Response(self.get_tasks(status="NW"))
+        return Response(self.get_tasks(status="NW", parent=None))
 
     @action(detail=True, methods=["get"])
     def kanban(self, *args, **kwargs):

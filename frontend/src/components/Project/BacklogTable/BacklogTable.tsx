@@ -26,11 +26,12 @@ const TaskIcon = styled.div`
 `;
 
 interface BacklogTableProps {
+  projectName: string;
   tasks: TaskData[];
 }
 
 const BacklogTable = (props: BacklogTableProps) => {
-  const { tasks } = props;
+  const { projectName, tasks } = props;
   const columns: TableColumnInterface[] = [
     { id: "icon", label: "" },
     {
@@ -81,7 +82,7 @@ const BacklogTable = (props: BacklogTableProps) => {
     <PaginatedTable
       columns={columns}
       rows={rows}
-      rowClickConfig={{ rowKey: "name", to: "/task/:id" }}
+      rowClickConfig={{ rowKey: "name", to: `/${projectName}/:id` }}
     />
   );
 };

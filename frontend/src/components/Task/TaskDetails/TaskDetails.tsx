@@ -48,7 +48,7 @@ const TaskDetails = (props: TaskDetailsProps) => {
   };
   const deleteTask = async () => {
     await authCommunicator.delete(`/task/${task.name}/`);
-    history.push(`/project/${taskData.project.name}`);
+    history.push(`/${taskData.project.name}`);
   };
 
   const getParticipants = async (): Promise<UserData[]> => {
@@ -134,7 +134,7 @@ const TaskDetails = (props: TaskDetailsProps) => {
           taskData.parent == null ? (
             "This issue has no parent"
           ) : (
-            <Link to={`/task/${taskData.parent.name}`}>
+            <Link to={`/${taskData.project.name}/${taskData.parent.name}`}>
               {taskData.parent.name}
             </Link>
           )
