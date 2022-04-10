@@ -4,6 +4,12 @@ from tasks.models import Task
 from users.api.serializers import UserSerializer
 
 
+class TaskNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["id", "name"]
+
+
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
@@ -16,6 +22,7 @@ class WriteTaskSerializer(TaskSerializer):
 
 class ReadTaskSerializer(TaskSerializer):
 
+    parent = TaskNameSerializer()
     status = serializers.CharField(source="get_status_display")
     type = serializers.CharField(source="get_type_display")
     owner = UserSerializer()

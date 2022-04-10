@@ -36,7 +36,7 @@ const Task = ({ match }: TaskProps) => {
     return () => {
       setTask(null);
     };
-  }, []);
+  }, [taskName]);
 
   if (loading || task == null) {
     return <Spinner centered />;
