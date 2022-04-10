@@ -41,6 +41,12 @@ const TaskStatus = (props: TaskStatusProps) => {
         updateStatus("NW");
       },
     },
+    "To do": {
+      buttonText: "To do",
+      onClick: () => {
+        updateStatus("TD");
+      },
+    },
     "In progress": {
       buttonText: "In progress",
       onClick: () => {

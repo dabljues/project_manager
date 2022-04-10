@@ -56,6 +56,8 @@ class ProjectViewSet(ReadWriteViewset, viewsets.ModelViewSet):
         user_tasks = defaultdict(list)
         for task in tasks:
             assignee = task["assignee"]
+            if not assignee:
+                continue
             assignee_id = assignee["id"]
             user_tasks[assignee_id].append(task)
         return Response(user_tasks)
