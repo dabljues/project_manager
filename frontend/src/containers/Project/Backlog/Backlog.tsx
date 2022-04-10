@@ -1,13 +1,13 @@
-import { Button, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { authRequest } from "api/auth";
 import BacklogTable from "components/Project/BacklogTable";
 import CenteredDiv from "components/shared/CenteredDiv";
 import Spinner from "components/shared/Spinner";
 import CreateTask from "components/Task/CreateTask";
-import { useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components/macro";
-import { ProjectData, TaskData, WriteTaskData } from "types";
+import { WriteTaskData } from "types";
+import useSWR from "swr";
 
 interface BacklogParams {
   projectName: string;
@@ -17,40 +17,36 @@ const BacklogTitle = styled(Typography)`
   margin-bottom: 3rem;
 `;
 
+const authCommunicator = authRequest();
+
 interface BacklogProps extends RouteComponentProps<BacklogParams> {}
 
 const Backlog = ({ match }: BacklogProps) => {
-  const [tasks, setTasks] = useState<TaskData[]>([]);
-  const [projectData, setProjectData] = useState<ProjectData | null>(null);
   const { projectName } = match.params;
-  const authCommunicator = authRequest();
-
-  const getTasks = async () => {
-    const projectTasks = await authCommunicator.get(
-      `/project/${projectName}/backlog`
-    );
-    setTasks(projectTasks.data);
-  };
+  const {
+    data: tasks,
+    error: errorTasks,
+    mutate,
+  } = useSWR(`/project/${projectName}/backlog`, (url: string) =>
+    authCommunicator.get(url).then((res) => res.data)
+  );
+  const { data: projectData, error: errorProjectData } = useSWR(
+    `/project/${projectName}`,
+    (url: string) => authCommunicator.get(url).then((res) => res.data)
+  );
 
   const createTask = async (task: WriteTaskData) => {
     await authCommunicator.post("/task/", task);
-    getTasks();
+    mutate();
   };
 
-  useEffect(() => {
-    const getProject = async () => {
-      const project = await authCommunicator.get(`/project/${projectName}`);
-      setProjectData(project.data);
-    };
-    getProject();
-    getTasks();
-    return () => {
-      setTasks([]);
-      setProjectData(null);
-    };
-  }, []);
-
-  if (tasks.length === 0 || projectData === null) {
+  if (
+    errorTasks ||
+    errorProjectData ||
+    !tasks ||
+    !projectData ||
+    projectData === null
+  ) {
     return (
       <CenteredDiv>
         <Spinner />

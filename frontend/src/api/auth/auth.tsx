@@ -90,7 +90,6 @@ const applyInterceptors = (axiosInstance: AxiosInstance): AxiosInstance => {
   axiosInstance.interceptors.response.use(
     (response) => {
       response.data = toCamelCase(response.data);
-      //   const x = 2 + 2;
       return response;
     },
     (error) => Promise.reject(error)
