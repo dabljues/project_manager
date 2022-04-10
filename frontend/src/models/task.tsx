@@ -13,11 +13,17 @@ const TaskTypes: Dictionary<string> = {
   Task: "T",
 };
 
+const TaskColors: Dictionary<string> = {
+  Bug: "#cc0000",
+  Improvement: "#009933",
+  Task: "var(--primary-color)",
+};
+
 const BugIcon = styled(BugReportIcon)`
-  color: red;
+  color: ${TaskColors.Bug};
 `;
 const ImprovementIcon = styled(DoubleArrowIcon)`
-  color: green;
+  color: ${TaskColors.Improvement};
 `;
 
 const TaskIcon = styled(AssignmentIcon)`
@@ -30,4 +36,4 @@ const TaskIcons: Dictionary<React.ComponentType> = {
   Task: TaskIcon,
 };
 
-export { TaskIcons, TaskTypes };
+export { TaskIcons, TaskTypes, TaskColors };
