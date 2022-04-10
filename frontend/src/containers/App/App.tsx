@@ -99,6 +99,11 @@ const App = () => {
                   path="/:projectName/:taskName"
                   component={Task}
                 />
+                <PrivateRoute
+                  exact
+                  path="/:projectName/:taskName/:taskName"
+                  component={Task}
+                />
               </Switch>
             </PageContent>
           </Router>

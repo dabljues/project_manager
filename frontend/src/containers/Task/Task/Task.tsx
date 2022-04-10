@@ -2,6 +2,7 @@ import { authRequest } from "api/auth";
 import Description from "components/shared/Description";
 import ProjectEntity from "components/shared/ProjectEntity/ProjectEntity/ProjectEntity";
 import Spinner from "components/shared/Spinner";
+import SubTasksTable from "components/Task/SubTasksTable";
 import TaskDetails from "components/Task/TaskDetails";
 import TaskStatus from "components/Task/TaskStatus";
 import { TaskIcons } from "models";
@@ -20,6 +21,7 @@ interface TaskProps extends RouteComponentProps<TaskParams> {}
 const Task = ({ match }: TaskProps) => {
   const { taskName } = match.params;
   const [task, setTask] = useState<TaskData | null>(null);
+  const [subTasks, setSubTasks] = useState<TaskData[]>([]);
   const [loading, setLoading] = useState(true);
 
   const authCommunicator = authRequest();
@@ -29,7 +31,11 @@ const Task = ({ match }: TaskProps) => {
       const taskData = await authCommunicator
         .get(`/task/${taskName}`)
         .then((response) => response.data);
+      const subTasksData = await authCommunicator
+        .get(`/task/${taskName}/sub_tasks`)
+        .then((response) => response.data);
       setTask(taskData);
+      setSubTasks(subTasksData);
       setLoading(false);
     };
     getTask();
@@ -62,6 +68,11 @@ const Task = ({ match }: TaskProps) => {
       <TaskStatus name={taskName} status={task.status} />
       <TaskDetails task={task} />
       <Description onSave={saveDescription} content={task.description} />
+      <SubTasksTable
+        projectName={task.project.name}
+        parentName={task.name}
+        subTasks={subTasks}
+      />
     </ProjectEntity>
   );
 };
