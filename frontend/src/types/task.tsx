@@ -1,6 +1,7 @@
 import UserData from "./userData";
 
 interface TaskData {
+  id: number;
   name: string;
   status: string;
   title: string;
@@ -24,6 +25,7 @@ interface WriteTaskData {
   status?: string;
   type?: string;
   assignee?: number | null;
+  parent?: number | null;
 }
 
 export type { TaskData, WriteTaskData };

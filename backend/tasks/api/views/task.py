@@ -1,5 +1,7 @@
 from projects.models import Project
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from tasks.api.serializers import ReadTaskSerializer, WriteTaskSerializer
 from tasks.models import SubTask, Task
 
@@ -28,3 +30,12 @@ class TaskViewSet(ReadWriteViewset, viewsets.ModelViewSet):
         task_name = f"{project.name}-{new_task_id}"
 
         serializer.save(name=task_name)
+
+    @action(detail=True, methods=["get"])
+    def sub_tasks(self, *args, **kwargs):
+        task = self.get_object()
+        sub_tasks = Task.objects.filter(parent=task)
+
+        task_serializer = ReadTaskSerializer(sub_tasks, many=True)
+
+        return Response(task_serializer.data)

@@ -1,4 +1,4 @@
-import { getCurrentUser } from "api/auth";
+import { authRequest, getCurrentUser } from "api/auth";
 import DialogButtons from "components/shared/DialogForm";
 import MappingSelect from "components/shared/MappingSelect";
 import Spinner from "components/shared/Spinner";
@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { renderUserMenuItem } from "helpers";
 import { TaskTypes } from "models";
 import React, { useEffect, useState } from "react";
-import { ProjectData, UserData, WriteTaskData } from "types";
+import { ProjectData, TaskData, UserData, WriteTaskData } from "types";
 import * as yup from "yup";
 
 import {
@@ -15,6 +15,7 @@ import {
   DialogTitle,
   FormControl,
   InputLabel,
+  MenuItem,
   Select,
   TextField,
 } from "@material-ui/core";
@@ -40,14 +41,27 @@ interface CreateTaskProps {
 const CreateTask = (props: CreateTaskProps) => {
   const { project, onSubmit } = props;
   const [open, setOpen] = useState(false);
-  const availableUsers = project.participants;
+  const [availableParents, setAvailableParents] = useState<TaskData[]>([]);
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  const availableUsers = project.participants;
+
+  const authCommunicator = authRequest();
 
   useEffect(() => {
     const getUser = async () => {
       setCurrentUser(await getCurrentUser());
     };
+    const getTasks = async () => {
+      const projectTasks = await authCommunicator.get(
+        `/project/${project.name}/tasks`
+      );
+      projectTasks.data.sort((val1: TaskData, val2: TaskData) =>
+        val1.name > val2.name ? 1 : -1
+      );
+      setAvailableParents(projectTasks.data);
+    };
     getUser();
+    getTasks();
     return () => setCurrentUser(null);
   }, []);
 
@@ -56,6 +70,7 @@ const CreateTask = (props: CreateTaskProps) => {
       title: "",
       status: "NW",
       type: "Task",
+      parent: null,
       description: "",
       assignee: null,
       project: project.id,
@@ -66,6 +81,7 @@ const CreateTask = (props: CreateTaskProps) => {
       onSubmit({
         title: values.title,
         type: TaskTypes[values.type],
+        parent: values.parent,
         description: values.description,
         assignee: values.assignee,
         owner: values.owner,
@@ -163,6 +179,31 @@ const CreateTask = (props: CreateTaskProps) => {
                 }}
               >
                 {availableUsers.map((user) => renderUserMenuItem(user))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth margin="dense">
+              <InputLabel>Parent</InputLabel>
+              <Select
+                id="parent"
+                name="Parent"
+                label="Parent"
+                defaultValue=""
+                onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                  formik.setFieldValue("parent", event.target.value as number);
+                }}
+                renderValue={(selected) => {
+                  const parent = availableParents.find(
+                    (u) => u.id === (selected as number)
+                  );
+                  if (parent === undefined) {
+                    return "None";
+                  }
+                  return <MenuItem value={parent.id}>{parent.name}</MenuItem>;
+                }}
+              >
+                {availableParents.map((parent) => (
+                  <MenuItem value={parent.id}>{parent.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <DialogButtons
