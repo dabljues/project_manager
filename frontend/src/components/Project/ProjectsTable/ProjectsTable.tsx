@@ -59,7 +59,7 @@ const ProjectsTable = (props: ProjectsTableProps) => {
     <PaginatedTable
       columns={columns}
       rows={rows}
-      rowClickConfig={{ rowKey: "name", to: "/project/:id" }}
+      rowClickConfig={{ rowKey: "name", to: "/:id" }}
     />
   );
 };

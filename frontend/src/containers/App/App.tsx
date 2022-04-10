@@ -80,25 +80,25 @@ const App = () => {
                 <PrivateRoute exact path="/projects" component={Projects} />
                 <PrivateRoute
                   exact
-                  path="/project/create"
+                  path="/projects/create"
                   component={CreateProject}
                 />
+                <PrivateRoute exact path="/:projectName" component={Project} />
                 <PrivateRoute
                   exact
-                  path="/project/:projectName"
-                  component={Project}
-                />
-                <PrivateRoute
-                  exact
-                  path="/project/:projectName/backlog"
+                  path="/:projectName/backlog"
                   component={Backlog}
                 />
                 <PrivateRoute
                   exact
-                  path="/project/:projectName/kanbanBoard"
+                  path="/:projectName/kanbanBoard"
                   component={Kanban}
                 />
-                <PrivateRoute exact path="/task/:taskName" component={Task} />
+                <PrivateRoute
+                  exact
+                  path="/:projectName/:taskName"
+                  component={Task}
+                />
               </Switch>
             </PageContent>
           </Router>

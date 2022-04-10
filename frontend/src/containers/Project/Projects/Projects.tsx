@@ -43,7 +43,7 @@ const Projects = () => {
       {projects.length === 0 ? (
         <NoProjects>
           <Typography variant="h1">You have no projects</Typography>
-          <CreateProjectLink to="/project/create">
+          <CreateProjectLink to="/projects/create">
             <Button variant="contained" color="secondary">
               Create your first project
             </Button>

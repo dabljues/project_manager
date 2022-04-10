@@ -10,6 +10,7 @@ const Separator = styled.span`
 
 const Breadcrumbs = () => {
   const breadcrumbs = useBreadcrumbs();
+  console.log(breadcrumbs);
   return (
     <BC separator={<Separator>{">"}</Separator>}>
       {breadcrumbs.map((value) => (
