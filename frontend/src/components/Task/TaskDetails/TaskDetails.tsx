@@ -7,10 +7,10 @@ import {
   DetailEntry,
 } from "components/shared/ProjectEntity/DetailEntry";
 import { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Dictionary, TaskData, UserData } from "types";
 
 import { Grid } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 
 interface TaskDetailsProps {
   task: TaskData;
@@ -126,6 +126,22 @@ const TaskDetails = (props: TaskDetailsProps) => {
         label="Created"
         content={taskData.createdAt}
         editDialog={<DeleteEntity entityType="task" onSubmit={deleteTask} />}
+      />
+      <DetailEntry
+        key="Parent"
+        label="Parrent issue"
+        content={
+          taskData.parent == null ? (
+            "This issue has no parent"
+          ) : (
+            <Link to={`/task/${taskData.parent.name}`}>
+              {taskData.parent.name}
+            </Link>
+          )
+        }
+        editDialog={
+          <ChangeTitle value={taskData.title} onSubmit={changeTitle} />
+        }
       />
     </Grid>
   );

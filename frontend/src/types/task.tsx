@@ -8,6 +8,7 @@ interface TaskData {
   createdAt: string;
   lastUpdated: string;
   type: string;
+  parent: { id: number; name: string } | null;
 
   owner: UserData | null;
   assignee: UserData | null;

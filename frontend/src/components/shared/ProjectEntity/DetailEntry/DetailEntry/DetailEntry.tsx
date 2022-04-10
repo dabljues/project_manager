@@ -4,7 +4,7 @@ import * as S from "./DetailEntry.styles";
 
 interface DetailEntryProps {
   label: string;
-  content: string;
+  content: string | JSX.Element;
   editDialog: React.ReactNode;
 }
 
