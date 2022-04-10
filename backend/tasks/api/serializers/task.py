@@ -18,8 +18,10 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class WriteTaskSerializer(TaskSerializer):
     def validate(self, data):
-        project = data["project"]
-        parent = data["parent"]
+        project = data.get("project")
+        parent = data.get("parent")
+        if not project or not parent:
+            return data
 
         if parent.project.id != project.id:
             raise serializers.ValidationError(

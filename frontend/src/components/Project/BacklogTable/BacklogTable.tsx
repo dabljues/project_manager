@@ -62,7 +62,6 @@ const BacklogTable = (props: BacklogTableProps) => {
     const assigneeInfo =
       assignee === null ? "<unassigned>" : renderUser(assignee);
     const Icon = TaskIcons[taskData.type];
-    console.log(Icon);
     return {
       icon: (
         <TaskIcon>
